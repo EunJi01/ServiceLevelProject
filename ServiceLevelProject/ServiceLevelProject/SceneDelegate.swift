@@ -13,12 +13,18 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
+        setAppearance()
+        
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: windowScene)
-        let vc = ViewController()
-        let nav = UINavigationController(rootViewController: vc)
-        window?.rootViewController = nav
+        let vc = OnboardingPageViewController()
+        window?.rootViewController = vc
         window?.makeKeyAndVisible()
+    }
+    
+    private func setAppearance() {
+        UIView.appearance().backgroundColor = .white
+        UIImageView.appearance().contentMode = .scaleAspectFit
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
@@ -48,7 +54,5 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Use this method to save data, release shared resources, and store enough scene-specific state information
         // to restore the scene back to its current state.
     }
-
-
 }
 

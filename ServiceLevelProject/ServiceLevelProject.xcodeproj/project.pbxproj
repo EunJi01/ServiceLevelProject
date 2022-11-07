@@ -7,6 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B620CCFC29192559002CE764 /* OnboardingPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B620CCFB29192559002CE764 /* OnboardingPageViewController.swift */; };
+		B620CCFE291925D2002CE764 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B620CCFD291925D2002CE764 /* OnboardingViewController.swift */; };
+		B620CD0529192BFE002CE764 /* ImageSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = B620CD0429192BFE002CE764 /* ImageSet.swift */; };
+		B620CD0829193540002CE764 /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B620CD0729193540002CE764 /* UIImage+Extension.swift */; };
+		B620CD0A29194C9C002CE764 /* TextSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = B620CD0929194C9C002CE764 /* TextSet.swift */; };
+		B620CD0C29194F34002CE764 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B620CD0B29194F34002CE764 /* String+Extension.swift */; };
+		B620CD0E2919532E002CE764 /* UILabel+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B620CD0D2919532E002CE764 /* UILabel+Extension.swift */; };
+		B620CD1029195449002CE764 /* ColorSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = B620CD0F29195449002CE764 /* ColorSet.swift */; };
+		B620CD122919572E002CE764 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B620CD112919572E002CE764 /* UIColor+Extension.swift */; };
 		B692E3DC2919132100BEAF22 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B692E3DB2919132100BEAF22 /* AppDelegate.swift */; };
 		B692E3DE2919132100BEAF22 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B692E3DD2919132100BEAF22 /* SceneDelegate.swift */; };
 		B692E3E02919132100BEAF22 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B692E3DF2919132100BEAF22 /* ViewController.swift */; };
@@ -18,6 +27,15 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		B620CCFB29192559002CE764 /* OnboardingPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingPageViewController.swift; sourceTree = "<group>"; };
+		B620CCFD291925D2002CE764 /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
+		B620CD0429192BFE002CE764 /* ImageSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageSet.swift; sourceTree = "<group>"; };
+		B620CD0729193540002CE764 /* UIImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
+		B620CD0929194C9C002CE764 /* TextSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextSet.swift; sourceTree = "<group>"; };
+		B620CD0B29194F34002CE764 /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
+		B620CD0D2919532E002CE764 /* UILabel+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+Extension.swift"; sourceTree = "<group>"; };
+		B620CD0F29195449002CE764 /* ColorSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSet.swift; sourceTree = "<group>"; };
+		B620CD112919572E002CE764 /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		B692E3D82919132100BEAF22 /* ServiceLevelProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ServiceLevelProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B692E3DB2919132100BEAF22 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B692E3DD2919132100BEAF22 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -41,6 +59,36 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B620CCFA29191D5D002CE764 /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				B620CCFB29192559002CE764 /* OnboardingPageViewController.swift */,
+				B620CCFD291925D2002CE764 /* OnboardingViewController.swift */,
+			);
+			path = Onboarding;
+			sourceTree = "<group>";
+		};
+		B620CD0329192BA9002CE764 /* Set */ = {
+			isa = PBXGroup;
+			children = (
+				B620CD0429192BFE002CE764 /* ImageSet.swift */,
+				B620CD0929194C9C002CE764 /* TextSet.swift */,
+				B620CD0F29195449002CE764 /* ColorSet.swift */,
+			);
+			path = Set;
+			sourceTree = "<group>";
+		};
+		B620CD0629193522002CE764 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				B620CD0729193540002CE764 /* UIImage+Extension.swift */,
+				B620CD0B29194F34002CE764 /* String+Extension.swift */,
+				B620CD0D2919532E002CE764 /* UILabel+Extension.swift */,
+				B620CD112919572E002CE764 /* UIColor+Extension.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
 		B692E3CF2919132100BEAF22 = {
 			isa = PBXGroup;
 			children = (
@@ -60,6 +108,9 @@
 		B692E3DA2919132100BEAF22 /* ServiceLevelProject */ = {
 			isa = PBXGroup;
 			children = (
+				B620CD0629193522002CE764 /* Extension */,
+				B620CD0329192BA9002CE764 /* Set */,
+				B620CCFA29191D5D002CE764 /* Onboarding */,
 				B692E3DB2919132100BEAF22 /* AppDelegate.swift */,
 				B692E3DD2919132100BEAF22 /* SceneDelegate.swift */,
 				B692E3DF2919132100BEAF22 /* ViewController.swift */,
@@ -149,9 +200,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B620CD0529192BFE002CE764 /* ImageSet.swift in Sources */,
 				B692E3E02919132100BEAF22 /* ViewController.swift in Sources */,
+				B620CD0E2919532E002CE764 /* UILabel+Extension.swift in Sources */,
+				B620CD122919572E002CE764 /* UIColor+Extension.swift in Sources */,
+				B620CD0829193540002CE764 /* UIImage+Extension.swift in Sources */,
 				B692E3DC2919132100BEAF22 /* AppDelegate.swift in Sources */,
+				B620CD0A29194C9C002CE764 /* TextSet.swift in Sources */,
+				B620CD1029195449002CE764 /* ColorSet.swift in Sources */,
+				B620CCFE291925D2002CE764 /* OnboardingViewController.swift in Sources */,
 				B692E3DE2919132100BEAF22 /* SceneDelegate.swift in Sources */,
+				B620CD0C29194F34002CE764 /* String+Extension.swift in Sources */,
+				B620CCFC29192559002CE764 /* OnboardingPageViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
