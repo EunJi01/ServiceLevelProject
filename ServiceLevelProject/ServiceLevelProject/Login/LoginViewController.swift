@@ -8,6 +8,7 @@
 import UIKit
 import RxSwift
 import RxCocoa
+import Toast
 
 class LoginViewController: UIViewController, CustomView {
     // MARK: 글자수 11자 제한 + 밑줄 색상 변경 + 한글 입력 제한 필요 + 하이픈이 안지워지는 현상...???
@@ -42,8 +43,9 @@ class LoginViewController: UIViewController, CustomView {
         let output = vm.transform(input: input)
     
         output.pushNextVC
-            .emit { [weak self] _ in
-                self?.navigationController?.pushViewController(AuthenticateViewController(), animated: true)
+            .withUnretained(self)
+            .emit { vc, _ in
+                vc.navigationController?.pushViewController(AuthViewController(), animated: true)
             }
             .disposed(by: disposeBag)
         

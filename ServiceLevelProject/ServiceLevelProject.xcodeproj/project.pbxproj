@@ -18,11 +18,12 @@
 		B620CD122919572E002CE764 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B620CD112919572E002CE764 /* UIColor+Extension.swift */; };
 		B620CD1629195CBC002CE764 /* CustomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B620CD1529195CBC002CE764 /* CustomView.swift */; };
 		B620CD19291965F3002CE764 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B620CD18291965F2002CE764 /* LoginViewModel.swift */; };
-		B620CD1B291979F8002CE764 /* AuthenticateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B620CD1A291979F8002CE764 /* AuthenticateViewController.swift */; };
+		B620CD1B291979F8002CE764 /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B620CD1A291979F8002CE764 /* AuthViewController.swift */; };
 		B620CD1D291979FF002CE764 /* AuthenticateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B620CD1C291979FF002CE764 /* AuthenticateViewModel.swift */; };
 		B620CD21291A8CFB002CE764 /* Toast in Frameworks */ = {isa = PBXBuildFile; productRef = B620CD20291A8CFB002CE764 /* Toast */; };
 		B691FD64291AB3EC00FC47F4 /* IconSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = B691FD63291AB3EC00FC47F4 /* IconSet.swift */; };
 		B691FD67291AB9DA00FC47F4 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = B691FD66291AB9DA00FC47F4 /* FirebaseAuth */; };
+		B691FD6A291ABC1000FC47F4 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B691FD69291ABC0F00FC47F4 /* GoogleService-Info.plist */; };
 		B692E3DC2919132100BEAF22 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B692E3DB2919132100BEAF22 /* AppDelegate.swift */; };
 		B692E3DE2919132100BEAF22 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B692E3DD2919132100BEAF22 /* SceneDelegate.swift */; };
 		B692E3E02919132100BEAF22 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B692E3DF2919132100BEAF22 /* LoginViewController.swift */; };
@@ -45,9 +46,11 @@
 		B620CD112919572E002CE764 /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		B620CD1529195CBC002CE764 /* CustomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomView.swift; sourceTree = "<group>"; };
 		B620CD18291965F2002CE764 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
-		B620CD1A291979F8002CE764 /* AuthenticateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticateViewController.swift; sourceTree = "<group>"; };
+		B620CD1A291979F8002CE764 /* AuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewController.swift; sourceTree = "<group>"; };
 		B620CD1C291979FF002CE764 /* AuthenticateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticateViewModel.swift; sourceTree = "<group>"; };
 		B691FD63291AB3EC00FC47F4 /* IconSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconSet.swift; sourceTree = "<group>"; };
+		B691FD69291ABC0F00FC47F4 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		B691FD6B291ACDB700FC47F4 /* ServiceLevelProject.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ServiceLevelProject.entitlements; sourceTree = "<group>"; };
 		B692E3D82919132100BEAF22 /* ServiceLevelProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ServiceLevelProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B692E3DB2919132100BEAF22 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B692E3DD2919132100BEAF22 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -117,7 +120,7 @@
 			children = (
 				B620CD1E29197A03002CE764 /* ViewModel */,
 				B692E3DF2919132100BEAF22 /* LoginViewController.swift */,
-				B620CD1A291979F8002CE764 /* AuthenticateViewController.swift */,
+				B620CD1A291979F8002CE764 /* AuthViewController.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -150,6 +153,7 @@
 		B692E3DA2919132100BEAF22 /* ServiceLevelProject */ = {
 			isa = PBXGroup;
 			children = (
+				B691FD6B291ACDB700FC47F4 /* ServiceLevelProject.entitlements */,
 				B620CD1429195C80002CE764 /* Protocol */,
 				B620CD0629193522002CE764 /* Extension */,
 				B620CD0329192BA9002CE764 /* Set */,
@@ -159,6 +163,7 @@
 				B692E3DD2919132100BEAF22 /* SceneDelegate.swift */,
 				B692E3F7291913DF00BEAF22 /* LaunchScreen.storyboard */,
 				B692E3E42919132300BEAF22 /* Assets.xcassets */,
+				B691FD69291ABC0F00FC47F4 /* GoogleService-Info.plist */,
 				B692E3E92919132300BEAF22 /* Info.plist */,
 			);
 			path = ServiceLevelProject;
@@ -237,6 +242,7 @@
 			files = (
 				B692E3E52919132300BEAF22 /* Assets.xcassets in Resources */,
 				B692E3F8291913DF00BEAF22 /* LaunchScreen.storyboard in Resources */,
+				B691FD6A291ABC1000FC47F4 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -257,7 +263,7 @@
 				B620CD19291965F3002CE764 /* LoginViewModel.swift in Sources */,
 				B620CD1D291979FF002CE764 /* AuthenticateViewModel.swift in Sources */,
 				B620CD0A29194C9C002CE764 /* TextSet.swift in Sources */,
-				B620CD1B291979F8002CE764 /* AuthenticateViewController.swift in Sources */,
+				B620CD1B291979F8002CE764 /* AuthViewController.swift in Sources */,
 				B620CD1029195449002CE764 /* ColorSet.swift in Sources */,
 				B620CCFE291925D2002CE764 /* OnboardingViewController.swift in Sources */,
 				B692E3DE2919132100BEAF22 /* SceneDelegate.swift in Sources */,
@@ -389,6 +395,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = ServiceLevelProject/ServiceLevelProject.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 2RFRSG9M26;
@@ -417,6 +424,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = ServiceLevelProject/ServiceLevelProject.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 2RFRSG9M26;

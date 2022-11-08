@@ -7,7 +7,7 @@
 
 import UIKit
 
-class AuthenticateViewController: UIViewController, CustomView {
+class AuthViewController: UIViewController, CustomView {
     
     lazy var titleLabel: UILabel = customTitleLabel(size: 20, text: .setText(.login2))
     lazy var startButton: UIButton = customButton(title: "인증하고 시작하기")
