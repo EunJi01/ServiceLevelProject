@@ -21,6 +21,8 @@
 		B620CD1B291979F8002CE764 /* AuthenticateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B620CD1A291979F8002CE764 /* AuthenticateViewController.swift */; };
 		B620CD1D291979FF002CE764 /* AuthenticateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B620CD1C291979FF002CE764 /* AuthenticateViewModel.swift */; };
 		B620CD21291A8CFB002CE764 /* Toast in Frameworks */ = {isa = PBXBuildFile; productRef = B620CD20291A8CFB002CE764 /* Toast */; };
+		B691FD64291AB3EC00FC47F4 /* IconSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = B691FD63291AB3EC00FC47F4 /* IconSet.swift */; };
+		B691FD67291AB9DA00FC47F4 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = B691FD66291AB9DA00FC47F4 /* FirebaseAuth */; };
 		B692E3DC2919132100BEAF22 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B692E3DB2919132100BEAF22 /* AppDelegate.swift */; };
 		B692E3DE2919132100BEAF22 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B692E3DD2919132100BEAF22 /* SceneDelegate.swift */; };
 		B692E3E02919132100BEAF22 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B692E3DF2919132100BEAF22 /* LoginViewController.swift */; };
@@ -45,6 +47,7 @@
 		B620CD18291965F2002CE764 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		B620CD1A291979F8002CE764 /* AuthenticateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticateViewController.swift; sourceTree = "<group>"; };
 		B620CD1C291979FF002CE764 /* AuthenticateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticateViewModel.swift; sourceTree = "<group>"; };
+		B691FD63291AB3EC00FC47F4 /* IconSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconSet.swift; sourceTree = "<group>"; };
 		B692E3D82919132100BEAF22 /* ServiceLevelProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ServiceLevelProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B692E3DB2919132100BEAF22 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B692E3DD2919132100BEAF22 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -60,6 +63,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B620CD21291A8CFB002CE764 /* Toast in Frameworks */,
+				B691FD67291AB9DA00FC47F4 /* FirebaseAuth in Frameworks */,
 				B692E3F6291913C700BEAF22 /* RxSwift in Frameworks */,
 				B692E3F4291913C700BEAF22 /* RxCocoa in Frameworks */,
 				B692E3F1291913B800BEAF22 /* SnapKit in Frameworks */,
@@ -83,6 +87,7 @@
 			children = (
 				B620CD0429192BFE002CE764 /* ImageSet.swift */,
 				B620CD0929194C9C002CE764 /* TextSet.swift */,
+				B691FD63291AB3EC00FC47F4 /* IconSet.swift */,
 				B620CD0F29195449002CE764 /* ColorSet.swift */,
 			);
 			path = Set;
@@ -180,6 +185,7 @@
 				B692E3F3291913C700BEAF22 /* RxCocoa */,
 				B692E3F5291913C700BEAF22 /* RxSwift */,
 				B620CD20291A8CFB002CE764 /* Toast */,
+				B691FD66291AB9DA00FC47F4 /* FirebaseAuth */,
 			);
 			productName = ServiceLevelProject;
 			productReference = B692E3D82919132100BEAF22 /* ServiceLevelProject.app */;
@@ -213,6 +219,7 @@
 				B692E3EF291913B800BEAF22 /* XCRemoteSwiftPackageReference "SnapKit" */,
 				B692E3F2291913C700BEAF22 /* XCRemoteSwiftPackageReference "RxSwift" */,
 				B620CD1F291A8CFB002CE764 /* XCRemoteSwiftPackageReference "Toast-Swift" */,
+				B691FD65291AB9DA00FC47F4 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			productRefGroup = B692E3D92919132100BEAF22 /* Products */;
 			projectDirPath = "";
@@ -240,6 +247,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B691FD64291AB3EC00FC47F4 /* IconSet.swift in Sources */,
 				B620CD0529192BFE002CE764 /* ImageSet.swift in Sources */,
 				B692E3E02919132100BEAF22 /* LoginViewController.swift in Sources */,
 				B620CD0E2919532E002CE764 /* UILabel+Extension.swift in Sources */,
@@ -464,6 +472,14 @@
 				minimumVersion = 5.0.0;
 			};
 		};
+		B691FD65291AB9DA00FC47F4 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 9.0.0;
+			};
+		};
 		B692E3EF291913B800BEAF22 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
@@ -487,6 +503,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = B620CD1F291A8CFB002CE764 /* XCRemoteSwiftPackageReference "Toast-Swift" */;
 			productName = Toast;
+		};
+		B691FD66291AB9DA00FC47F4 /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B691FD65291AB9DA00FC47F4 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
 		};
 		B692E3F0291913B800BEAF22 /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;

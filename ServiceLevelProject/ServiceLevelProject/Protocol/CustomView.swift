@@ -16,10 +16,11 @@ protocol CustomView {
 extension CustomView {
     func customButton(title: String) -> UIButton {
         let view = UIButton()
-        view.backgroundColor = .systemGray
+        view.backgroundColor = .setColor(.gray6)
         view.setTitleColor(.white, for: .normal)
         view.layer.cornerRadius = 10
         view.setTitle(title, for: .normal)
+        view.titleLabel?.font = .systemFont(ofSize: 14)
         return view
     }
     
@@ -35,7 +36,14 @@ extension CustomView {
     
     func customUnderlineView() -> UIView {
         let view = UIView()
-        view.backgroundColor = .systemGray3
+        view.backgroundColor = .setColor(.gray3)
+        return view
+    }
+    
+    func customTextField(placeholder: String, keyboard: UIKeyboardType = .default) -> UITextField {
+        let view = UITextField()
+        view.placeholder = placeholder
+        view.keyboardType = keyboard
         return view
     }
 }

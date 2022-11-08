@@ -12,13 +12,8 @@ class AuthenticateViewController: UIViewController, CustomView {
     lazy var titleLabel: UILabel = customTitleLabel(size: 20, text: .setText(.login2))
     lazy var startButton: UIButton = customButton(title: "인증하고 시작하기")
     lazy var underlineView: UIView = customUnderlineView()
-    
-    let textField: UITextField = {
-        let view = UITextField()
-        view.placeholder = "인증번호 입력"
-        view.keyboardType = .numberPad
-        return view
-    }()
+    lazy var numbertextField: UITextField = customTextField(placeholder: "인증번호 입력", keyboard: .numberPad)
+    lazy var resendButton: UIButton = customButton(title: "재전송")
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,7 +29,7 @@ class AuthenticateViewController: UIViewController, CustomView {
     }
     
     private func setConfigure() {
-        [titleLabel, textField, startButton, underlineView].forEach {
+        [titleLabel, numbertextField, resendButton, startButton, underlineView].forEach {
             view.addSubview($0)
         }
     }
@@ -45,21 +40,29 @@ class AuthenticateViewController: UIViewController, CustomView {
             make.centerX.equalToSuperview()
         }
         
-        textField.snp.makeConstraints { make in
+        numbertextField.snp.makeConstraints { make in
             make.top.equalTo(titleLabel.snp.bottom).offset(80)
-            make.horizontalEdges.equalToSuperview().inset(26)
+            make.leading.equalToSuperview().inset(26)
             make.height.equalTo(48)
         }
         
         underlineView.snp.makeConstraints { make in
-            make.top.equalTo(textField.snp.bottom)
-            make.horizontalEdges.equalToSuperview().inset(16)
-            make.height.equalTo(1)
+            make.top.equalTo(numbertextField.snp.bottom)
+            make.horizontalEdges.equalTo(numbertextField).inset(-10)
+            make.height.equalTo(0.5)
+        }
+        
+        resendButton.snp.makeConstraints { make in
+            make.centerY.equalTo(numbertextField.snp.centerY)
+            make.leading.equalTo(numbertextField.snp.trailing).offset(16)
+            make.trailing.equalToSuperview().inset(16)
+            make.height.equalTo(40)
+            make.width.equalTo(72)
         }
         
         startButton.snp.makeConstraints { make in
-            make.top.equalTo(textField.snp.bottom).offset(72)
-            make.horizontalEdges.equalTo(textField)
+            make.top.equalTo(numbertextField.snp.bottom).offset(72)
+            make.horizontalEdges.equalToSuperview().inset(16)
             make.height.equalTo(48)
         }
     }

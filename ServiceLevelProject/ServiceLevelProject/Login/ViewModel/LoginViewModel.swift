@@ -54,8 +54,7 @@ class LoginViewModel {
         input.phoneNumberTextField
             .withUnretained(self)
             .emit { vm, number in
-                let withHypen = number.withHypen
-                vm.phoneNumber.accept(withHypen)
+                vm.phoneNumber.accept(number.withHypen)
             }
             .disposed(by: disposeBag)
         
