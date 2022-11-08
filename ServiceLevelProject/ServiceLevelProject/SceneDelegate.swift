@@ -23,7 +23,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
     
     private func setAppearance() {
-        UIView.appearance().backgroundColor = .white
         UIImageView.appearance().contentMode = .scaleAspectFit
     }
 

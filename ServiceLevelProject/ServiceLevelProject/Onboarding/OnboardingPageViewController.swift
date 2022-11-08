@@ -9,16 +9,9 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-final class OnboardingPageViewController: UIViewController {
+final class OnboardingPageViewController: UIViewController, CustomView {
     
-    private let startButton: UIButton = {
-        let view = UIButton()
-        view.backgroundColor = .setColor(.green)
-        view.setTitleColor(.white, for: .normal)
-        view.layer.cornerRadius = 5
-        view.setTitle("시작하기", for: .normal)
-        return view
-    }()
+    private lazy var startButton: UIButton = customButton(title: "시작하기")
     
     private let pageViewController = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal)
     private var pageViewControllerList: [UIViewController] = []
@@ -27,6 +20,7 @@ final class OnboardingPageViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = .white
 
         bind()
         setConfigure()
@@ -38,14 +32,17 @@ final class OnboardingPageViewController: UIViewController {
     private func bind() {
         startButton.rx.tap
             .bind { [weak self] _ in
-                let vc = ViewController()
-                vc.modalPresentationStyle = .fullScreen
-                self?.present(vc, animated: true)
+                let vc = LoginViewController()
+                let nav = UINavigationController(rootViewController: vc)
+                nav.modalPresentationStyle = .fullScreen
+                self?.present(nav, animated: true)
             }
             .disposed(by: disposeBag)
     }
     
     private func setConfigure() {
+        startButton.backgroundColor = .setColor(.green)
+        
         [startButton, pageViewController.view].forEach {
             view.addSubview($0)
         }
@@ -79,6 +76,7 @@ final class OnboardingPageViewController: UIViewController {
         third.titleLabel.text = .setText(.onboardingText3)
         
         first.titleLabel.asColor(targetString: "위치 기반", color: .green)
+        second.titleLabel.asColor(targetString: "스터디를 원하는 친구", color: .green)
         
         pageViewControllerList = [first, second, third]
     }

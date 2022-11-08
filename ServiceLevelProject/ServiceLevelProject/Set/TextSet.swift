@@ -13,5 +13,7 @@ enum TextSet: String {
     case onboardingText2 = "스터디를 원하는 친구를\n찾을 수 있어요"
     case onboardingText3 = "SeSAC Study"
     
-    // MARK: 다음은 몰까~
+    // MARK: Login
+    case login = "새싹 서비스 이용을 위해\n휴대폰 번호를 입력해 주세요"
+    case login2 = "인증번호가 문자로 전송되었어요"
 }

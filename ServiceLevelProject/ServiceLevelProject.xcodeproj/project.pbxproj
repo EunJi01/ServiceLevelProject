@@ -16,9 +16,14 @@
 		B620CD0E2919532E002CE764 /* UILabel+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B620CD0D2919532E002CE764 /* UILabel+Extension.swift */; };
 		B620CD1029195449002CE764 /* ColorSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = B620CD0F29195449002CE764 /* ColorSet.swift */; };
 		B620CD122919572E002CE764 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B620CD112919572E002CE764 /* UIColor+Extension.swift */; };
+		B620CD1629195CBC002CE764 /* CustomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B620CD1529195CBC002CE764 /* CustomView.swift */; };
+		B620CD19291965F3002CE764 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B620CD18291965F2002CE764 /* LoginViewModel.swift */; };
+		B620CD1B291979F8002CE764 /* AuthenticateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B620CD1A291979F8002CE764 /* AuthenticateViewController.swift */; };
+		B620CD1D291979FF002CE764 /* AuthenticateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B620CD1C291979FF002CE764 /* AuthenticateViewModel.swift */; };
+		B620CD21291A8CFB002CE764 /* Toast in Frameworks */ = {isa = PBXBuildFile; productRef = B620CD20291A8CFB002CE764 /* Toast */; };
 		B692E3DC2919132100BEAF22 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B692E3DB2919132100BEAF22 /* AppDelegate.swift */; };
 		B692E3DE2919132100BEAF22 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B692E3DD2919132100BEAF22 /* SceneDelegate.swift */; };
-		B692E3E02919132100BEAF22 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B692E3DF2919132100BEAF22 /* ViewController.swift */; };
+		B692E3E02919132100BEAF22 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B692E3DF2919132100BEAF22 /* LoginViewController.swift */; };
 		B692E3E52919132300BEAF22 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B692E3E42919132300BEAF22 /* Assets.xcassets */; };
 		B692E3F1291913B800BEAF22 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = B692E3F0291913B800BEAF22 /* SnapKit */; };
 		B692E3F4291913C700BEAF22 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = B692E3F3291913C700BEAF22 /* RxCocoa */; };
@@ -36,10 +41,14 @@
 		B620CD0D2919532E002CE764 /* UILabel+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+Extension.swift"; sourceTree = "<group>"; };
 		B620CD0F29195449002CE764 /* ColorSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSet.swift; sourceTree = "<group>"; };
 		B620CD112919572E002CE764 /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
+		B620CD1529195CBC002CE764 /* CustomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomView.swift; sourceTree = "<group>"; };
+		B620CD18291965F2002CE764 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
+		B620CD1A291979F8002CE764 /* AuthenticateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticateViewController.swift; sourceTree = "<group>"; };
+		B620CD1C291979FF002CE764 /* AuthenticateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticateViewModel.swift; sourceTree = "<group>"; };
 		B692E3D82919132100BEAF22 /* ServiceLevelProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ServiceLevelProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B692E3DB2919132100BEAF22 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B692E3DD2919132100BEAF22 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		B692E3DF2919132100BEAF22 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		B692E3DF2919132100BEAF22 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		B692E3E42919132300BEAF22 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B692E3E92919132300BEAF22 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B692E3F7291913DF00BEAF22 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -50,6 +59,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B620CD21291A8CFB002CE764 /* Toast in Frameworks */,
 				B692E3F6291913C700BEAF22 /* RxSwift in Frameworks */,
 				B692E3F4291913C700BEAF22 /* RxCocoa in Frameworks */,
 				B692E3F1291913B800BEAF22 /* SnapKit in Frameworks */,
@@ -62,8 +72,8 @@
 		B620CCFA29191D5D002CE764 /* Onboarding */ = {
 			isa = PBXGroup;
 			children = (
-				B620CCFB29192559002CE764 /* OnboardingPageViewController.swift */,
 				B620CCFD291925D2002CE764 /* OnboardingViewController.swift */,
+				B620CCFB29192559002CE764 /* OnboardingPageViewController.swift */,
 			);
 			path = Onboarding;
 			sourceTree = "<group>";
@@ -89,6 +99,33 @@
 			path = Extension;
 			sourceTree = "<group>";
 		};
+		B620CD1429195C80002CE764 /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				B620CD1529195CBC002CE764 /* CustomView.swift */,
+			);
+			path = Protocol;
+			sourceTree = "<group>";
+		};
+		B620CD1729196595002CE764 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				B620CD1E29197A03002CE764 /* ViewModel */,
+				B692E3DF2919132100BEAF22 /* LoginViewController.swift */,
+				B620CD1A291979F8002CE764 /* AuthenticateViewController.swift */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		B620CD1E29197A03002CE764 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				B620CD18291965F2002CE764 /* LoginViewModel.swift */,
+				B620CD1C291979FF002CE764 /* AuthenticateViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		B692E3CF2919132100BEAF22 = {
 			isa = PBXGroup;
 			children = (
@@ -108,12 +145,13 @@
 		B692E3DA2919132100BEAF22 /* ServiceLevelProject */ = {
 			isa = PBXGroup;
 			children = (
+				B620CD1429195C80002CE764 /* Protocol */,
 				B620CD0629193522002CE764 /* Extension */,
 				B620CD0329192BA9002CE764 /* Set */,
 				B620CCFA29191D5D002CE764 /* Onboarding */,
+				B620CD1729196595002CE764 /* Login */,
 				B692E3DB2919132100BEAF22 /* AppDelegate.swift */,
 				B692E3DD2919132100BEAF22 /* SceneDelegate.swift */,
-				B692E3DF2919132100BEAF22 /* ViewController.swift */,
 				B692E3F7291913DF00BEAF22 /* LaunchScreen.storyboard */,
 				B692E3E42919132300BEAF22 /* Assets.xcassets */,
 				B692E3E92919132300BEAF22 /* Info.plist */,
@@ -141,6 +179,7 @@
 				B692E3F0291913B800BEAF22 /* SnapKit */,
 				B692E3F3291913C700BEAF22 /* RxCocoa */,
 				B692E3F5291913C700BEAF22 /* RxSwift */,
+				B620CD20291A8CFB002CE764 /* Toast */,
 			);
 			productName = ServiceLevelProject;
 			productReference = B692E3D82919132100BEAF22 /* ServiceLevelProject.app */;
@@ -173,6 +212,7 @@
 			packageReferences = (
 				B692E3EF291913B800BEAF22 /* XCRemoteSwiftPackageReference "SnapKit" */,
 				B692E3F2291913C700BEAF22 /* XCRemoteSwiftPackageReference "RxSwift" */,
+				B620CD1F291A8CFB002CE764 /* XCRemoteSwiftPackageReference "Toast-Swift" */,
 			);
 			productRefGroup = B692E3D92919132100BEAF22 /* Products */;
 			projectDirPath = "";
@@ -201,16 +241,20 @@
 			buildActionMask = 2147483647;
 			files = (
 				B620CD0529192BFE002CE764 /* ImageSet.swift in Sources */,
-				B692E3E02919132100BEAF22 /* ViewController.swift in Sources */,
+				B692E3E02919132100BEAF22 /* LoginViewController.swift in Sources */,
 				B620CD0E2919532E002CE764 /* UILabel+Extension.swift in Sources */,
 				B620CD122919572E002CE764 /* UIColor+Extension.swift in Sources */,
 				B620CD0829193540002CE764 /* UIImage+Extension.swift in Sources */,
 				B692E3DC2919132100BEAF22 /* AppDelegate.swift in Sources */,
+				B620CD19291965F3002CE764 /* LoginViewModel.swift in Sources */,
+				B620CD1D291979FF002CE764 /* AuthenticateViewModel.swift in Sources */,
 				B620CD0A29194C9C002CE764 /* TextSet.swift in Sources */,
+				B620CD1B291979F8002CE764 /* AuthenticateViewController.swift in Sources */,
 				B620CD1029195449002CE764 /* ColorSet.swift in Sources */,
 				B620CCFE291925D2002CE764 /* OnboardingViewController.swift in Sources */,
 				B692E3DE2919132100BEAF22 /* SceneDelegate.swift in Sources */,
 				B620CD0C29194F34002CE764 /* String+Extension.swift in Sources */,
+				B620CD1629195CBC002CE764 /* CustomView.swift in Sources */,
 				B620CCFC29192559002CE764 /* OnboardingPageViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -412,6 +456,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		B620CD1F291A8CFB002CE764 /* XCRemoteSwiftPackageReference "Toast-Swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/scalessec/Toast-Swift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
 		B692E3EF291913B800BEAF22 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
@@ -431,6 +483,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		B620CD20291A8CFB002CE764 /* Toast */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B620CD1F291A8CFB002CE764 /* XCRemoteSwiftPackageReference "Toast-Swift" */;
+			productName = Toast;
+		};
 		B692E3F0291913B800BEAF22 /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = B692E3EF291913B800BEAF22 /* XCRemoteSwiftPackageReference "SnapKit" */;

@@ -7,24 +7,14 @@
 
 import UIKit
 
-class OnboardingViewController: UIViewController {
+class OnboardingViewController: UIViewController, CustomView {
     
-    let titleLabel: UILabel = {
-        let view = UILabel()
-        view.numberOfLines = 0
-        view.textAlignment = .center
-        view.font = .systemFont(ofSize: 26)
-        // MARK: 행간 조절하기!
-        return view
-    }()
-    
-    let mainImageView: UIImageView = {
-        let view = UIImageView()
-        return view
-    }()
+    lazy var titleLabel: UILabel = customTitleLabel(size: 24)
+    let mainImageView = UIImageView()
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = .white
         
         setConfigure()
         setConstraints()
@@ -39,12 +29,12 @@ class OnboardingViewController: UIViewController {
     private func setConstraints() {
         titleLabel.snp.makeConstraints { make in
             make.top.equalToSuperview().inset(116)
-            make.horizontalEdges.equalToSuperview().inset(85)
+            make.centerX.equalToSuperview()
         }
         
         mainImageView.snp.makeConstraints { make in
             make.top.equalTo(titleLabel.snp.bottom).offset(80)
-            make.horizontalEdges.equalToSuperview().inset(20)
+            make.horizontalEdges.equalToSuperview().inset(16)
             make.bottom.equalToSuperview().inset(80)
         }
     }
