@@ -11,6 +11,7 @@ import RxCocoa
 
 final class GenderViewController: UIViewController, CustomView {
     private let disposeBag = DisposeBag()
+    private let vm = GenderViewModel()
 
     private lazy var titleLabel: UILabel = customTitleLabel(size: 20, text: .setText(.gender))
     private lazy var subTitleLabel: UILabel = customTitleLabel(size: 16, text: .setText(.genderSub))

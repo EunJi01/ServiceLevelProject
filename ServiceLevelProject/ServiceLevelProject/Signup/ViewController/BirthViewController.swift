@@ -11,6 +11,7 @@ import RxCocoa
 
 final class BirthViewController: UIViewController, CustomView {
     private let disposeBag = DisposeBag()
+    private let vm = BirthViewModel()
     
     private lazy var titleLabel: UILabel = customTitleLabel(size: 20, text: .setText(.birth))
     private lazy var nextButton: UIButton = customButton(title: "다음")

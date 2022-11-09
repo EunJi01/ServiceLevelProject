@@ -10,7 +10,8 @@ import RxSwift
 import RxCocoa
 
 final class EmailViewController: UIViewController, CustomView {
-    let disposeBag = DisposeBag()
+    private let disposeBag = DisposeBag()
+    private let vm = EmailViewModel()
     
     private lazy var titleLabel: UILabel = customTitleLabel(size: 20, text: .setText(.email))
     private lazy var subTitleLabel: UILabel = customTitleLabel(size: 16, text: .setText(.emailSub))
@@ -22,6 +23,7 @@ final class EmailViewController: UIViewController, CustomView {
         super.viewDidLoad()
         view.backgroundColor = .white
         emailTextField.becomeFirstResponder()
+        emailTextField.text = UserDefaults.standard.string(forKey: UserDefaultsKey.userEmail)
         
         bind()
         setConfigure()
@@ -29,10 +31,48 @@ final class EmailViewController: UIViewController, CustomView {
     }
     
     private func bind() {
-
+        let input = EmailViewModel.Input(
+            nextButtonTap: nextButton.rx.tap
+                .withLatestFrom(emailTextField.rx.text.orEmpty)
+                .asSignal(onErrorJustReturn: ""),
+            emailTextField: emailTextField.rx.text.orEmpty
+                .asSignal(onErrorJustReturn: "")
+        )
+        
+        let output = vm.transform(input: input)
+        
+        output.pushNextVC
+            .withUnretained(self)
+            .emit { vc, _ in
+                vc.navigationController?.pushViewController(GenderViewController(), animated: true)
+            }
+            .disposed(by: disposeBag)
+        
+        output.highlight
+            .withUnretained(self)
+            .emit { vc, highlight in
+                vc.underlineView.backgroundColor = (highlight == true) ? .setColor(.focus) : .setColor(.gray3)
+            }
+            .disposed(by: disposeBag)
+        
+        output.showToast
+            .withUnretained(self)
+            .emit { vc, text in
+                vc.view.makeToast(text, position: .top)
+            }
+            .disposed(by: disposeBag)
+        
+        output.validate
+            .withUnretained(self)
+            .emit { vc, validate in
+                vc.nextButton.backgroundColor = (validate == true) ? .setColor(.green) : .setColor(.gray6)
+            }
+            .disposed(by: disposeBag)
     }
     
     private func setConfigure() {
+        subTitleLabel.textColor = .setColor(.gray7)
+        
         [titleLabel, emailTextField, nextButton, underlineView, subTitleLabel].forEach {
             view.addSubview($0)
         }
@@ -63,7 +103,7 @@ final class EmailViewController: UIViewController, CustomView {
         }
         
         subTitleLabel.snp.makeConstraints { make in
-            make.top.equalTo(titleLabel.snp.bottom).offset(8)
+            make.top.equalTo(titleLabel.snp.bottom).offset(12)
             make.centerX.equalToSuperview()
         }
     }

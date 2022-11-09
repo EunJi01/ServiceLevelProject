@@ -32,17 +32,17 @@ final class AuthViewModel {
         let showToast: Signal<String>
     }
     
-    let pushNextVCRelay = PublishRelay<Void>()
-    let highlightRelay = PublishRelay<Bool>()
-    let validateRelay = PublishRelay<Bool>()
-    let showToastRelay = PublishRelay<String>()
+    private let pushNextVCRelay = PublishRelay<Void>()
+    private let highlightRelay = PublishRelay<Bool>()
+    private let validateRelay = PublishRelay<Bool>()
+    private let showToastRelay = PublishRelay<String>()
     
     func transform(input: Input) -> Output {
         
         input.startButtonTap
             .withUnretained(self)
             .emit { vm, number in
-                guard let verificationID = UserDefaults.standard.string(forKey: UserDefaultSet.authVerificationID) else { return }
+                guard let verificationID = UserDefaults.standard.string(forKey: UserDefaultsKey.authVerificationID) else { return }
                 let credential = PhoneAuthProvider.provider().credential(
                   withVerificationID: verificationID,
                   verificationCode: number
@@ -54,22 +54,16 @@ final class AuthViewModel {
         input.numbertextField
             .withUnretained(self)
             .emit { vm, number in
-                if number.count == 6 {
-                    vm.validateRelay.accept(true)
-                } else {
-                    vm.validateRelay.accept(false)
-                }
+                let validate = (number.count == 6)
+                vm.validateRelay.accept(validate)
             }
             .disposed(by: disposeBag)
         
         input.numbertextField
             .withUnretained(self)
             .emit { vm, number in
-                if (1...5).contains(number.count) {
-                    vm.highlightRelay.accept(true)
-                } else {
-                    vm.highlightRelay.accept(false)
-                }
+                let editing = (1...5).contains(number.count)
+                vm.highlightRelay.accept(editing)
             }
             .disposed(by: disposeBag)
         

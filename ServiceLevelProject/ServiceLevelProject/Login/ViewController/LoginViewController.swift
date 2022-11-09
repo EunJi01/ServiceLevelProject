@@ -11,14 +11,13 @@ import RxCocoa
 import Toast
 
 final class LoginViewController: UIViewController, CustomView {
+    private let disposeBag = DisposeBag()
+    private let vm = LoginViewModel()
     
     private lazy var titleLabel: UILabel = customTitleLabel(size: 20, text: .setText(.login))
     private lazy var getMessageButton: UIButton = customButton(title: "인증 문자 받기")
     private lazy var underlineView: UIView = customUnderlineView()
     private lazy var phoneNumberTextField: UITextField = customTextField(placeholder: "휴대폰 번호(-없이 숫자만 입력)", keyboard: .numberPad)
-    
-    private let vm = LoginViewModel()
-    private let disposeBag = DisposeBag()
     
     override func viewDidLoad() {
         super.viewDidLoad()

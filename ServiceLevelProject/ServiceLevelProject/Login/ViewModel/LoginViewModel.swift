@@ -35,13 +35,13 @@ final class LoginViewModel {
         let keyboardDisappear: Signal<Void>
     }
     
-    let pushNextVCRelay = PublishRelay<Void>()
-    let phoneNumberRelay = PublishRelay<String>()
-    let validateRelay = BehaviorRelay<Bool>(value: false)
-    let showToastRelay = PublishRelay<String>()
-    let highlightRelay = PublishRelay<Bool>()
-    let numberLimitRelay = PublishRelay<String>()
-    let keyboardDisappearRelay = PublishRelay<Void>()
+    private let pushNextVCRelay = PublishRelay<Void>()
+    private let phoneNumberRelay = PublishRelay<String>()
+    private let validateRelay = BehaviorRelay<Bool>(value: false)
+    private let showToastRelay = PublishRelay<String>()
+    private let highlightRelay = PublishRelay<Bool>()
+    private let numberLimitRelay = PublishRelay<String>()
+    private let keyboardDisappearRelay = PublishRelay<Void>()
     
     func transform(input: Input) -> Output {
         
@@ -55,7 +55,7 @@ final class LoginViewModel {
                     PhoneAuthProvider.provider()
                         .verifyPhoneNumber("+82\(number)", uiDelegate: nil) { verificationID, error in
                             if let verificationID = verificationID {
-                                UserDefaults.standard.set(verificationID, forKey: UserDefaultSet.authVerificationID)
+                                UserDefaults.standard.set(verificationID, forKey: UserDefaultsKey.authVerificationID)
                                 vm.pushNextVCRelay.accept(())
                             } else {
                                 vm.showToastRelay.accept(ValidationToast.otherErrors.rawValue)
@@ -89,11 +89,8 @@ final class LoginViewModel {
         input.phoneNumberTextField
             .withUnretained(self)
             .emit { vm, number in
-                if (1...11).contains(number.count) {
-                    vm.highlightRelay.accept(true)
-                } else {
-                    vm.highlightRelay.accept(false)
-                }
+                let editing = (1...11).contains(number.count)
+                vm.highlightRelay.accept(editing)
             }
             .disposed(by: disposeBag)
         

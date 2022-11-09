@@ -22,6 +22,7 @@ final class NicknameViewController: UIViewController, CustomView {
         super.viewDidLoad()
         view.backgroundColor = .white
         nicknameTextField.becomeFirstResponder()
+        nicknameTextField.text = UserDefaults.standard.string(forKey: UserDefaultsKey.userNickname)
         
         bind()
         setConfigure()

@@ -1,25 +1,24 @@
 //
-//  NicknameViewModel.swift
+//  BirthViewModel.swift
 //  ServiceLevelProject
 //
-//  Created by 황은지 on 2022/11/09.
+//  Created by 황은지 on 2022/11/10.
 //
 
 import Foundation
 import RxSwift
 import RxCocoa
 
-enum NicknameToast: String {
-    case countError = "닉네임은 1자 이상 10자 이내로 부탁드려요."
-    case notAvailable = "해당 닉네임은 사용할 수 없습니다."
+enum BirthToast: String {
+    case ageLimit = "새싹스터디는 만 17세 이상만 사용할 수 있습니다."
 }
 
-final class NicknameViewModel {
+final class BirthViewModel {
     private let disposeBag = DisposeBag()
     
     struct Input {
         let nextButtonTap: Signal<String>
-        let nicknameTextField: Signal<String>
+        let birthTextField: Signal<String>
     }
     
     struct Output {
@@ -34,21 +33,7 @@ final class NicknameViewModel {
     
     func transform(input: Input) -> Output {
         
-        input.nextButtonTap
-            .withUnretained(self)
-            .emit { vm, nickname in
-                switch nickname.count {
-                case 1...10:
-                    UserDefaults.standard.set(nickname, forKey: UserDefaultsKey.userNickname)
-                    vm.pushNextVCRelay.accept(())
-                default:
-                    // MARK: 회원가입 최종 플로우 실패 조건 추가
-                    vm.showToastRelay.accept(NicknameToast.countError.rawValue)
-                }
-            }
-            .disposed(by: disposeBag)
-        
-        input.nicknameTextField
+        input.birthTextField
             .withUnretained(self)
             .emit { vm, nickname in
                 let editing = (1...10).contains(nickname.count)
