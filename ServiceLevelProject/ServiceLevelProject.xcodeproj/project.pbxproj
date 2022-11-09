@@ -29,6 +29,7 @@
 		B691FD75291BE24500FC47F4 /* EmailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B691FD74291BE24500FC47F4 /* EmailViewController.swift */; };
 		B691FD77291BE24E00FC47F4 /* GenderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B691FD76291BE24E00FC47F4 /* GenderViewController.swift */; };
 		B691FD79291BF40200FC47F4 /* NicknameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B691FD78291BF40200FC47F4 /* NicknameViewModel.swift */; };
+		B691FD7B291C06B200FC47F4 /* UserDefaultSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = B691FD7A291C06B200FC47F4 /* UserDefaultSet.swift */; };
 		B692E3DC2919132100BEAF22 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B692E3DB2919132100BEAF22 /* AppDelegate.swift */; };
 		B692E3DE2919132100BEAF22 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B692E3DD2919132100BEAF22 /* SceneDelegate.swift */; };
 		B692E3E02919132100BEAF22 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B692E3DF2919132100BEAF22 /* LoginViewController.swift */; };
@@ -61,6 +62,7 @@
 		B691FD74291BE24500FC47F4 /* EmailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailViewController.swift; sourceTree = "<group>"; };
 		B691FD76291BE24E00FC47F4 /* GenderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenderViewController.swift; sourceTree = "<group>"; };
 		B691FD78291BF40200FC47F4 /* NicknameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NicknameViewModel.swift; sourceTree = "<group>"; };
+		B691FD7A291C06B200FC47F4 /* UserDefaultSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultSet.swift; sourceTree = "<group>"; };
 		B692E3D82919132100BEAF22 /* ServiceLevelProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ServiceLevelProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B692E3DB2919132100BEAF22 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B692E3DD2919132100BEAF22 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -102,6 +104,7 @@
 				B620CD0929194C9C002CE764 /* TextSet.swift */,
 				B691FD63291AB3EC00FC47F4 /* IconSet.swift */,
 				B620CD0F29195449002CE764 /* ColorSet.swift */,
+				B691FD7A291C06B200FC47F4 /* UserDefaultSet.swift */,
 			);
 			path = Set;
 			sourceTree = "<group>";
@@ -317,6 +320,7 @@
 				B620CCFE291925D2002CE764 /* OnboardingViewController.swift in Sources */,
 				B692E3DE2919132100BEAF22 /* SceneDelegate.swift in Sources */,
 				B620CD0C29194F34002CE764 /* String+Extension.swift in Sources */,
+				B691FD7B291C06B200FC47F4 /* UserDefaultSet.swift in Sources */,
 				B620CD1629195CBC002CE764 /* CustomView.swift in Sources */,
 				B691FD71291BE22C00FC47F4 /* NicknameViewController.swift in Sources */,
 				B691FD73291BE23B00FC47F4 /* BirthViewController.swift in Sources */,

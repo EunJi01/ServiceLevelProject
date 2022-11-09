@@ -48,22 +48,22 @@ final class LoginViewModel {
         input.getMessageButtonTap
             .withUnretained(self)
             .emit { vm, number in
-//                switch vm.validateRelay.value {
-//                case true:
-//                    vm.keyboardDisappearRelay.accept(())
-//                    vm.showToastRelay.accept(ValidationToast.valid.rawValue)
-//                    PhoneAuthProvider.provider()
-//                        .verifyPhoneNumber("+82\(number)", uiDelegate: nil) { verificationID, error in
-//                            if error != nil {
-//                                vm.showToastRelay.accept(ValidationToast.otherErrors.rawValue)
-//                            } else {
-//                                vm.pushNextVCRelay.accept(())
-//                            }
-//                        }
-//                case false:
-//                    vm.showToastRelay.accept(ValidationToast.notValid.rawValue)
-//                }
-                vm.pushNextVCRelay.accept(())
+                switch vm.validateRelay.value {
+                case true:
+                    vm.keyboardDisappearRelay.accept(())
+                    vm.showToastRelay.accept(ValidationToast.valid.rawValue)
+                    PhoneAuthProvider.provider()
+                        .verifyPhoneNumber("+82\(number)", uiDelegate: nil) { verificationID, error in
+                            if let verificationID = verificationID {
+                                UserDefaults.standard.set(verificationID, forKey: UserDefaultSet.authVerificationID)
+                                vm.pushNextVCRelay.accept(())
+                            } else {
+                                vm.showToastRelay.accept(ValidationToast.otherErrors.rawValue)
+                            }
+                        }
+                case false:
+                    vm.showToastRelay.accept(ValidationToast.notValid.rawValue)
+                }
             }
             .disposed(by: disposeBag)
         

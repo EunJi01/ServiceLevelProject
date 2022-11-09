@@ -23,6 +23,7 @@ final class AuthViewController: UIViewController, CustomView {
         super.viewDidLoad()
         view.backgroundColor = .white
         numbertextField.becomeFirstResponder()
+        view.makeToast(AuthToast.sendMessage.rawValue, position: .top) // MARK: 얘만 매우매우 상단에 나오는 현상...?
         
         bind()
         setConfigure()
@@ -59,6 +60,13 @@ final class AuthViewController: UIViewController, CustomView {
             .withUnretained(self)
             .emit { vc, validate in
                 vc.startButton.backgroundColor = (validate == true) ? .setColor(.green) : .setColor(.gray6)
+            }
+            .disposed(by: disposeBag)
+        
+        output.showToast
+            .withUnretained(self)
+            .emit { vc, text in
+                vc.view.makeToast(text, position: .top)
             }
             .disposed(by: disposeBag)
     }
