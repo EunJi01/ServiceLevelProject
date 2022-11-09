@@ -16,8 +16,8 @@ extension String {
         var stringWithHypen: String = self.replacingOccurrences(of: "-", with: "")
 
         switch stringWithHypen.count {
-        case ..<3: break
-        case ..<6:
+        case ..<4: break
+        case ..<7:
             stringWithHypen.insert("-", at: stringWithHypen.index(stringWithHypen.startIndex, offsetBy: 3))
         case ..<11:
             stringWithHypen.insert("-", at: stringWithHypen.index(stringWithHypen.startIndex, offsetBy: 3))

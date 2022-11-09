@@ -24,6 +24,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     private func setAppearance() {
         UIImageView.appearance().contentMode = .scaleAspectFit
+        
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

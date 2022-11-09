@@ -12,6 +12,4 @@ enum ImageSet: String {
     case onboardingImg1 = "onboarding_img1"
     case onboardingImg2 = "onboarding_img2"
     case onboardingImg3 = "onboarding_img3"
-    
-    // MARK: 다음은 몰까~
 }

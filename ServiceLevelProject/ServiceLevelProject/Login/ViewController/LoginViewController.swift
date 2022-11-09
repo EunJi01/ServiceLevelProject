@@ -10,20 +10,20 @@ import RxSwift
 import RxCocoa
 import Toast
 
-class LoginViewController: UIViewController, CustomView {
-    // MARK: 글자수 11자 제한 + 밑줄 색상 변경 + 한글 입력 제한 필요 + 하이픈이 안지워지는 현상...???
+final class LoginViewController: UIViewController, CustomView {
     
-    lazy var titleLabel: UILabel = customTitleLabel(size: 20, text: .setText(.login))
-    lazy var getMessageButton: UIButton = customButton(title: "인증 문자 받기")
-    lazy var underlineView: UIView = customUnderlineView()
-    lazy var phoneNumberTextField: UITextField = customTextField(placeholder: "휴대폰 번호(-없이 숫자만 입력)", keyboard: .numberPad)
+    private lazy var titleLabel: UILabel = customTitleLabel(size: 20, text: .setText(.login))
+    private lazy var getMessageButton: UIButton = customButton(title: "인증 문자 받기")
+    private lazy var underlineView: UIView = customUnderlineView()
+    private lazy var phoneNumberTextField: UITextField = customTextField(placeholder: "휴대폰 번호(-없이 숫자만 입력)", keyboard: .numberPad)
     
-    let vm = LoginViewModel()
-    let disposeBag = DisposeBag()
+    private let vm = LoginViewModel()
+    private let disposeBag = DisposeBag()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+        phoneNumberTextField.becomeFirstResponder()
         
         bind()
         setConfigure()
@@ -62,6 +62,34 @@ class LoginViewController: UIViewController, CustomView {
                 vc.getMessageButton.backgroundColor = (validate == true) ? .setColor(.green) : .setColor(.gray6)
             }
             .disposed(by: disposeBag)
+        
+        output.showToast
+            .withUnretained(self)
+            .emit { vc, text in
+                vc.view.makeToast(text, position: .top)
+            }
+            .disposed(by: disposeBag)
+        
+        output.highlight
+            .withUnretained(self)
+            .emit { vc, highlight in
+                vc.underlineView.backgroundColor = (highlight == true) ? .setColor(.focus) : .setColor(.gray3)
+            }
+            .disposed(by: disposeBag)
+        
+        output.numberLimit
+            .withUnretained(self)
+            .emit { vc, number in
+                vc.phoneNumberTextField.text = number
+            }
+            .disposed(by: disposeBag)
+        
+        output.keyboardDisappear
+            .withUnretained(self)
+            .emit { vc, _ in
+                vc.view.endEditing(true)
+            }
+            .disposed(by: disposeBag)
     }
     
     private func setConfigure() {
@@ -85,7 +113,7 @@ class LoginViewController: UIViewController, CustomView {
         underlineView.snp.makeConstraints { make in
             make.top.equalTo(phoneNumberTextField.snp.bottom)
             make.horizontalEdges.equalTo(phoneNumberTextField).inset(-10)
-            make.height.equalTo(0.5)
+            make.height.equalTo(1)
         }
         
         getMessageButton.snp.makeConstraints { make in
@@ -93,5 +121,9 @@ class LoginViewController: UIViewController, CustomView {
             make.horizontalEdges.equalTo(underlineView)
             make.height.equalTo(48)
         }
+    }
+    
+    deinit {
+        print(#function)
     }
 }

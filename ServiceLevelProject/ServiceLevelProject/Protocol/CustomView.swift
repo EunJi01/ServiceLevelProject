@@ -24,7 +24,7 @@ extension CustomView {
         return view
     }
     
-    func customTitleLabel(size: CGFloat ,text: String = "") -> UILabel {
+    func customTitleLabel(size: CGFloat ,text: String) -> UILabel {
         let view = UILabel()
         view.numberOfLines = 0
         view.textAlignment = .center

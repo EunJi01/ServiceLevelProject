@@ -9,7 +9,7 @@ import UIKit
 
 class OnboardingViewController: UIViewController, CustomView {
     
-    lazy var titleLabel: UILabel = customTitleLabel(size: 24)
+    lazy var titleLabel: UILabel = customTitleLabel(size: 24, text: "")
     let mainImageView = UIImageView()
 
     override func viewDidLoad() {
