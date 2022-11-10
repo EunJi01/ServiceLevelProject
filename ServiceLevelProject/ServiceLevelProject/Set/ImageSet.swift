@@ -8,8 +8,12 @@
 import Foundation
 
 enum ImageSet: String {
-    // MARK: Onboarding
+    // Onboarding
     case onboardingImg1 = "onboarding_img1"
     case onboardingImg2 = "onboarding_img2"
     case onboardingImg3 = "onboarding_img3"
+    
+    // Button
+    case man
+    case woman
 }

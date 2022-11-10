@@ -8,7 +8,7 @@
 - iPhone, Portrait 모드 지원
 - Code Base UI
 - MVVM, UIKit, AutoLayout
-- RxSwift, SnapKit, Firebase  
+- RxSwift, SnapKit, FirebaseAuth  
 
 ## 앱 소개
 #### Onboarding
@@ -39,6 +39,10 @@
 | 9 | Nickname | Layout | 30m |  |  |
 | 9 | Nickname | 유효성 검사/UI 반응 구현 | 1h |  |  |
 | 9 | Email | 유효성 검사/UI 반응 구현 | 1h |  |  |
+| 10 | Birth | Layout |  |  |  |
+| 10 | Birth | DatePicker 구현 |  |  |  |
+| 10 | Gender | Layout | 1h |  |  |
+| 10 | Gender | 성별 선택 UI 반응 구현 | 1h |  |  |
 |  |  |  |  |  |  |
 | **2주차** |  |  |  |  | **~2022.11.20** |
 |  |  |  |  |  |  |
@@ -74,3 +78,10 @@
 - 로그인에 실패했을 경우 에러 종류에 따라 다른 토스트 메세지를 보여주어야 하는데, statusCode를 기본적으로 제공하지 않기 때문에 별도로 코드가 필요할 것 같다.
 - 토스트 메세지를 계속 열거형으로 구성해왔는데, 이번 뷰에서는 두 에러 상황에 대한 토스트 메세지가 같기 때문에 연관값으로 설정하지 못하기 때문에 함수나 연산 프로퍼티를 활용할 예정이다.
 - 유저디폴트를 활용해 유저가 기입한 내용들을 임시저장하고, viewDidLoad에서 다시 불러오도록 설정했다.
+- AuthViewController 의 viewDidLoad 시점에 인증번호를 발송했다는 토스트를 띄워주는데, 토스트가 정상적인 위치에 보이지 않는 버그가 있다.
+
+#### 11/10
+- 팀원분의 조언으로 AuthViewController 토스트 문제를 해결했다.
+- 사실 왜 이런 현상이 발생하는지는 잘 모르겠고, DispatchQueue.main.async 에 넣으니 정상적으로 보인다. 왜일까...
+- GenderView의 버튼 UI를 Configuration으로 구성하니, 익숙하지 않아서 그런지 선택했을 때의 backgroundColor 변경이 어려웠다.
+- 어찌저찌 구현은 했지만, 고작 선택시의 색상 변경에 코드량이 이정도가 맞나...? 싶은 의문이 든다.

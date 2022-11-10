@@ -23,7 +23,10 @@ final class AuthViewController: UIViewController, CustomView {
         super.viewDidLoad()
         view.backgroundColor = .white
         numbertextField.becomeFirstResponder()
-        view.makeToast(AuthToast.sendMessage.rawValue, position: .top) // MARK: 얘만 매우매우 상단에 나오는 현상...?
+        
+        DispatchQueue.main.async { [weak self] in
+            self?.view.makeToast(AuthToast.sendMessage.rawValue, position: .top)
+        }
         
         bind()
         setConfigure()

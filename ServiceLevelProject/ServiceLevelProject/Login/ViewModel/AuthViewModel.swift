@@ -12,7 +12,7 @@ import RxCocoa
 
 enum AuthToast: String {
     case sendMessage = "인증번호를 보냈습니다."
-    case timeout, discrepancy = "전화번호 인증 실패"
+    case discrepancy = "전화번호 인증 실패"
     case tokenError = "에러가 발생했습니다. 잠시 후 다시 시도해주세요."
 }
 
@@ -79,7 +79,7 @@ final class AuthViewModel {
         Auth.auth().signIn(with: credential) { [weak self] authResult, error in
             if let error = error {
                 // MARK: 에러 종류에 따른 토스트 띄우기
-                self?.showToastRelay.accept(AuthToast.timeout.rawValue)
+                self?.showToastRelay.accept(AuthToast.discrepancy.rawValue)
                 print("로그인 실패 === \(error)")
             } else {
                 self?.pushNextVCRelay.accept(())
