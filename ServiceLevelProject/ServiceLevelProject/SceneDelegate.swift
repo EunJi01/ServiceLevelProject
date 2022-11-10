@@ -14,11 +14,32 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         setAppearance()
-        
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: windowScene)
-        let vc = BirthViewController()
-        window?.rootViewController = vc
+        let vc: UIViewController?
+        
+        switch UserDefaults.userToken.isEmpty {
+        case true:
+            
+            switch UserDefaults.authVerificationID.isEmpty {
+            case true:
+                if UserDefaults.showOnboarding {
+                    vc = OnboardingPageViewController()
+                } else {
+                    vc = LoginViewController()
+                }
+            case false:
+                vc = NicknameViewController()
+            }
+            
+        case false:
+            // 홈뷰컨
+            vc = NicknameViewController()
+        }
+        
+        guard let vc = vc else { return }
+        let nav = UINavigationController(rootViewController: vc)
+        window?.rootViewController = nav
         window?.makeKeyAndVisible()
     }
     

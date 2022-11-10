@@ -25,7 +25,7 @@
 | 날짜 | View | 세부내용 | 소요시간 | 특이사항 | 기간 |
 | --- | --- | --- | --- | --- | --- |
 | **1주차** |  |  |  |  | **~2022.11.13** |
-| 7 | 초기 셋팅 | Extension, Protocol, enum... | 2h |  |  |
+| 7 | 모듈화 | Extension, Protocol, enum... | 2h |  |  |
 | 7 | Onboarding | PageViewController 구성 | 4h |  |  |
 | 8 | Login | Layout | 2h |  |  |
 | 8 | Login | TextField 하이픈 추가 | 2h |  |  |
@@ -40,9 +40,13 @@
 | 9 | Nickname | 유효성 검사/UI 반응 구현 | 1h |  |  |
 | 9 | Email | 유효성 검사/UI 반응 구현 | 1h |  |  |
 | 10 | Birth | Layout | 2h |  |  |
-| 10 | Birth | DatePicker 구현 |  |  |  |
 | 10 | Gender | Layout | 1h |  |  |
 | 10 | Gender | 성별 선택 UI 반응 구현 | 1h |  |  |
+| 11 | 모듈화 | UserDefaultsKey 개선 | 30m |  |  |
+| 11 | 모듈화 | 네트워트 관련 코드 분리 | 30m |  |  |
+| 11 | SceneDelegate | rootView 조건 구현 | 30m |  |  |
+| 11 | Birth | DatePicker 구현 |  |  |  |
+| 11 | Auth | 인증번호 재전송 구현 |  |  |  |
 |  |  |  |  |  |  |
 | **2주차** |  |  |  |  | **~2022.11.20** |
 |  |  |  |  |  |  |
@@ -86,3 +90,9 @@
 - GenderView의 버튼 UI를 Configuration으로 구성하니, 익숙하지 않아서 그런지 선택했을 때의 backgroundColor 변경이 어려웠다.
 - 어찌저찌 구현은 했지만, 고작 선택시의 색상 변경에 코드량이 이정도가 맞나...? 싶은 의문이 든다.
 - BirthView 에서는 스텍뷰를 활용해 텍스트필드와 레이블의 레이아웃을 잡아줬는데, 코드로 스텍뷰를 사용하는게 처음이라 시간이 오래 걸렸다.
+
+#### 11/11
+- @propertyWrapper를 통해 UserDefaults의 Key를 더 편하게 관리하고 사용할 수 있도록 개선했다.
+- 재전송 버튼을 구현하기 전에, ViewModel에 그냥 넣어두었던 네트워크 통신 관련된 코드를 분리했다.
+- SceneDelegate에서 총 세 개의 조건문 (회원가입 여부 -> (false일 경우)전화번호 인증 여부 -> (false일 경우)온보딩 여부) 을 통해 rootViewController를 정하도록 구현했다.
+- 

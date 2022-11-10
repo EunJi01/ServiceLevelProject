@@ -22,7 +22,7 @@ final class NicknameViewController: UIViewController, CustomView {
         super.viewDidLoad()
         view.backgroundColor = .white
         nicknameTextField.becomeFirstResponder()
-        nicknameTextField.text = UserDefaults.standard.string(forKey: UserDefaultsKey.userNickname)
+        nicknameTextField.text = UserDefaults.userNickname
         
         bind()
         setConfigure()
@@ -52,6 +52,13 @@ final class NicknameViewController: UIViewController, CustomView {
             .emit { vc, highlight in
                 vc.nextButton.backgroundColor = (highlight == true) ? .setColor(.green) : .setColor(.gray6)
                 vc.underlineView.backgroundColor = (highlight == true) ? .setColor(.focus) : .setColor(.gray3)
+            }
+            .disposed(by: disposeBag)
+        
+        output.showToast
+            .withUnretained(self)
+            .emit { vc, text in
+                vc.view.makeToast(text, position: .top)
             }
             .disposed(by: disposeBag)
     }

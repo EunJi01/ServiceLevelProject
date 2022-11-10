@@ -39,7 +39,7 @@ final class EmailViewModel {
             .withUnretained(self)
             .emit { vm, email in
                 if vm.validateEmail(email: email) {
-                    UserDefaults.standard.set(email, forKey: UserDefaultsKey.userEmail)
+                    UserDefaults.userEmail = email
                     vm.pushNextVCRelay.accept(())
                 } else {
                     vm.showToastRelay.accept(EmailToast.notValid.rawValue)

@@ -56,7 +56,36 @@ final class BirthViewController: UIViewController, CustomView {
     }
     
     private func bind() {
+        let input = BirthViewModel.Input(
+            nextButtonTap: nextButton.rx.tap
+                .withLatestFrom(datePicker.rx.date)
+                .asSignal(onErrorJustReturn: Date()),
+            datePicker: datePicker.rx.date
+                .asSignal(onErrorJustReturn: Date())
+        )
         
+        let output = vm.transform(input: input)
+        
+        output.pushNextVC
+            .withUnretained(self)
+            .emit { vc, _ in
+                vc.navigationController?.pushViewController(EmailViewController(), animated: true)
+            }
+            .disposed(by: disposeBag)
+        
+        output.showToast
+            .withUnretained(self)
+            .emit { vc, text in
+                vc.view.makeToast(text, position: .top)
+            }
+            .disposed(by: disposeBag)
+        
+        output.highlight
+            .withUnretained(self)
+            .emit { vc, highlight in
+                vc.nextButton.backgroundColor = (highlight == true) ? .setColor(.green) : .setColor(.gray6)
+            }
+            .disposed(by: disposeBag)
     }
     
     private func setConfigure() {
@@ -64,7 +93,6 @@ final class BirthViewController: UIViewController, CustomView {
         textFieldStackView.distribution = .equalCentering
         underlineFieldStackView.spacing = 42
         underlineFieldStackView.distribution = .fillEqually
-        // MARK: 레이아웃 간격 안맞음... 못생김... ㅜㅜ
         
         [titleLabel, nextButton, textFieldStackView, underlineFieldStackView].forEach {
             view.addSubview($0)

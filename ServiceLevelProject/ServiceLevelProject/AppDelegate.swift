@@ -8,6 +8,7 @@
 import UIKit
 import SnapKit
 import FirebaseCore
+import Toast
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {

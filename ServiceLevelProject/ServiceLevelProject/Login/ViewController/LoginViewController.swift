@@ -8,7 +8,6 @@
 import UIKit
 import RxSwift
 import RxCocoa
-import Toast
 
 final class LoginViewController: UIViewController, CustomView {
     private let disposeBag = DisposeBag()

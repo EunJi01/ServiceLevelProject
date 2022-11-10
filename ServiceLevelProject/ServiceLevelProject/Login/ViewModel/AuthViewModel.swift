@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import FirebaseAuth
 import RxSwift
 import RxCocoa
 
@@ -18,6 +17,7 @@ enum AuthToast: String {
 
 final class AuthViewModel {
     private let disposeBag = DisposeBag()
+    private let auth = FirebaseAuth()
     
     struct Input {
         let resendButtonTap: Signal<Void>
@@ -42,12 +42,18 @@ final class AuthViewModel {
         input.startButtonTap
             .withUnretained(self)
             .emit { vm, number in
-                guard let verificationID = UserDefaults.standard.string(forKey: UserDefaultsKey.authVerificationID) else { return }
-                let credential = PhoneAuthProvider.provider().credential(
-                  withVerificationID: verificationID,
-                  verificationCode: number
-                )
-                vm.login(credential: credential)
+                let verificationID = UserDefaults.authVerificationID
+                guard !(verificationID.isEmpty) else { return }
+                let credential = vm.auth.credential(verificationID: verificationID, number: number)
+                vm.auth.login(credential: credential) { [weak self] authDataResult, error in
+                    if let error = error {
+                        // MARK: 에러 종류에 따른 토스트 띄우기
+                        self?.showToastRelay.accept(AuthToast.discrepancy.rawValue)
+                        print("로그인 실패 === \(error)")
+                    } else {
+                        self?.pushNextVCRelay.accept(())
+                    }
+                }
             }
             .disposed(by: disposeBag)
         
@@ -74,17 +80,4 @@ final class AuthViewModel {
             showToast: showToastRelay.asSignal()
         )
     }
-    
-    private func login(credential: PhoneAuthCredential) {
-        Auth.auth().signIn(with: credential) { [weak self] authResult, error in
-            if let error = error {
-                // MARK: 에러 종류에 따른 토스트 띄우기
-                self?.showToastRelay.accept(AuthToast.discrepancy.rawValue)
-                print("로그인 실패 === \(error)")
-            } else {
-                self?.pushNextVCRelay.accept(())
-            }
-        }
-    }
 }
-

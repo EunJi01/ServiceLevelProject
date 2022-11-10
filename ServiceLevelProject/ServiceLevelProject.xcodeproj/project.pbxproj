@@ -21,6 +21,8 @@
 		B620CD1B291979F8002CE764 /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B620CD1A291979F8002CE764 /* AuthViewController.swift */; };
 		B620CD1D291979FF002CE764 /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B620CD1C291979FF002CE764 /* AuthViewModel.swift */; };
 		B620CD21291A8CFB002CE764 /* Toast in Frameworks */ = {isa = PBXBuildFile; productRef = B620CD20291A8CFB002CE764 /* Toast */; };
+		B66DD166291DAD910095BE9B /* UserDefaults+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B66DD165291DAD910095BE9B /* UserDefaults+Extension.swift */; };
+		B66DD169291DB43F0095BE9B /* FirebaseAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = B66DD168291DB43F0095BE9B /* FirebaseAuth.swift */; };
 		B691FD64291AB3EC00FC47F4 /* IconSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = B691FD63291AB3EC00FC47F4 /* IconSet.swift */; };
 		B691FD67291AB9DA00FC47F4 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = B691FD66291AB9DA00FC47F4 /* FirebaseAuth */; };
 		B691FD6A291ABC1000FC47F4 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B691FD69291ABC0F00FC47F4 /* GoogleService-Info.plist */; };
@@ -29,7 +31,6 @@
 		B691FD75291BE24500FC47F4 /* EmailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B691FD74291BE24500FC47F4 /* EmailViewController.swift */; };
 		B691FD77291BE24E00FC47F4 /* GenderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B691FD76291BE24E00FC47F4 /* GenderViewController.swift */; };
 		B691FD79291BF40200FC47F4 /* NicknameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B691FD78291BF40200FC47F4 /* NicknameViewModel.swift */; };
-		B691FD7B291C06B200FC47F4 /* UserDefaultsKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = B691FD7A291C06B200FC47F4 /* UserDefaultsKey.swift */; };
 		B691FD7D291C1A6F00FC47F4 /* BirthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B691FD7C291C1A6F00FC47F4 /* BirthViewModel.swift */; };
 		B691FD7F291C1A7800FC47F4 /* EmailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B691FD7E291C1A7800FC47F4 /* EmailViewModel.swift */; };
 		B691FD81291C1A7F00FC47F4 /* GenderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B691FD80291C1A7F00FC47F4 /* GenderViewModel.swift */; };
@@ -57,6 +58,8 @@
 		B620CD18291965F2002CE764 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		B620CD1A291979F8002CE764 /* AuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewController.swift; sourceTree = "<group>"; };
 		B620CD1C291979FF002CE764 /* AuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
+		B66DD165291DAD910095BE9B /* UserDefaults+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+Extension.swift"; sourceTree = "<group>"; };
+		B66DD168291DB43F0095BE9B /* FirebaseAuth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseAuth.swift; sourceTree = "<group>"; };
 		B691FD63291AB3EC00FC47F4 /* IconSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconSet.swift; sourceTree = "<group>"; };
 		B691FD69291ABC0F00FC47F4 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		B691FD6B291ACDB700FC47F4 /* ServiceLevelProject.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ServiceLevelProject.entitlements; sourceTree = "<group>"; };
@@ -65,7 +68,6 @@
 		B691FD74291BE24500FC47F4 /* EmailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailViewController.swift; sourceTree = "<group>"; };
 		B691FD76291BE24E00FC47F4 /* GenderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenderViewController.swift; sourceTree = "<group>"; };
 		B691FD78291BF40200FC47F4 /* NicknameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NicknameViewModel.swift; sourceTree = "<group>"; };
-		B691FD7A291C06B200FC47F4 /* UserDefaultsKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsKey.swift; sourceTree = "<group>"; };
 		B691FD7C291C1A6F00FC47F4 /* BirthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BirthViewModel.swift; sourceTree = "<group>"; };
 		B691FD7E291C1A7800FC47F4 /* EmailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailViewModel.swift; sourceTree = "<group>"; };
 		B691FD80291C1A7F00FC47F4 /* GenderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenderViewModel.swift; sourceTree = "<group>"; };
@@ -110,7 +112,6 @@
 				B620CD0929194C9C002CE764 /* TextSet.swift */,
 				B691FD63291AB3EC00FC47F4 /* IconSet.swift */,
 				B620CD0F29195449002CE764 /* ColorSet.swift */,
-				B691FD7A291C06B200FC47F4 /* UserDefaultsKey.swift */,
 			);
 			path = Set;
 			sourceTree = "<group>";
@@ -122,6 +123,7 @@
 				B620CD0B29194F34002CE764 /* String+Extension.swift */,
 				B620CD0D2919532E002CE764 /* UILabel+Extension.swift */,
 				B620CD112919572E002CE764 /* UIColor+Extension.swift */,
+				B66DD165291DAD910095BE9B /* UserDefaults+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -150,6 +152,14 @@
 				B620CD1C291979FF002CE764 /* AuthViewModel.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		B66DD167291DB4140095BE9B /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				B66DD168291DB43F0095BE9B /* FirebaseAuth.swift */,
+			);
+			path = Network;
 			sourceTree = "<group>";
 		};
 		B691FD6C291BDE7B00FC47F4 /* ViewController */ = {
@@ -215,6 +225,7 @@
 				B620CD1429195C80002CE764 /* Protocol */,
 				B620CD0629193522002CE764 /* Extension */,
 				B620CD0329192BA9002CE764 /* Set */,
+				B66DD167291DB4140095BE9B /* Network */,
 				B620CCFA29191D5D002CE764 /* Onboarding */,
 				B620CD1729196595002CE764 /* Login */,
 				B691FD6D291BE1F600FC47F4 /* Signup */,
@@ -327,14 +338,15 @@
 				B691FD7D291C1A6F00FC47F4 /* BirthViewModel.swift in Sources */,
 				B691FD81291C1A7F00FC47F4 /* GenderViewModel.swift in Sources */,
 				B620CD1B291979F8002CE764 /* AuthViewController.swift in Sources */,
+				B66DD169291DB43F0095BE9B /* FirebaseAuth.swift in Sources */,
 				B620CD1029195449002CE764 /* ColorSet.swift in Sources */,
 				B620CCFE291925D2002CE764 /* OnboardingViewController.swift in Sources */,
 				B691FD7F291C1A7800FC47F4 /* EmailViewModel.swift in Sources */,
 				B692E3DE2919132100BEAF22 /* SceneDelegate.swift in Sources */,
 				B620CD0C29194F34002CE764 /* String+Extension.swift in Sources */,
-				B691FD7B291C06B200FC47F4 /* UserDefaultsKey.swift in Sources */,
 				B620CD1629195CBC002CE764 /* CustomView.swift in Sources */,
 				B691FD71291BE22C00FC47F4 /* NicknameViewController.swift in Sources */,
+				B66DD166291DAD910095BE9B /* UserDefaults+Extension.swift in Sources */,
 				B691FD73291BE23B00FC47F4 /* BirthViewController.swift in Sources */,
 				B620CCFC29192559002CE764 /* OnboardingPageViewController.swift in Sources */,
 				B691FD75291BE24500FC47F4 /* EmailViewController.swift in Sources */,

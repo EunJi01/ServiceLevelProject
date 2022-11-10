@@ -39,7 +39,7 @@ final class NicknameViewModel {
             .emit { vm, nickname in
                 switch nickname.count {
                 case 1...10:
-                    UserDefaults.standard.set(nickname, forKey: UserDefaultsKey.userNickname)
+                    UserDefaults.userNickname = nickname
                     vm.pushNextVCRelay.accept(())
                 default:
                     // MARK: 회원가입 최종 플로우 실패 조건 추가

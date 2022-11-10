@@ -8,7 +8,6 @@
 import Foundation
 import RxSwift
 import RxCocoa
-import FirebaseAuth
 
 enum ValidationToast: String {
     case valid = "전화번호 인증 시작"
@@ -19,6 +18,7 @@ enum ValidationToast: String {
 
 final class LoginViewModel {
     private let disposeBag = DisposeBag()
+    private let auth = FirebaseAuth()
     
     struct Input {
         let getMessageButtonTap: Signal<String>
@@ -52,15 +52,14 @@ final class LoginViewModel {
                 case true:
                     vm.keyboardDisappearRelay.accept(())
                     vm.showToastRelay.accept(ValidationToast.valid.rawValue)
-                    PhoneAuthProvider.provider()
-                        .verifyPhoneNumber("+82\(number)", uiDelegate: nil) { verificationID, error in
-                            if let verificationID = verificationID {
-                                UserDefaults.standard.set(verificationID, forKey: UserDefaultsKey.authVerificationID)
-                                vm.pushNextVCRelay.accept(())
-                            } else {
-                                vm.showToastRelay.accept(ValidationToast.otherErrors.rawValue)
-                            }
+                    vm.auth.requestAuth(number: number) { verificationID, error in
+                        if let verificationID = verificationID {
+                            UserDefaults.authVerificationID = verificationID
+                            vm.pushNextVCRelay.accept(())
+                        } else {
+                            vm.showToastRelay.accept(ValidationToast.otherErrors.rawValue)
                         }
+                    }
                 case false:
                     vm.showToastRelay.accept(ValidationToast.notValid.rawValue)
                 }

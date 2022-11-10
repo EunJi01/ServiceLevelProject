@@ -40,6 +40,13 @@ final class BirthViewModel {
             }
             .disposed(by: disposeBag)
         
+        input.nextButtonTap
+            .withUnretained(self)
+            .emit { vm, date in
+                
+            }
+            .disposed(by: disposeBag)
+        
         return Output(
             pushNextVC: pushNextVCRelay.asSignal(),
             showToast: showToastRelay.asSignal(),
@@ -48,6 +55,6 @@ final class BirthViewModel {
     }
     
     private func validate(date: Date) {
-        
+        // 오늘을 기준으로 만 17세 검사 -> 푸쉬 or 쇼얼럿
     }
 }

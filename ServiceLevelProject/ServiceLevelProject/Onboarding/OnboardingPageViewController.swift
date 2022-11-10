@@ -32,6 +32,8 @@ final class OnboardingPageViewController: UIViewController, CustomView {
     private func bind() {
         startButton.rx.tap
             .bind { [weak self] _ in
+                UserDefaults.showOnboarding = false
+                
                 let vc = LoginViewController()
                 let nav = UINavigationController(rootViewController: vc)
                 nav.modalPresentationStyle = .fullScreen
