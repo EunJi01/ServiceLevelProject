@@ -39,7 +39,7 @@
 | 9 | Nickname | Layout | 30m |  |  |
 | 9 | Nickname | 유효성 검사/UI 반응 구현 | 1h |  |  |
 | 9 | Email | 유효성 검사/UI 반응 구현 | 1h |  |  |
-| 10 | Birth | Layout |  |  |  |
+| 10 | Birth | Layout | 2h |  |  |
 | 10 | Birth | DatePicker 구현 |  |  |  |
 | 10 | Gender | Layout | 1h |  |  |
 | 10 | Gender | 성별 선택 UI 반응 구현 | 1h |  |  |
@@ -85,3 +85,4 @@
 - 사실 왜 이런 현상이 발생하는지는 잘 모르겠고, DispatchQueue.main.async 에 넣으니 정상적으로 보인다. 왜일까...
 - GenderView의 버튼 UI를 Configuration으로 구성하니, 익숙하지 않아서 그런지 선택했을 때의 backgroundColor 변경이 어려웠다.
 - 어찌저찌 구현은 했지만, 고작 선택시의 색상 변경에 코드량이 이정도가 맞나...? 싶은 의문이 든다.
+- BirthView 에서는 스텍뷰를 활용해 텍스트필드와 레이블의 레이아웃을 잡아줬는데, 코드로 스텍뷰를 사용하는게 처음이라 시간이 오래 걸렸다.

@@ -15,29 +15,58 @@ final class BirthViewController: UIViewController, CustomView {
     
     private lazy var titleLabel: UILabel = customTitleLabel(size: 20, text: .setText(.birth))
     private lazy var nextButton: UIButton = customButton(title: "다음")
-    private lazy var underlineView: UIView = customUnderlineView()
     
     private lazy var yearTextField: UITextField = customTextField(placeholder: "1990")
     private lazy var monthTextField: UITextField = customTextField(placeholder: "1")
     private lazy var dayTextField: UITextField = customTextField(placeholder: "1")
     
+    private lazy var yearUnderlineView: UIView = customUnderlineView()
+    private lazy var monthUnderlineView: UIView = customUnderlineView()
+    private lazy var dayUnderlineView: UIView = customUnderlineView()
     
+    private lazy var yearLabel: UILabel = customTitleLabel(size: 16, text: "년", aligment: .left)
+    private lazy var monthLabel: UILabel = customTitleLabel(size: 16, text: "월", aligment: .left)
+    private lazy var dayLabel: UILabel = customTitleLabel(size: 16, text: "일", aligment: .left)
     
-    // MARK: 스텍뷰
+    private lazy var textFieldStackView = UIStackView(arrangedSubviews: [
+        yearTextField, yearLabel, monthTextField, monthLabel, dayTextField, dayLabel
+    ])
+    
+    private lazy var underlineFieldStackView = UIStackView(arrangedSubviews: [
+        yearUnderlineView, monthUnderlineView, dayUnderlineView
+    ])
+    
+    private let datePicker: UIDatePicker = {
+        let view = UIDatePicker()
+        view.datePickerMode = .date
+        view.preferredDatePickerStyle = .wheels
+        return view
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        yearTextField.becomeFirstResponder()
+        yearTextField.inputView = datePicker
+        monthTextField.inputView = datePicker
+        dayTextField.inputView = datePicker
         
+        bind()
+        setConfigure()
+        setConstraints()
     }
     
     private func bind() {
-
+        
     }
     
     private func setConfigure() {
-        [titleLabel, nextButton, underlineView].forEach {
+        textFieldStackView.spacing = 35
+        textFieldStackView.distribution = .equalCentering
+        underlineFieldStackView.spacing = 42
+        underlineFieldStackView.distribution = .fillEqually
+        // MARK: 레이아웃 간격 안맞음... 못생김... ㅜㅜ
+        
+        [titleLabel, nextButton, textFieldStackView, underlineFieldStackView].forEach {
             view.addSubview($0)
         }
     }
@@ -48,23 +77,24 @@ final class BirthViewController: UIViewController, CustomView {
             make.centerX.equalToSuperview()
         }
         
-//        emailTextField.snp.makeConstraints { make in
-//            make.top.equalTo(titleLabel.snp.bottom).offset(80)
-//            make.horizontalEdges.equalToSuperview().inset(26)
-//            make.height.equalTo(48)
-//        }
-//
-//        underlineView.snp.makeConstraints { make in
-//            make.top.equalTo(emailTextField.snp.bottom)
-//            make.horizontalEdges.equalTo(emailTextField).inset(-10)
-//            make.height.equalTo(1)
-//        }
-//
-//        nextButton.snp.makeConstraints { make in
-//            make.top.equalTo(emailTextField.snp.bottom).offset(72)
-//            make.horizontalEdges.equalTo(underlineView)
-//            make.height.equalTo(48)
-//        }
+        textFieldStackView.snp.makeConstraints { make in
+            make.top.equalTo(titleLabel.snp.bottom).offset(80)
+            make.horizontalEdges.equalToSuperview().inset(28)
+            make.height.equalTo(48)
+        }
+        
+        underlineFieldStackView.snp.makeConstraints { make in
+            make.top.equalTo(textFieldStackView.snp.bottom)
+            make.leading.equalToSuperview().inset(16)
+            make.trailing.equalToSuperview().inset(35)
+            make.height.equalTo(1)
+        }
+        
+        nextButton.snp.makeConstraints { make in
+            make.top.equalTo(underlineFieldStackView.snp.bottom).offset(72)
+            make.horizontalEdges.equalToSuperview().inset(16)
+            make.height.equalTo(48)
+        }
     }
     
     deinit {

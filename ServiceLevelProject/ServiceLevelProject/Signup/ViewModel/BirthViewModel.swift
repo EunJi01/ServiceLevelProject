@@ -17,8 +17,8 @@ final class BirthViewModel {
     private let disposeBag = DisposeBag()
     
     struct Input {
-        let nextButtonTap: Signal<String>
-        let birthTextField: Signal<String>
+        let nextButtonTap: Signal<Date>
+        let datePicker: Signal<Date>
     }
     
     struct Output {
@@ -33,11 +33,10 @@ final class BirthViewModel {
     
     func transform(input: Input) -> Output {
         
-        input.birthTextField
+        input.datePicker
             .withUnretained(self)
-            .emit { vm, nickname in
-                let editing = (1...10).contains(nickname.count)
-                vm.highlightRelay.accept(editing)
+            .emit { vm, date in
+                
             }
             .disposed(by: disposeBag)
         
@@ -46,5 +45,9 @@ final class BirthViewModel {
             showToast: showToastRelay.asSignal(),
             highlight: highlightRelay.asSignal()
         )
+    }
+    
+    private func validate(date: Date) {
+        
     }
 }

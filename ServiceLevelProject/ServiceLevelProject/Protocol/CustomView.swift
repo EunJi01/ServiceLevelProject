@@ -9,7 +9,7 @@ import UIKit
 
 protocol CustomView {
     func customButton(title: String) -> UIButton
-    func customTitleLabel(size: CGFloat,text: String) -> UILabel
+    func customTitleLabel(size: CGFloat,text: String, aligment: NSTextAlignment) -> UILabel
     func customUnderlineView() -> UIView
 }
 
@@ -24,10 +24,10 @@ extension CustomView {
         return view
     }
     
-    func customTitleLabel(size: CGFloat ,text: String) -> UILabel {
+    func customTitleLabel(size: CGFloat ,text: String, aligment: NSTextAlignment = .center) -> UILabel {
         let view = UILabel()
         view.numberOfLines = 0
-        view.textAlignment = .center
+        view.textAlignment = aligment
         view.font = .systemFont(ofSize: size)
         view.text = text
         // MARK: 행간 조절하기!
