@@ -76,6 +76,7 @@ final class AuthViewController: UIViewController, CustomView {
     
     private func setConfigure() {
         resendButton.backgroundColor = .setColor(.green)
+        numbertextField.textContentType = .oneTimeCode
         
         [titleLabel, numbertextField, resendButton, startButton, underlineView].forEach {
             view.addSubview($0)

@@ -9,7 +9,7 @@ import Foundation
 import FirebaseAuth
 
 class FirebaseAuth {
-    func requestAuth(number: String, completion: @escaping (String?, Error?) -> Void) {
+    func requestVerificationID(number: String, completion: @escaping (String?, Error?) -> Void) {
         PhoneAuthProvider.provider()
             .verifyPhoneNumber("+82\(number)", uiDelegate: nil) { verificationID, error in
                 if let error = error {

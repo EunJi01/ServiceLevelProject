@@ -43,7 +43,6 @@ final class AuthViewModel {
             .withUnretained(self)
             .emit { vm, number in
                 let verificationID = UserDefaults.authVerificationID
-                guard !(verificationID.isEmpty) else { return }
                 let credential = vm.auth.credential(verificationID: verificationID, number: number)
                 vm.auth.login(credential: credential) { [weak self] authDataResult, error in
                     if let error = error {
@@ -51,6 +50,7 @@ final class AuthViewModel {
                         self?.showToastRelay.accept(AuthToast.discrepancy.rawValue)
                         print("로그인 실패 === \(error)")
                     } else {
+                        UserDefaults.didAuth = true
                         self?.pushNextVCRelay.accept(())
                     }
                 }
@@ -70,6 +70,21 @@ final class AuthViewModel {
             .emit { vm, number in
                 let editing = (1...5).contains(number.count)
                 vm.highlightRelay.accept(editing)
+            }
+            .disposed(by: disposeBag)
+        
+        input.resendButtonTap
+            .withUnretained(self)
+            .emit { vm, _ in
+                vm.showToastRelay.accept(AuthToast.sendMessage.rawValue)
+                let number = UserDefaults.userPhoneNumber
+                vm.auth.requestVerificationID(number: number) { verificationID, error in
+                    if let verificationID = verificationID {
+                        UserDefaults.authVerificationID = verificationID
+                    } else {
+                        vm.showToastRelay.accept(ValidationToast.otherErrors.rawValue)
+                    }
+                }
             }
             .disposed(by: disposeBag)
         

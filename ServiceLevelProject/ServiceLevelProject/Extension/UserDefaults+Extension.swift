@@ -27,6 +27,9 @@ extension UserDefaults {
     @UserDefault(key: "showOnboarding", defaultValue: true)
     static var showOnboarding: Bool
     
+    @UserDefault(key: "didAuth", defaultValue: false)
+    static var didAuth: Bool
+    
     @UserDefault(key: "authVerificationID", defaultValue: "")
     static var authVerificationID: String
     

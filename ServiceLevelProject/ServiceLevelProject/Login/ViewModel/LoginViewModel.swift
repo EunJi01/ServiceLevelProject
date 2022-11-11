@@ -52,9 +52,10 @@ final class LoginViewModel {
                 case true:
                     vm.keyboardDisappearRelay.accept(())
                     vm.showToastRelay.accept(ValidationToast.valid.rawValue)
-                    vm.auth.requestAuth(number: number) { verificationID, error in
+                    vm.auth.requestVerificationID(number: number) { verificationID, error in
                         if let verificationID = verificationID {
                             UserDefaults.authVerificationID = verificationID
+                            UserDefaults.userPhoneNumber = number
                             vm.pushNextVCRelay.accept(())
                         } else {
                             vm.showToastRelay.accept(ValidationToast.otherErrors.rawValue)

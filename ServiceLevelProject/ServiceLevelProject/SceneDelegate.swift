@@ -14,29 +14,30 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         setAppearance()
+        
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: windowScene)
         let vc: UIViewController?
         
-        switch UserDefaults.userToken.isEmpty {
-        case true:
-            
-            switch UserDefaults.authVerificationID.isEmpty {
-            case true:
-                if UserDefaults.showOnboarding {
-                    vc = OnboardingPageViewController()
-                } else {
-                    vc = LoginViewController()
-                }
-            case false:
-                vc = NicknameViewController()
-            }
-            
-        case false:
-            // 홈뷰컨
-            vc = NicknameViewController()
-        }
+//        switch UserDefaults.userToken.isEmpty {
+//        case true:
+//
+//            switch UserDefaults.didAuth {
+//            case true: // 회원가입은 안했지만 전화번호 인증 완료
+//                vc = NicknameViewController()
+//            case false:
+//                if UserDefaults.showOnboarding { // 온보딩부터 봐야함
+//                    vc = OnboardingPageViewController()
+//                } else { // 인증은 안했는데 온보딩은 봤음 --> LoginViewController
+//                    vc = LoginViewController()
+//                }
+//            }
+//
+//        case false: // 회원가입 끝난 유저
+//            vc = NicknameViewController()
+//        }
         
+        vc = LoginViewController()
         guard let vc = vc else { return }
         let nav = UINavigationController(rootViewController: vc)
         window?.rootViewController = nav
@@ -45,7 +46,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     private func setAppearance() {
         UIImageView.appearance().contentMode = .scaleAspectFit
-        
+        UINavigationBar.appearance().backIndicatorImage = IconSet.backButton // MARK: 왜 안되냐
+        UINavigationBar.appearance().tintColor = .black
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
