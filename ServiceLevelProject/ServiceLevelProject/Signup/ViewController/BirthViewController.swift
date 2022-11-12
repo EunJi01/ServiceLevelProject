@@ -51,6 +51,7 @@ final class BirthViewController: UIViewController, CustomView {
         dayTextField.inputView = datePicker
         
         bind()
+        setTextField()
         setConfigure()
         setConstraints()
     }
@@ -61,7 +62,9 @@ final class BirthViewController: UIViewController, CustomView {
                 .withLatestFrom(datePicker.rx.date)
                 .asSignal(onErrorJustReturn: Date()),
             datePicker: datePicker.rx.date
-                .asSignal(onErrorJustReturn: Date())
+                .asSignal(onErrorJustReturn: Date()),
+            yearTextField: yearTextField.rx.text.orEmpty
+                .asSignal(onErrorJustReturn: "")
         )
         
         let output = vm.transform(input: input)
@@ -86,6 +89,24 @@ final class BirthViewController: UIViewController, CustomView {
                 vc.nextButton.backgroundColor = (highlight == true) ? .setColor(.green) : .setColor(.gray6)
             }
             .disposed(by: disposeBag)
+        
+        output.birth
+            .withUnretained(self)
+            .emit { vc, birth in
+                vc.yearTextField.text = birth.0
+                vc.monthTextField.text = birth.1
+                vc.dayTextField.text = birth.2
+            }
+            .disposed(by: disposeBag)
+    }
+    
+    private func setTextField() {
+        guard let birth = UserDefaults.userBirth?.separateDate else { return }
+        nextButton.backgroundColor = .setColor(.green)
+
+        yearTextField.text = birth.0
+        monthTextField.text = birth.1
+        dayTextField.text = birth.2
     }
     
     private func setConfigure() {
@@ -93,6 +114,7 @@ final class BirthViewController: UIViewController, CustomView {
         textFieldStackView.distribution = .equalCentering
         underlineFieldStackView.spacing = 42
         underlineFieldStackView.distribution = .fillEqually
+        yearTextField.tintColor = .clear
         
         [titleLabel, nextButton, textFieldStackView, underlineFieldStackView].forEach {
             view.addSubview($0)

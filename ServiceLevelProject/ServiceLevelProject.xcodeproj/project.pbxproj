@@ -24,8 +24,13 @@
 		B66DD166291DAD910095BE9B /* UserDefaults+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B66DD165291DAD910095BE9B /* UserDefaults+Extension.swift */; };
 		B66DD169291DB43F0095BE9B /* FirebaseAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = B66DD168291DB43F0095BE9B /* FirebaseAuth.swift */; };
 		B66DD16B291DE90C0095BE9B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B66DD16A291DE90C0095BE9B /* GoogleService-Info.plist */; };
+		B66DD16D291DEEFA0095BE9B /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B66DD16C291DEEFA0095BE9B /* APIManager.swift */; };
+		B66DD170291EA5090095BE9B /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = B66DD16F291EA5090095BE9B /* Alamofire */; };
+		B66DD173291EA55B0095BE9B /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = B66DD172291EA55B0095BE9B /* FirebaseAuth */; };
+		B66DD175291EA55B0095BE9B /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = B66DD174291EA55B0095BE9B /* FirebaseMessaging */; };
+		B66DD177291F876A0095BE9B /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = B66DD176291F876A0095BE9B /* Endpoint.swift */; };
+		B66DD179291FB78F0095BE9B /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B66DD178291FB78F0095BE9B /* Date+Extension.swift */; };
 		B691FD64291AB3EC00FC47F4 /* IconSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = B691FD63291AB3EC00FC47F4 /* IconSet.swift */; };
-		B691FD67291AB9DA00FC47F4 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = B691FD66291AB9DA00FC47F4 /* FirebaseAuth */; };
 		B691FD71291BE22C00FC47F4 /* NicknameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B691FD70291BE22C00FC47F4 /* NicknameViewController.swift */; };
 		B691FD73291BE23B00FC47F4 /* BirthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B691FD72291BE23B00FC47F4 /* BirthViewController.swift */; };
 		B691FD75291BE24500FC47F4 /* EmailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B691FD74291BE24500FC47F4 /* EmailViewController.swift */; };
@@ -61,6 +66,9 @@
 		B66DD165291DAD910095BE9B /* UserDefaults+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+Extension.swift"; sourceTree = "<group>"; };
 		B66DD168291DB43F0095BE9B /* FirebaseAuth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseAuth.swift; sourceTree = "<group>"; };
 		B66DD16A291DE90C0095BE9B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		B66DD16C291DEEFA0095BE9B /* APIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIManager.swift; sourceTree = "<group>"; };
+		B66DD176291F876A0095BE9B /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
+		B66DD178291FB78F0095BE9B /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
 		B691FD63291AB3EC00FC47F4 /* IconSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconSet.swift; sourceTree = "<group>"; };
 		B691FD6B291ACDB700FC47F4 /* ServiceLevelProject.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ServiceLevelProject.entitlements; sourceTree = "<group>"; };
 		B691FD70291BE22C00FC47F4 /* NicknameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NicknameViewController.swift; sourceTree = "<group>"; };
@@ -86,8 +94,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				B620CD21291A8CFB002CE764 /* Toast in Frameworks */,
-				B691FD67291AB9DA00FC47F4 /* FirebaseAuth in Frameworks */,
+				B66DD173291EA55B0095BE9B /* FirebaseAuth in Frameworks */,
+				B66DD175291EA55B0095BE9B /* FirebaseMessaging in Frameworks */,
 				B692E3F6291913C700BEAF22 /* RxSwift in Frameworks */,
+				B66DD170291EA5090095BE9B /* Alamofire in Frameworks */,
 				B692E3F4291913C700BEAF22 /* RxCocoa in Frameworks */,
 				B692E3F1291913B800BEAF22 /* SnapKit in Frameworks */,
 			);
@@ -124,6 +134,7 @@
 				B620CD0D2919532E002CE764 /* UILabel+Extension.swift */,
 				B620CD112919572E002CE764 /* UIColor+Extension.swift */,
 				B66DD165291DAD910095BE9B /* UserDefaults+Extension.swift */,
+				B66DD178291FB78F0095BE9B /* Date+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -158,6 +169,8 @@
 			isa = PBXGroup;
 			children = (
 				B66DD168291DB43F0095BE9B /* FirebaseAuth.swift */,
+				B66DD16C291DEEFA0095BE9B /* APIManager.swift */,
+				B66DD176291F876A0095BE9B /* Endpoint.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -260,7 +273,9 @@
 				B692E3F3291913C700BEAF22 /* RxCocoa */,
 				B692E3F5291913C700BEAF22 /* RxSwift */,
 				B620CD20291A8CFB002CE764 /* Toast */,
-				B691FD66291AB9DA00FC47F4 /* FirebaseAuth */,
+				B66DD16F291EA5090095BE9B /* Alamofire */,
+				B66DD172291EA55B0095BE9B /* FirebaseAuth */,
+				B66DD174291EA55B0095BE9B /* FirebaseMessaging */,
 			);
 			productName = ServiceLevelProject;
 			productReference = B692E3D82919132100BEAF22 /* ServiceLevelProject.app */;
@@ -294,7 +309,8 @@
 				B692E3EF291913B800BEAF22 /* XCRemoteSwiftPackageReference "SnapKit" */,
 				B692E3F2291913C700BEAF22 /* XCRemoteSwiftPackageReference "RxSwift" */,
 				B620CD1F291A8CFB002CE764 /* XCRemoteSwiftPackageReference "Toast-Swift" */,
-				B691FD65291AB9DA00FC47F4 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				B66DD16E291EA5080095BE9B /* XCRemoteSwiftPackageReference "Alamofire" */,
+				B66DD171291EA55B0095BE9B /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			productRefGroup = B692E3D92919132100BEAF22 /* Products */;
 			projectDirPath = "";
@@ -324,9 +340,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				B691FD79291BF40200FC47F4 /* NicknameViewModel.swift in Sources */,
+				B66DD177291F876A0095BE9B /* Endpoint.swift in Sources */,
 				B691FD64291AB3EC00FC47F4 /* IconSet.swift in Sources */,
 				B620CD0529192BFE002CE764 /* ImageSet.swift in Sources */,
 				B692E3E02919132100BEAF22 /* LoginViewController.swift in Sources */,
+				B66DD179291FB78F0095BE9B /* Date+Extension.swift in Sources */,
 				B620CD0E2919532E002CE764 /* UILabel+Extension.swift in Sources */,
 				B620CD122919572E002CE764 /* UIColor+Extension.swift in Sources */,
 				B620CD0829193540002CE764 /* UIImage+Extension.swift in Sources */,
@@ -343,6 +361,7 @@
 				B620CCFE291925D2002CE764 /* OnboardingViewController.swift in Sources */,
 				B691FD7F291C1A7800FC47F4 /* EmailViewModel.swift in Sources */,
 				B692E3DE2919132100BEAF22 /* SceneDelegate.swift in Sources */,
+				B66DD16D291DEEFA0095BE9B /* APIManager.swift in Sources */,
 				B620CD0C29194F34002CE764 /* String+Extension.swift in Sources */,
 				B620CD1629195CBC002CE764 /* CustomView.swift in Sources */,
 				B691FD71291BE22C00FC47F4 /* NicknameViewController.swift in Sources */,
@@ -491,7 +510,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.lia.ServiceLevelProject;
+				PRODUCT_BUNDLE_IDENTIFIER = com.memolease.sesacslp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -520,7 +539,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.lia.ServiceLevelProject;
+				PRODUCT_BUNDLE_IDENTIFIER = com.memolease.sesacslp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -560,7 +579,15 @@
 				minimumVersion = 5.0.0;
 			};
 		};
-		B691FD65291AB9DA00FC47F4 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+		B66DD16E291EA5080095BE9B /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
+		B66DD171291EA55B0095BE9B /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
 			requirement = {
@@ -592,10 +619,20 @@
 			package = B620CD1F291A8CFB002CE764 /* XCRemoteSwiftPackageReference "Toast-Swift" */;
 			productName = Toast;
 		};
-		B691FD66291AB9DA00FC47F4 /* FirebaseAuth */ = {
+		B66DD16F291EA5090095BE9B /* Alamofire */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = B691FD65291AB9DA00FC47F4 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			package = B66DD16E291EA5080095BE9B /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
+		B66DD172291EA55B0095BE9B /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B66DD171291EA55B0095BE9B /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseAuth;
+		};
+		B66DD174291EA55B0095BE9B /* FirebaseMessaging */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B66DD171291EA55B0095BE9B /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseMessaging;
 		};
 		B692E3F0291913B800BEAF22 /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;

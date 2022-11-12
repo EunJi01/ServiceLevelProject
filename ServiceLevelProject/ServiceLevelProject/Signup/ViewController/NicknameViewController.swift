@@ -23,7 +23,7 @@ final class NicknameViewController: UIViewController, CustomView {
         view.backgroundColor = .white
         nicknameTextField.becomeFirstResponder()
         nicknameTextField.text = UserDefaults.userNickname
-        
+
         bind()
         setConfigure()
         setConstraints()

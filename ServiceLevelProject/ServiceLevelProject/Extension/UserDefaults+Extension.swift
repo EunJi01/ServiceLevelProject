@@ -39,12 +39,15 @@ extension UserDefaults {
     @UserDefault(key: "userNickname", defaultValue: "")
     static var userNickname: String
     
-    @UserDefault(key: "userBirth", defaultValue: "")
-    static var userBirth: String
+    @UserDefault(key: "userBirth", defaultValue: nil)
+    static var userBirth: Date?
     
     @UserDefault(key: "userEmail", defaultValue: "")
     static var userEmail: String
     
-    @UserDefault(key: "userToken", defaultValue: "")
-    static var userToken: String
+    @UserDefault(key: "userGender", defaultValue: 10)
+    static var userGender: Int
+    
+    @UserDefault(key: "idToken", defaultValue: "")
+    static var idToken: String
 }

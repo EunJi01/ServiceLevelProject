@@ -19,6 +19,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window = UIWindow(windowScene: windowScene)
         let vc: UIViewController?
         
+        // MARK: 기획서 보고 다시 구성하기!!! -> 네트워크가 연결되지 않은 상태로 로그인 한다든가... 그런거 생각하기... VC를 스플래시처럼 구성!
+        
 //        switch UserDefaults.userToken.isEmpty {
 //        case true:
 //
@@ -37,7 +39,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 //            vc = NicknameViewController()
 //        }
         
-        vc = LoginViewController()
+        vc = NicknameViewController()
         guard let vc = vc else { return }
         let nav = UINavigationController(rootViewController: vc)
         window?.rootViewController = nav

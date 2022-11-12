@@ -17,7 +17,6 @@ enum AuthToast: String {
 
 final class AuthViewModel {
     private let disposeBag = DisposeBag()
-    private let auth = FirebaseAuth()
     
     struct Input {
         let resendButtonTap: Signal<Void>
@@ -43,12 +42,10 @@ final class AuthViewModel {
             .withUnretained(self)
             .emit { vm, number in
                 let verificationID = UserDefaults.authVerificationID
-                let credential = vm.auth.credential(verificationID: verificationID, number: number)
-                vm.auth.login(credential: credential) { [weak self] authDataResult, error in
-                    if let error = error {
-                        // MARK: 에러 종류에 따른 토스트 띄우기
+                let credential = FirebaseAuth.shared.credential(verificationID: verificationID, number: number)
+                FirebaseAuth.shared.login(credential: credential) { [weak self] authDataResult, error in
+                    if error != nil {
                         self?.showToastRelay.accept(AuthToast.discrepancy.rawValue)
-                        print("로그인 실패 === \(error)")
                     } else {
                         UserDefaults.didAuth = true
                         self?.pushNextVCRelay.accept(())
@@ -78,7 +75,7 @@ final class AuthViewModel {
             .emit { vm, _ in
                 vm.showToastRelay.accept(AuthToast.sendMessage.rawValue)
                 let number = UserDefaults.userPhoneNumber
-                vm.auth.requestVerificationID(number: number) { verificationID, error in
+                FirebaseAuth.shared.requestVerificationID(number: number) { verificationID, error in
                     if let verificationID = verificationID {
                         UserDefaults.authVerificationID = verificationID
                     } else {

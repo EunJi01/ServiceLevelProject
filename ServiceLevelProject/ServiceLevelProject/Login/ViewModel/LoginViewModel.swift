@@ -18,7 +18,6 @@ enum ValidationToast: String {
 
 final class LoginViewModel {
     private let disposeBag = DisposeBag()
-    private let auth = FirebaseAuth()
     
     struct Input {
         let getMessageButtonTap: Signal<String>
@@ -52,10 +51,11 @@ final class LoginViewModel {
                 case true:
                     vm.keyboardDisappearRelay.accept(())
                     vm.showToastRelay.accept(ValidationToast.valid.rawValue)
-                    vm.auth.requestVerificationID(number: number) { verificationID, error in
+                    FirebaseAuth.shared.requestVerificationID(number: number) { verificationID, error in
                         if let verificationID = verificationID {
+                            let number = number.replacingOccurrences(of: "-", with: "")
+                            UserDefaults.userPhoneNumber = "+82\(number)"
                             UserDefaults.authVerificationID = verificationID
-                            UserDefaults.userPhoneNumber = number
                             vm.pushNextVCRelay.accept(())
                         } else {
                             vm.showToastRelay.accept(ValidationToast.otherErrors.rawValue)

@@ -23,7 +23,7 @@ final class EmailViewController: UIViewController, CustomView {
         super.viewDidLoad()
         view.backgroundColor = .white
         emailTextField.becomeFirstResponder()
-        emailTextField.text = UserDefaults.userNickname
+        emailTextField.text = UserDefaults.userEmail
         
         bind()
         setConfigure()

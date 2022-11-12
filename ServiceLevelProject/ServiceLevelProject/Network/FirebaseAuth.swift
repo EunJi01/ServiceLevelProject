@@ -9,6 +9,9 @@ import Foundation
 import FirebaseAuth
 
 class FirebaseAuth {
+    static let shared = FirebaseAuth()
+    private init() { }
+    
     func requestVerificationID(number: String, completion: @escaping (String?, Error?) -> Void) {
         PhoneAuthProvider.provider()
             .verifyPhoneNumber("+82\(number)", uiDelegate: nil) { verificationID, error in

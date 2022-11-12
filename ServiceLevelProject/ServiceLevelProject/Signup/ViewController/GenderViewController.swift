@@ -22,7 +22,7 @@ final class GenderViewController: UIViewController, CustomView {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        // 기존 정보 가져오기
+        UserDefaults.userGender = 10
         
         bind()
         setConfigure()
@@ -56,6 +56,13 @@ final class GenderViewController: UIViewController, CustomView {
                     vc.setButtonConfiguration(button: vc.manButton, gender: .man, select: true)
                     vc.setButtonConfiguration(button: vc.womanButton, gender: .woman, select: false)
                 }
+            }
+            .disposed(by: disposeBag)
+        
+        output.showToast
+            .withUnretained(self)
+            .emit { vc, text in
+                vc.view.makeToast(text, position: .top)
             }
             .disposed(by: disposeBag)
     }

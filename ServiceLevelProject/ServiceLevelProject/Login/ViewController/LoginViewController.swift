@@ -22,6 +22,7 @@ final class LoginViewController: UIViewController, CustomView {
         super.viewDidLoad()
         view.backgroundColor = .white
         phoneNumberTextField.becomeFirstResponder()
+        phoneNumberTextField.text = UserDefaults.userPhoneNumber
         
         bind()
         setConfigure()
