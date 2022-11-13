@@ -30,6 +30,7 @@
 		B66DD175291EA55B0095BE9B /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = B66DD174291EA55B0095BE9B /* FirebaseMessaging */; };
 		B66DD177291F876A0095BE9B /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = B66DD176291F876A0095BE9B /* Endpoint.swift */; };
 		B66DD179291FB78F0095BE9B /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B66DD178291FB78F0095BE9B /* Date+Extension.swift */; };
+		B67BDE03292102700080EE89 /* NetworkCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = B67BDE02292102700080EE89 /* NetworkCheck.swift */; };
 		B691FD64291AB3EC00FC47F4 /* IconSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = B691FD63291AB3EC00FC47F4 /* IconSet.swift */; };
 		B691FD71291BE22C00FC47F4 /* NicknameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B691FD70291BE22C00FC47F4 /* NicknameViewController.swift */; };
 		B691FD73291BE23B00FC47F4 /* BirthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B691FD72291BE23B00FC47F4 /* BirthViewController.swift */; };
@@ -76,6 +77,7 @@
 		B66DD16C291DEEFA0095BE9B /* APIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIManager.swift; sourceTree = "<group>"; };
 		B66DD176291F876A0095BE9B /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
 		B66DD178291FB78F0095BE9B /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
+		B67BDE02292102700080EE89 /* NetworkCheck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkCheck.swift; sourceTree = "<group>"; };
 		B691FD63291AB3EC00FC47F4 /* IconSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconSet.swift; sourceTree = "<group>"; };
 		B691FD6B291ACDB700FC47F4 /* ServiceLevelProject.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ServiceLevelProject.entitlements; sourceTree = "<group>"; };
 		B691FD70291BE22C00FC47F4 /* NicknameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NicknameViewController.swift; sourceTree = "<group>"; };
@@ -184,6 +186,7 @@
 		B66DD167291DB4140095BE9B /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				B67BDE02292102700080EE89 /* NetworkCheck.swift */,
 				B66DD168291DB43F0095BE9B /* FirebaseAuth.swift */,
 				B66DD176291F876A0095BE9B /* Endpoint.swift */,
 				B66DD16C291DEEFA0095BE9B /* APIManager.swift */,
@@ -427,6 +430,7 @@
 				B66DD166291DAD910095BE9B /* UserDefaults+Extension.swift in Sources */,
 				B691FD73291BE23B00FC47F4 /* BirthViewController.swift in Sources */,
 				B620CCFC29192559002CE764 /* OnboardingPageViewController.swift in Sources */,
+				B67BDE03292102700080EE89 /* NetworkCheck.swift in Sources */,
 				B691FD75291BE24500FC47F4 /* EmailViewController.swift in Sources */,
 				B69B88132920F76B002ECA23 /* UINavigationController+Extension.swift in Sources */,
 			);

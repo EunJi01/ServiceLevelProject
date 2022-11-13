@@ -36,7 +36,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 //            }
 //        }
         
-        vc = NicknameViewController()
+        vc = LoginViewController()
         guard let vc = vc else { return }
         let nav = UINavigationController(rootViewController: vc)
         window?.rootViewController = nav

@@ -22,6 +22,7 @@ final class LoginViewModel {
     struct Input {
         let getMessageButtonTap: Signal<String>
         let phoneNumberTextField: Signal<String>
+        let excessiveRequestTap: Signal<Void>
     }
     
     struct Output {
@@ -32,6 +33,7 @@ final class LoginViewModel {
         let highlight: Signal<Bool>
         let numberLimit: Signal<String>
         let keyboardDisappear: Signal<Void>
+        let excessiveRequest: Signal<Void>
     }
     
     private let pushNextVCRelay = PublishRelay<Void>()
@@ -41,9 +43,10 @@ final class LoginViewModel {
     private let highlightRelay = PublishRelay<Bool>()
     private let numberLimitRelay = PublishRelay<String>()
     private let keyboardDisappearRelay = PublishRelay<Void>()
+    private let excessiveRequestRelay = PublishRelay<Void>()
     
     func transform(input: Input) -> Output {
-        // MARK: 중복 클릭 방지하기!!
+
         input.getMessageButtonTap
             .withUnretained(self)
             .throttle(.seconds(4), latest: false)
@@ -95,6 +98,12 @@ final class LoginViewModel {
             }
             .disposed(by: disposeBag)
         
+        input.excessiveRequestTap
+            .skip(5)
+            .map{ ValidationToast.excessiveRequest.rawValue }
+            .emit(to: showToastRelay)
+            .disposed(by: disposeBag)
+        
         return Output(
             pushNextVC: pushNextVCRelay.asSignal(),
             withHypen: phoneNumberRelay.asSignal(),
@@ -102,7 +111,8 @@ final class LoginViewModel {
             showToast: showToastRelay.asSignal(),
             highlight: highlightRelay.asSignal(),
             numberLimit: numberLimitRelay.asSignal(),
-            keyboardDisappear: keyboardDisappearRelay.asSignal()
+            keyboardDisappear: keyboardDisappearRelay.asSignal(),
+            excessiveRequest: excessiveRequestRelay.asSignal()
         )
     }
     

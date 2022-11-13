@@ -40,7 +40,8 @@ final class AuthViewController: UIViewController, CustomView {
                 .withLatestFrom(numbertextField.rx.text.orEmpty)
                 .asSignal(onErrorJustReturn: ""),
             numbertextField: numbertextField.rx.text.orEmpty
-                .asSignal(onErrorJustReturn: "")
+                .asSignal(onErrorJustReturn: ""),
+            excessiveRequestTap: resendButton.rx.tap.asSignal()
         )
         
         let output = vm.transform(input: input)

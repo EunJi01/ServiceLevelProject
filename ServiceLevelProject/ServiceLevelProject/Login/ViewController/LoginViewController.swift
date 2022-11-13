@@ -34,9 +34,9 @@ final class LoginViewController: UIViewController, CustomView {
             getMessageButtonTap: getMessageButton.rx.tap
                 .withLatestFrom(phoneNumberTextField.rx.text.orEmpty)
                 .asSignal(onErrorJustReturn: ""),
-            
             phoneNumberTextField: phoneNumberTextField.rx.text.orEmpty
-                .asSignal(onErrorJustReturn: "")
+                .asSignal(onErrorJustReturn: ""),
+            excessiveRequestTap: getMessageButton.rx.tap.asSignal()
         )
         
         let output = vm.transform(input: input)

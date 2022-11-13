@@ -22,6 +22,7 @@ final class AuthViewModel {
         let resendButtonTap: Signal<Void>
         let startButtonTap: Signal<String>
         let numbertextField: Signal<String>
+        let excessiveRequestTap: Signal<Void>
     }
     
     struct Output {
@@ -30,6 +31,7 @@ final class AuthViewModel {
         let highlight: Signal<Bool>
         let validate: Signal<Bool>
         let showToast: Signal<String?>
+        let excessiveRequest: Signal<Void>
     }
     
     private let pushSignupVCRelay = PublishRelay<Void>()
@@ -37,6 +39,7 @@ final class AuthViewModel {
     private let highlightRelay = PublishRelay<Bool>()
     private let validateRelay = PublishRelay<Bool>()
     private let showToastRelay = PublishRelay<String?>()
+    private let excessiveRequestRelay = PublishRelay<Void>()
     
     func transform(input: Input) -> Output {
         
@@ -87,18 +90,19 @@ final class AuthViewModel {
             }
             .disposed(by: disposeBag)
         
-//        input.multipleTimeMessageButtonTapped
-//            .skip(6)
-//            .map{ ValidationToast.excessiveRequest.rawValue }
-//            .emit(to: showToastRelay)
-//            .disposed(by: disposeBag)
+        input.excessiveRequestTap
+            .skip(5)
+            .map{ ValidationToast.excessiveRequest.rawValue }
+            .emit(to: showToastRelay)
+            .disposed(by: disposeBag)
         
         return Output(
             pushSignupVC: pushSignupVCRelay.asSignal(),
             presentMainVC: presentMainVCRelay.asSignal(),
             highlight: highlightRelay.asSignal(),
             validate: validateRelay.asSignal(),
-            showToast: showToastRelay.asSignal()
+            showToast: showToastRelay.asSignal(),
+            excessiveRequest: excessiveRequestRelay.asSignal()
         )
     }
     
