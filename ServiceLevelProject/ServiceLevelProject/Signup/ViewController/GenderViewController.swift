@@ -75,6 +75,15 @@ final class GenderViewController: UIViewController, CustomView {
                 vc.present(nav, animated: true)
             }
             .disposed(by: disposeBag)
+        
+        output.popToNicknameVC
+            .withUnretained(self)
+            .emit { vc, text in
+                self.showAlert(title: text, message: "닉네임을 다시 설정해주세요.") { _ in
+                    vc.navigationController?.popToViewController(of: NicknameViewController.self, animated: true)
+                }
+            }
+            .disposed(by: disposeBag)
     }
     
     private func setConfigure() {

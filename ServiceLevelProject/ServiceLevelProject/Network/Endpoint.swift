@@ -11,6 +11,7 @@ import Alamofire
 enum Endpoint {
     case login
     case signup
+    case withdraw
 }
 
 extension Endpoint {
@@ -22,29 +23,38 @@ extension Endpoint {
             return URL(string: Endpoint.baseURL + "/v1/user")
         case .signup:
             return URL(string: Endpoint.baseURL + "/v1/user")
+        case .withdraw:
+            return URL(string: Endpoint.baseURL + "/v1/withdraw")
         }
     }
     
     var headers: HTTPHeaders {
+        var header: HTTPHeaders = [:]
+        
         switch self {
         case .login:
-            return ["idtoken": UserDefaults.idToken]
+            header = ["idtoken": UserDefaults.idToken]
         case .signup:
-            let header: HTTPHeaders = [
+            header = [
                 "Content-Type": "application/x-www-form-urlencoded",
                 "idtoken": UserDefaults.idToken
             ]
-            return header
+        case .withdraw:
+            header = ["idtoken": UserDefaults.idToken]
         }
+        
+        return header
     }
     
     var parameters: [String: String] {
+        var parameters: [String: String] = [:]
+        
         switch self {
         case .login:
-            return [:]
+            break
         case .signup:
             guard let birth = UserDefaults.userBirth else { return [:] }
-            return [
+            parameters = [
                 "phoneNumber": "+82\(UserDefaults.userPhoneNumber)",
                 "FCMtoken": UserDefaults.fcmToken,
                 "nick": UserDefaults.userNickname,
@@ -52,6 +62,10 @@ extension Endpoint {
                 "email": UserDefaults.userEmail,
                 "gender": "\(UserDefaults.userGender)"
             ]
+        case .withdraw:
+            break
         }
+        
+        return parameters
     }
 }

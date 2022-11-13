@@ -73,6 +73,7 @@ final class AuthViewModel {
         
         input.resendButtonTap
             .withUnretained(self)
+            .throttle(.seconds(4), latest: false)
             .emit { vm, _ in
                 vm.showToastRelay.accept(AuthToast.sendMessage.rawValue)
                 let number = UserDefaults.userPhoneNumber
@@ -85,6 +86,12 @@ final class AuthViewModel {
                 }
             }
             .disposed(by: disposeBag)
+        
+//        input.multipleTimeMessageButtonTapped
+//            .skip(6)
+//            .map{ ValidationToast.excessiveRequest.rawValue }
+//            .emit(to: showToastRelay)
+//            .disposed(by: disposeBag)
         
         return Output(
             pushSignupVC: pushSignupVCRelay.asSignal(),

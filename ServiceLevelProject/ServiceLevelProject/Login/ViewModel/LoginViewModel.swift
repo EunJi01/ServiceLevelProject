@@ -46,6 +46,7 @@ final class LoginViewModel {
         // MARK: 중복 클릭 방지하기!!
         input.getMessageButtonTap
             .withUnretained(self)
+            .throttle(.seconds(4), latest: false)
             .emit { vm, number in
                 switch vm.validateRelay.value {
                 case true:

@@ -51,6 +51,9 @@
 		B69B8808291FD5EC002ECA23 /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = B69B8807291FD5EC002ECA23 /* UserInfo.swift */; };
 		B69B880B291FDF10002ECA23 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B69B880A291FDF10002ECA23 /* MainTabBarController.swift */; };
 		B69B880F291FFB48002ECA23 /* MyInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B69B880E291FFB48002ECA23 /* MyInfoViewController.swift */; };
+		B69B88112920E9D8002ECA23 /* LaunchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B69B88102920E9D8002ECA23 /* LaunchViewController.swift */; };
+		B69B88132920F76B002ECA23 /* UINavigationController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B69B88122920F76B002ECA23 /* UINavigationController+Extension.swift */; };
+		B69B88152920FBE2002ECA23 /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B69B88142920FBE2002ECA23 /* UIViewController+Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -94,6 +97,9 @@
 		B69B8807291FD5EC002ECA23 /* UserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfo.swift; sourceTree = "<group>"; };
 		B69B880A291FDF10002ECA23 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		B69B880E291FFB48002ECA23 /* MyInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyInfoViewController.swift; sourceTree = "<group>"; };
+		B69B88102920E9D8002ECA23 /* LaunchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchViewController.swift; sourceTree = "<group>"; };
+		B69B88122920F76B002ECA23 /* UINavigationController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+Extension.swift"; sourceTree = "<group>"; };
+		B69B88142920FBE2002ECA23 /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -143,6 +149,8 @@
 				B620CD0D2919532E002CE764 /* UILabel+Extension.swift */,
 				B620CD112919572E002CE764 /* UIColor+Extension.swift */,
 				B66DD165291DAD910095BE9B /* UserDefaults+Extension.swift */,
+				B69B88142920FBE2002ECA23 /* UIViewController+Extension.swift */,
+				B69B88122920F76B002ECA23 /* UINavigationController+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -255,6 +263,7 @@
 				B69B8809291FDEC0002ECA23 /* Main */,
 				B692E3DB2919132100BEAF22 /* AppDelegate.swift */,
 				B692E3DD2919132100BEAF22 /* SceneDelegate.swift */,
+				B69B88102920E9D8002ECA23 /* LaunchViewController.swift */,
 				B692E3F7291913DF00BEAF22 /* LaunchScreen.storyboard */,
 				B692E3E42919132300BEAF22 /* Assets.xcassets */,
 				B66DD16A291DE90C0095BE9B /* GoogleService-Info.plist */,
@@ -405,10 +414,12 @@
 				B620CD1029195449002CE764 /* ColorSet.swift in Sources */,
 				B69B880F291FFB48002ECA23 /* MyInfoViewController.swift in Sources */,
 				B69B8808291FD5EC002ECA23 /* UserInfo.swift in Sources */,
+				B69B88152920FBE2002ECA23 /* UIViewController+Extension.swift in Sources */,
 				B620CCFE291925D2002CE764 /* OnboardingViewController.swift in Sources */,
 				B69B880B291FDF10002ECA23 /* MainTabBarController.swift in Sources */,
 				B691FD7F291C1A7800FC47F4 /* EmailViewModel.swift in Sources */,
 				B692E3DE2919132100BEAF22 /* SceneDelegate.swift in Sources */,
+				B69B88112920E9D8002ECA23 /* LaunchViewController.swift in Sources */,
 				B66DD16D291DEEFA0095BE9B /* APIManager.swift in Sources */,
 				B620CD0C29194F34002CE764 /* String+Extension.swift in Sources */,
 				B620CD1629195CBC002CE764 /* CustomView.swift in Sources */,
@@ -417,6 +428,7 @@
 				B691FD73291BE23B00FC47F4 /* BirthViewController.swift in Sources */,
 				B620CCFC29192559002CE764 /* OnboardingPageViewController.swift in Sources */,
 				B691FD75291BE24500FC47F4 /* EmailViewController.swift in Sources */,
+				B69B88132920F76B002ECA23 /* UINavigationController+Extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

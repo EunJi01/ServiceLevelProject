@@ -32,12 +32,14 @@ final class GenderViewModel {
         let buttonHighlight: Signal<Gender>
         let validate: Signal<Bool>
         let showToast: Signal<String?>
+        let popToNicknameVC: Signal<String>
     }
     
     private let presentMainVCRelay = PublishRelay<Void>()
     private let buttonHighlightRelay = PublishRelay<Gender>()
     private let validateRelay = PublishRelay<Bool>()
     private let showToastRelay = PublishRelay<String?>()
+    private let popToNicknameVCRelay = PublishRelay<String>()
     
     func transform(input: Input) -> Output {
         
@@ -61,6 +63,7 @@ final class GenderViewModel {
         
         input.nextButtonTap
             .withUnretained(self)
+            .throttle(.seconds(4), latest: false)
             .emit { vm, _ in
                 vm.validate()
             }
@@ -70,7 +73,8 @@ final class GenderViewModel {
             presentMainVC: presentMainVCRelay.asSignal(),
             buttonHighlight: buttonHighlightRelay.asSignal(),
             validate: validateRelay.asSignal(),
-            showToast: showToastRelay.asSignal()
+            showToast: showToastRelay.asSignal(),
+            popToNicknameVC: popToNicknameVCRelay.asSignal()
         )
     }
     
@@ -86,8 +90,7 @@ final class GenderViewModel {
                 case .alreadySigned:
                     self?.showToastRelay.accept(statusCode.errorDescription)
                 case .nicknameError:
-                    // MARK: 부적절한 닉네임 -> 닉네임 화면 이동
-                    print("부적절한 닉네임 -> 닉네임 화면 이동")
+                    self?.popToNicknameVCRelay.accept(statusCode.errorDescription ?? "")
                 default:
                     self?.showToastRelay.accept(statusCode.errorDescription)
                 }

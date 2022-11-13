@@ -7,26 +7,34 @@
 
 import UIKit
 
-class MainTabBarController: UIViewController {
+enum TabBarTitle: String {
+    case home = "홈"
+    case shop = "새싹샵"
+    case friend = "새싹친구"
+    case myInfo = "내정보"
+}
+
+class MainTabBarController: UITabBarController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .red
         
-        //configureTabBarController()
+        configureTabBarController()
     }
     
-//    private func configureTabBarController() {
-//        let firstNav = UINavigationController(rootViewController: HomeViewController())
-//        let secondNav = UINavigationController(rootViewController: RatingViewController())
-//        let thirdNav = UINavigationController(rootViewController: UpcomingGameViewController())
-//
-//        firstNav.tabBarItem = UITabBarItem(title: LocalizationKey.newGames.localized, image: TabBarIconSet.newly, selectedImage: TabBarIconSet.newlySelected)
-//        secondNav.tabBarItem = UITabBarItem(title: LocalizationKey.popularGames.localized, image: TabBarIconSet.rating, selectedImage: TabBarIconSet.ratingSelected)
-//        thirdNav.tabBarItem = UITabBarItem(title: LocalizationKey.upcomingGames.localized, image: TabBarIconSet.upcoming, selectedImage: TabBarIconSet.upcomingSelected)
-//
-//        setViewControllers([secondNav, firstNav, thirdNav], animated: true)
-//        hidesBottomBarWhenPushed = true // 네비게이션VC로 푸쉬했을 때 밑에 바가 사라지는 것
-//        tabBar.tintColor = ColorSet.shared.button
-//    }
+    private func configureTabBarController() {
+        let firstNav = UINavigationController(rootViewController: MyInfoViewController())
+        let secondNav = UINavigationController(rootViewController: MyInfoViewController())
+        let thirdNav = UINavigationController(rootViewController: MyInfoViewController())
+        let fourthNav = UINavigationController(rootViewController: MyInfoViewController())
+
+        firstNav.tabBarItem = UITabBarItem(title: TabBarTitle.home.rawValue, image: .setImage(.woman), tag: 0)
+        secondNav.tabBarItem = UITabBarItem(title: TabBarTitle.shop.rawValue, image: .setImage(.woman), tag: 1)
+        thirdNav.tabBarItem = UITabBarItem(title: TabBarTitle.friend.rawValue, image: .setImage(.woman), tag: 2)
+        fourthNav.tabBarItem = UITabBarItem(title: TabBarTitle.myInfo.rawValue, image: .setImage(.woman), tag: 3)
+
+        setViewControllers([firstNav, secondNav, thirdNav, fourthNav], animated: true)
+        hidesBottomBarWhenPushed = true // 네비게이션VC로 푸쉬했을 때 밑에 바가 사라지는 것
+        tabBar.tintColor = .setColor(.green)
+    }
 }
