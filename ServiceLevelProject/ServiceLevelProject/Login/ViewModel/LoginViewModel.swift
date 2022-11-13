@@ -43,7 +43,7 @@ final class LoginViewModel {
     private let keyboardDisappearRelay = PublishRelay<Void>()
     
     func transform(input: Input) -> Output {
-        
+        // MARK: 중복 클릭 방지하기!!
         input.getMessageButtonTap
             .withUnretained(self)
             .emit { vm, number in
@@ -54,7 +54,7 @@ final class LoginViewModel {
                     FirebaseAuth.shared.requestVerificationID(number: number) { verificationID, error in
                         if let verificationID = verificationID {
                             let number = number.replacingOccurrences(of: "-", with: "")
-                            UserDefaults.userPhoneNumber = "+82\(number)"
+                            UserDefaults.userPhoneNumber = number
                             UserDefaults.authVerificationID = verificationID
                             vm.pushNextVCRelay.accept(())
                         } else {

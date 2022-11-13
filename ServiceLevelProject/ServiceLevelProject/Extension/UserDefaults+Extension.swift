@@ -27,11 +27,20 @@ extension UserDefaults {
     @UserDefault(key: "showOnboarding", defaultValue: true)
     static var showOnboarding: Bool
     
-    @UserDefault(key: "didAuth", defaultValue: false)
-    static var didAuth: Bool
+    @UserDefault(key: "mustSignup", defaultValue: false)
+    static var mustSignup: Bool
+    
+    @UserDefault(key: "alreadySigned", defaultValue: false)
+    static var alreadySigned: Bool
+    
+    @UserDefault(key: "fcmToken", defaultValue: "")
+    static var fcmToken: String
     
     @UserDefault(key: "authVerificationID", defaultValue: "")
     static var authVerificationID: String
+    
+    @UserDefault(key: "idToken", defaultValue: "")
+    static var idToken: String
     
     @UserDefault(key: "userPhoneNumber", defaultValue: "")
     static var userPhoneNumber: String
@@ -47,7 +56,4 @@ extension UserDefaults {
     
     @UserDefault(key: "userGender", defaultValue: 10)
     static var userGender: Int
-    
-    @UserDefault(key: "idToken", defaultValue: "")
-    static var idToken: String
 }

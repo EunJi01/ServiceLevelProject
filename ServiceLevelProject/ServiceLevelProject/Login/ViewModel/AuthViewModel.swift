@@ -25,16 +25,18 @@ final class AuthViewModel {
     }
     
     struct Output {
-        let pushNextVC: Signal<Void>
+        let pushSignupVC: Signal<Void>
+        let presentMainVC: Signal<Void>
         let highlight: Signal<Bool>
         let validate: Signal<Bool>
-        let showToast: Signal<String>
+        let showToast: Signal<String?>
     }
     
-    private let pushNextVCRelay = PublishRelay<Void>()
+    private let pushSignupVCRelay = PublishRelay<Void>()
+    private let presentMainVCRelay = PublishRelay<Void>()
     private let highlightRelay = PublishRelay<Bool>()
     private let validateRelay = PublishRelay<Bool>()
-    private let showToastRelay = PublishRelay<String>()
+    private let showToastRelay = PublishRelay<String?>()
     
     func transform(input: Input) -> Output {
         
@@ -47,8 +49,7 @@ final class AuthViewModel {
                     if error != nil {
                         self?.showToastRelay.accept(AuthToast.discrepancy.rawValue)
                     } else {
-                        UserDefaults.didAuth = true
-                        self?.pushNextVCRelay.accept(())
+                        self?.requestIdToken()
                     }
                 }
             }
@@ -79,17 +80,44 @@ final class AuthViewModel {
                     if let verificationID = verificationID {
                         UserDefaults.authVerificationID = verificationID
                     } else {
-                        vm.showToastRelay.accept(ValidationToast.otherErrors.rawValue)
+                        vm.showToastRelay.accept(AuthToast.discrepancy.rawValue)
                     }
                 }
             }
             .disposed(by: disposeBag)
         
         return Output(
-            pushNextVC: pushNextVCRelay.asSignal(),
+            pushSignupVC: pushSignupVCRelay.asSignal(),
+            presentMainVC: presentMainVCRelay.asSignal(),
             highlight: highlightRelay.asSignal(),
             validate: validateRelay.asSignal(),
             showToast: showToastRelay.asSignal()
         )
+    }
+    
+    private func requestIdToken() {
+        FirebaseAuth.shared.getIDToken { [weak self] error in
+            if error != nil {
+                self?.showToastRelay.accept(AuthToast.tokenError.rawValue)
+            } else {
+                self?.requestLogin()
+            }
+        }
+    }
+    
+    private func requestLogin() {
+        APIManager.shared.get(type: UserInfo.self, endpoint: .login) { [weak self] statusCode in
+            print(statusCode.rawValue)
+            switch statusCode {
+            case .success:
+                UserDefaults.alreadySigned = true
+                self?.presentMainVCRelay.accept(())
+            case .mustSignup:
+                UserDefaults.mustSignup = true
+                self?.pushSignupVCRelay.accept(())
+            default:
+                self?.showToastRelay.accept(statusCode.errorDescription)
+            }
+        }
     }
 }

@@ -19,27 +19,24 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window = UIWindow(windowScene: windowScene)
         let vc: UIViewController?
         
-        // MARK: 기획서 보고 다시 구성하기!!! -> 네트워크가 연결되지 않은 상태로 로그인 한다든가... 그런거 생각하기... VC를 스플래시처럼 구성!
+        switch UserDefaults.alreadySigned { // 회원가입 끝난 유저
+        case true:
+            vc = MainTabBarController()
+            
+        case false:
+            switch UserDefaults.mustSignup {
+            case true: // 회원가입은 안했지만 전화번호 인증 완료
+                vc = NicknameViewController()
+            case false:
+                if UserDefaults.showOnboarding { // 온보딩부터 봐야함
+                    vc = OnboardingPageViewController()
+                } else { // 인증은 안했는데 온보딩은 봤음
+                    vc = LoginViewController()
+                }
+            }
+        }
         
-//        switch UserDefaults.userToken.isEmpty {
-//        case true:
-//
-//            switch UserDefaults.didAuth {
-//            case true: // 회원가입은 안했지만 전화번호 인증 완료
-//                vc = NicknameViewController()
-//            case false:
-//                if UserDefaults.showOnboarding { // 온보딩부터 봐야함
-//                    vc = OnboardingPageViewController()
-//                } else { // 인증은 안했는데 온보딩은 봤음 --> LoginViewController
-//                    vc = LoginViewController()
-//                }
-//            }
-//
-//        case false: // 회원가입 끝난 유저
-//            vc = NicknameViewController()
-//        }
-        
-        vc = NicknameViewController()
+        //vc = NicknameViewController()
         guard let vc = vc else { return }
         let nav = UINavigationController(rootViewController: vc)
         window?.rootViewController = nav

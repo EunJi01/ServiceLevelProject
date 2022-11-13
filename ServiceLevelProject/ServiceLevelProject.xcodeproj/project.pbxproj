@@ -47,6 +47,10 @@
 		B692E3F4291913C700BEAF22 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = B692E3F3291913C700BEAF22 /* RxCocoa */; };
 		B692E3F6291913C700BEAF22 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = B692E3F5291913C700BEAF22 /* RxSwift */; };
 		B692E3F8291913DF00BEAF22 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B692E3F7291913DF00BEAF22 /* LaunchScreen.storyboard */; };
+		B69B8805291FCD8A002ECA23 /* APIStatusCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B69B8804291FCD8A002ECA23 /* APIStatusCode.swift */; };
+		B69B8808291FD5EC002ECA23 /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = B69B8807291FD5EC002ECA23 /* UserInfo.swift */; };
+		B69B880B291FDF10002ECA23 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B69B880A291FDF10002ECA23 /* MainTabBarController.swift */; };
+		B69B880F291FFB48002ECA23 /* MyInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B69B880E291FFB48002ECA23 /* MyInfoViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -86,6 +90,10 @@
 		B692E3E42919132300BEAF22 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B692E3E92919132300BEAF22 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B692E3F7291913DF00BEAF22 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
+		B69B8804291FCD8A002ECA23 /* APIStatusCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIStatusCode.swift; sourceTree = "<group>"; };
+		B69B8807291FD5EC002ECA23 /* UserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfo.swift; sourceTree = "<group>"; };
+		B69B880A291FDF10002ECA23 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
+		B69B880E291FFB48002ECA23 /* MyInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyInfoViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -129,12 +137,12 @@
 		B620CD0629193522002CE764 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
-				B620CD0729193540002CE764 /* UIImage+Extension.swift */,
 				B620CD0B29194F34002CE764 /* String+Extension.swift */,
+				B66DD178291FB78F0095BE9B /* Date+Extension.swift */,
+				B620CD0729193540002CE764 /* UIImage+Extension.swift */,
 				B620CD0D2919532E002CE764 /* UILabel+Extension.swift */,
 				B620CD112919572E002CE764 /* UIColor+Extension.swift */,
 				B66DD165291DAD910095BE9B /* UserDefaults+Extension.swift */,
-				B66DD178291FB78F0095BE9B /* Date+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -169,8 +177,9 @@
 			isa = PBXGroup;
 			children = (
 				B66DD168291DB43F0095BE9B /* FirebaseAuth.swift */,
-				B66DD16C291DEEFA0095BE9B /* APIManager.swift */,
 				B66DD176291F876A0095BE9B /* Endpoint.swift */,
+				B66DD16C291DEEFA0095BE9B /* APIManager.swift */,
+				B69B8804291FCD8A002ECA23 /* APIStatusCode.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -239,9 +248,11 @@
 				B620CD0629193522002CE764 /* Extension */,
 				B620CD0329192BA9002CE764 /* Set */,
 				B66DD167291DB4140095BE9B /* Network */,
+				B69B8806291FD5C9002ECA23 /* Model */,
 				B620CCFA29191D5D002CE764 /* Onboarding */,
 				B620CD1729196595002CE764 /* Login */,
 				B691FD6D291BE1F600FC47F4 /* Signup */,
+				B69B8809291FDEC0002ECA23 /* Main */,
 				B692E3DB2919132100BEAF22 /* AppDelegate.swift */,
 				B692E3DD2919132100BEAF22 /* SceneDelegate.swift */,
 				B692E3F7291913DF00BEAF22 /* LaunchScreen.storyboard */,
@@ -250,6 +261,39 @@
 				B692E3E92919132300BEAF22 /* Info.plist */,
 			);
 			path = ServiceLevelProject;
+			sourceTree = "<group>";
+		};
+		B69B8806291FD5C9002ECA23 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				B69B8807291FD5EC002ECA23 /* UserInfo.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		B69B8809291FDEC0002ECA23 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				B69B880C291FFAC6002ECA23 /* ViewModel */,
+				B69B880D291FFACF002ECA23 /* ViewController */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
+		B69B880C291FFAC6002ECA23 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		B69B880D291FFACF002ECA23 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				B69B880A291FDF10002ECA23 /* MainTabBarController.swift */,
+				B69B880E291FFB48002ECA23 /* MyInfoViewController.swift */,
+			);
+			path = ViewController;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -349,6 +393,7 @@
 				B620CD122919572E002CE764 /* UIColor+Extension.swift in Sources */,
 				B620CD0829193540002CE764 /* UIImage+Extension.swift in Sources */,
 				B691FD77291BE24E00FC47F4 /* GenderViewController.swift in Sources */,
+				B69B8805291FCD8A002ECA23 /* APIStatusCode.swift in Sources */,
 				B692E3DC2919132100BEAF22 /* AppDelegate.swift in Sources */,
 				B620CD19291965F3002CE764 /* LoginViewModel.swift in Sources */,
 				B620CD1D291979FF002CE764 /* AuthViewModel.swift in Sources */,
@@ -358,7 +403,10 @@
 				B620CD1B291979F8002CE764 /* AuthViewController.swift in Sources */,
 				B66DD169291DB43F0095BE9B /* FirebaseAuth.swift in Sources */,
 				B620CD1029195449002CE764 /* ColorSet.swift in Sources */,
+				B69B880F291FFB48002ECA23 /* MyInfoViewController.swift in Sources */,
+				B69B8808291FD5EC002ECA23 /* UserInfo.swift in Sources */,
 				B620CCFE291925D2002CE764 /* OnboardingViewController.swift in Sources */,
+				B69B880B291FDF10002ECA23 /* MainTabBarController.swift in Sources */,
 				B691FD7F291C1A7800FC47F4 /* EmailViewModel.swift in Sources */,
 				B692E3DE2919132100BEAF22 /* SceneDelegate.swift in Sources */,
 				B66DD16D291DEEFA0095BE9B /* APIManager.swift in Sources */,
@@ -497,7 +545,7 @@
 				CODE_SIGN_ENTITLEMENTS = ServiceLevelProject/ServiceLevelProject.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 2RFRSG9M26;
+				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ServiceLevelProject/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -526,7 +574,7 @@
 				CODE_SIGN_ENTITLEMENTS = ServiceLevelProject/ServiceLevelProject.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 2RFRSG9M26;
+				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ServiceLevelProject/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;

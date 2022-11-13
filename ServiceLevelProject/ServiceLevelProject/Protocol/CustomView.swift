@@ -30,7 +30,6 @@ extension CustomView {
         view.textAlignment = aligment
         view.font = .systemFont(ofSize: size)
         view.text = text
-        // MARK: 행간 조절하기!
         return view
     }
     

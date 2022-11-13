@@ -42,7 +42,6 @@ final class NicknameViewModel {
                     UserDefaults.userNickname = nickname
                     vm.pushNextVCRelay.accept(())
                 default:
-                    // MARK: 회원가입 최종 플로우 실패 조건 추가
                     vm.showToastRelay.accept(NicknameToast.countError.rawValue)
                 }
             }

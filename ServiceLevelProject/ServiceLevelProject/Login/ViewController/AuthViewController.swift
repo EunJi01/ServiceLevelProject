@@ -45,10 +45,20 @@ final class AuthViewController: UIViewController, CustomView {
         
         let output = vm.transform(input: input)
         
-        output.pushNextVC
+        output.pushSignupVC
             .withUnretained(self)
             .emit { vc, _ in
                 vc.navigationController?.pushViewController(NicknameViewController(), animated: true)
+            }
+            .disposed(by: disposeBag)
+        
+        output.presentMainVC
+            .withUnretained(self)
+            .emit { vc, _ in
+                let vc = MainTabBarController()
+                let nav = UINavigationController(rootViewController: vc)
+                nav.modalPresentationStyle = .fullScreen
+                vc.present(nav, animated: true)
             }
             .disposed(by: disposeBag)
         

@@ -65,6 +65,16 @@ final class GenderViewController: UIViewController, CustomView {
                 vc.view.makeToast(text, position: .top)
             }
             .disposed(by: disposeBag)
+        
+        output.presentMainVC
+            .withUnretained(self)
+            .emit { vc, _ in
+                let vc = MainTabBarController()
+                let nav = UINavigationController(rootViewController: vc)
+                nav.modalPresentationStyle = .fullScreen
+                vc.present(nav, animated: true)
+            }
+            .disposed(by: disposeBag)
     }
     
     private func setConfigure() {

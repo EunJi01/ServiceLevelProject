@@ -28,16 +28,16 @@ final class GenderViewModel {
     }
     
     struct Output {
-        let pushNextVC: Signal<Void>
+        let presentMainVC: Signal<Void>
         let buttonHighlight: Signal<Gender>
         let validate: Signal<Bool>
-        let showToast: Signal<String>
+        let showToast: Signal<String?>
     }
     
-    private let pushNextVCRelay = PublishRelay<Void>()
+    private let presentMainVCRelay = PublishRelay<Void>()
     private let buttonHighlightRelay = PublishRelay<Gender>()
     private let validateRelay = PublishRelay<Bool>()
-    private let showToastRelay = PublishRelay<String>()
+    private let showToastRelay = PublishRelay<String?>()
     
     func transform(input: Input) -> Output {
         
@@ -67,7 +67,7 @@ final class GenderViewModel {
             .disposed(by: disposeBag)
         
         return Output(
-            pushNextVC: pushNextVCRelay.asSignal(),
+            presentMainVC: presentMainVCRelay.asSignal(),
             buttonHighlight: buttonHighlightRelay.asSignal(),
             validate: validateRelay.asSignal(),
             showToast: showToastRelay.asSignal()
@@ -78,18 +78,20 @@ final class GenderViewModel {
         if UserDefaults.userGender == 10 {
             showToastRelay.accept(GenderToast.notValid.rawValue)
         } else {
-            // MARK: 네트워크 통신
-            print(
-                UserDefaults.showOnboarding,
-                UserDefaults.didAuth,
-                UserDefaults.authVerificationID,
-                UserDefaults.userPhoneNumber,
-                UserDefaults.userNickname,
-                UserDefaults.userBirth,
-                UserDefaults.userEmail,
-                UserDefaults.userGender,
-                UserDefaults.idToken
-            )
+            APIManager.shared.post(endpoint: .signup) { [weak self] statusCode in
+                switch statusCode {
+                case .success:
+                    self?.presentMainVCRelay.accept(())
+                    UserDefaults.alreadySigned = true
+                case .alreadySigned:
+                    self?.showToastRelay.accept(statusCode.errorDescription)
+                case .nicknameError:
+                    // MARK: 부적절한 닉네임 -> 닉네임 화면 이동
+                    print("부적절한 닉네임 -> 닉네임 화면 이동")
+                default:
+                    self?.showToastRelay.accept(statusCode.errorDescription)
+                }
+            }
         }
     }
 }

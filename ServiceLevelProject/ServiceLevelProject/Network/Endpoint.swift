@@ -9,21 +9,26 @@ import Foundation
 import Alamofire
 
 enum Endpoint {
+    case login
     case signup
 }
 
 extension Endpoint {
-    static let base = "http://api.sesac.co.kr:1207"
+    static let baseURL = "http://api.sesac.co.kr:1207"
     
-    var url: URL {
+    var url: URL? {
         switch self {
+        case .login:
+            return URL(string: Endpoint.baseURL + "/v1/user")
         case .signup:
-            return URL(string: Endpoint.base + "/v1/user")! // MARK: 옵셔널 해제 어케하징...
+            return URL(string: Endpoint.baseURL + "/v1/user")
         }
     }
     
     var headers: HTTPHeaders {
         switch self {
+        case .login:
+            return ["idtoken": UserDefaults.idToken]
         case .signup:
             let header: HTTPHeaders = [
                 "Content-Type": "application/x-www-form-urlencoded",
@@ -35,13 +40,13 @@ extension Endpoint {
     
     var parameters: [String: String] {
         switch self {
-            
+        case .login:
+            return [:]
         case .signup:
             guard let birth = UserDefaults.userBirth else { return [:] }
-            
             return [
-                "phoneNumber": UserDefaults.userPhoneNumber,
-                "FCMtoken": "",
+                "phoneNumber": "+82\(UserDefaults.userPhoneNumber)",
+                "FCMtoken": UserDefaults.fcmToken,
                 "nick": UserDefaults.userNickname,
                 "birth": "\(birth)",
                 "email": UserDefaults.userEmail,
