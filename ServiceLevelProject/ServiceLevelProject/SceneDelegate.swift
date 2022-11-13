@@ -17,35 +17,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: windowScene)
-        let vc: UIViewController?
-        
-//        switch UserDefaults.alreadySigned { // 회원가입 끝난 유저
-//        case true:
-//            vc = MainTabBarController()
-//
-//        case false:
-//            switch UserDefaults.mustSignup {
-//            case true: // 회원가입은 안했지만 전화번호 인증 완료
-//                vc = NicknameViewController()
-//            case false:
-//                if UserDefaults.showOnboarding { // 온보딩부터 봐야함
-//                    vc = OnboardingPageViewController()
-//                } else { // 인증은 안했는데 온보딩은 봤음
-//                    vc = LoginViewController()
-//                }
-//            }
-//        }
-        
-        vc = LoginViewController()
-        guard let vc = vc else { return }
-        let nav = UINavigationController(rootViewController: vc)
-        window?.rootViewController = nav
+        let vc = LaunchViewController()
+        window?.rootViewController = vc
         window?.makeKeyAndVisible()
     }
     
     private func setAppearance() {
         UIImageView.appearance().contentMode = .scaleAspectFit
-        UINavigationBar.appearance().backIndicatorImage = IconSet.backButton // MARK: 왜 안되냐
+        // MARK: UINavigationBar 기본 백버튼 변경하기, 네비게이션/탭바 선(?) 추가하기
+        UINavigationBar.appearance().backIndicatorImage = IconSet.backButton
         UINavigationBar.appearance().tintColor = .black
     }
 

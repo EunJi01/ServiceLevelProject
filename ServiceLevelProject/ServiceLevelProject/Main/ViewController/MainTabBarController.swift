@@ -23,15 +23,17 @@ final class MainTabBarController: UITabBarController {
     }
     
     private func configureTabBarController() {
+        let image = UIImage(systemName: "house")
+        
         let firstNav = UINavigationController(rootViewController: MyInfoViewController())
         let secondNav = UINavigationController(rootViewController: MyInfoViewController())
         let thirdNav = UINavigationController(rootViewController: MyInfoViewController())
         let fourthNav = UINavigationController(rootViewController: MyInfoViewController())
 
-        firstNav.tabBarItem = UITabBarItem(title: TabBarTitle.home.rawValue, image: .setImage(.woman), tag: 0)
-        secondNav.tabBarItem = UITabBarItem(title: TabBarTitle.shop.rawValue, image: .setImage(.woman), tag: 1)
-        thirdNav.tabBarItem = UITabBarItem(title: TabBarTitle.friend.rawValue, image: .setImage(.woman), tag: 2)
-        fourthNav.tabBarItem = UITabBarItem(title: TabBarTitle.myInfo.rawValue, image: .setImage(.woman), tag: 3)
+        firstNav.tabBarItem = UITabBarItem(title: TabBarTitle.home.rawValue, image: image, tag: 0)
+        secondNav.tabBarItem = UITabBarItem(title: TabBarTitle.shop.rawValue, image: image, tag: 1)
+        thirdNav.tabBarItem = UITabBarItem(title: TabBarTitle.friend.rawValue, image: image, tag: 2)
+        fourthNav.tabBarItem = UITabBarItem(title: TabBarTitle.myInfo.rawValue, image: image, tag: 3)
 
         setViewControllers([firstNav, secondNav, thirdNav, fourthNav], animated: true)
         hidesBottomBarWhenPushed = true // 네비게이션VC로 푸쉬했을 때 밑에 바가 사라지는 것

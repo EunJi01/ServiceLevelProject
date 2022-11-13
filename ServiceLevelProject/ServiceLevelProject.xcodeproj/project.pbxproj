@@ -31,6 +31,7 @@
 		B66DD177291F876A0095BE9B /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = B66DD176291F876A0095BE9B /* Endpoint.swift */; };
 		B66DD179291FB78F0095BE9B /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B66DD178291FB78F0095BE9B /* Date+Extension.swift */; };
 		B67BDE03292102700080EE89 /* NetworkCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = B67BDE02292102700080EE89 /* NetworkCheck.swift */; };
+		B67BDE05292106A20080EE89 /* MyInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B67BDE04292106A20080EE89 /* MyInfoViewModel.swift */; };
 		B691FD64291AB3EC00FC47F4 /* IconSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = B691FD63291AB3EC00FC47F4 /* IconSet.swift */; };
 		B691FD71291BE22C00FC47F4 /* NicknameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B691FD70291BE22C00FC47F4 /* NicknameViewController.swift */; };
 		B691FD73291BE23B00FC47F4 /* BirthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B691FD72291BE23B00FC47F4 /* BirthViewController.swift */; };
@@ -78,6 +79,7 @@
 		B66DD176291F876A0095BE9B /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
 		B66DD178291FB78F0095BE9B /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
 		B67BDE02292102700080EE89 /* NetworkCheck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkCheck.swift; sourceTree = "<group>"; };
+		B67BDE04292106A20080EE89 /* MyInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyInfoViewModel.swift; sourceTree = "<group>"; };
 		B691FD63291AB3EC00FC47F4 /* IconSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconSet.swift; sourceTree = "<group>"; };
 		B691FD6B291ACDB700FC47F4 /* ServiceLevelProject.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ServiceLevelProject.entitlements; sourceTree = "<group>"; };
 		B691FD70291BE22C00FC47F4 /* NicknameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NicknameViewController.swift; sourceTree = "<group>"; };
@@ -295,6 +297,7 @@
 		B69B880C291FFAC6002ECA23 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				B67BDE04292106A20080EE89 /* MyInfoViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -421,6 +424,7 @@
 				B620CCFE291925D2002CE764 /* OnboardingViewController.swift in Sources */,
 				B69B880B291FDF10002ECA23 /* MainTabBarController.swift in Sources */,
 				B691FD7F291C1A7800FC47F4 /* EmailViewModel.swift in Sources */,
+				B67BDE05292106A20080EE89 /* MyInfoViewModel.swift in Sources */,
 				B692E3DE2919132100BEAF22 /* SceneDelegate.swift in Sources */,
 				B69B88112920E9D8002ECA23 /* LaunchViewController.swift in Sources */,
 				B66DD16D291DEEFA0095BE9B /* APIManager.swift in Sources */,
@@ -561,7 +565,7 @@
 				CODE_SIGN_ENTITLEMENTS = ServiceLevelProject/ServiceLevelProject.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 2RFRSG9M26;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ServiceLevelProject/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -590,7 +594,7 @@
 				CODE_SIGN_ENTITLEMENTS = ServiceLevelProject/ServiceLevelProject.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 2RFRSG9M26;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ServiceLevelProject/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;

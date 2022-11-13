@@ -55,6 +55,7 @@ final class LoginViewModel {
                 case true:
                     vm.keyboardDisappearRelay.accept(())
                     vm.showToastRelay.accept(ValidationToast.valid.rawValue)
+
                     FirebaseAuth.shared.requestVerificationID(number: number) { verificationID, error in
                         if let verificationID = verificationID {
                             let number = number.replacingOccurrences(of: "-", with: "")

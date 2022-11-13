@@ -56,13 +56,13 @@ final class AuthViewController: UIViewController, CustomView {
         output.presentMainVC
             .withUnretained(self)
             .emit { vc, _ in
-                let vc = MainTabBarController()
-                let nav = UINavigationController(rootViewController: vc)
-                nav.modalPresentationStyle = .fullScreen
-                vc.present(nav, animated: true)
+                let mainVC = MainTabBarController()
+                let mainNav = UINavigationController(rootViewController: mainVC)
+                mainNav.modalPresentationStyle = .fullScreen
+                vc.present(mainNav, animated: true)
             }
             .disposed(by: disposeBag)
-        
+            
         output.highlight
             .withUnretained(self)
             .emit { vc, highlight in

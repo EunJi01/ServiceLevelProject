@@ -27,11 +27,8 @@ extension UserDefaults {
     @UserDefault(key: "showOnboarding", defaultValue: true)
     static var showOnboarding: Bool
     
-    @UserDefault(key: "mustSignup", defaultValue: false)
-    static var mustSignup: Bool
-    
-    @UserDefault(key: "alreadySigned", defaultValue: false)
-    static var alreadySigned: Bool
+    @UserDefault(key: "authenticationCompleted", defaultValue: false)
+    static var authenticationCompleted: Bool
     
     @UserDefault(key: "fcmToken", defaultValue: "")
     static var fcmToken: String

@@ -86,7 +86,6 @@ final class GenderViewModel {
                 switch statusCode {
                 case .success:
                     self?.presentMainVCRelay.accept(())
-                    UserDefaults.alreadySigned = true
                 case .alreadySigned:
                     self?.showToastRelay.accept(statusCode.errorDescription)
                 case .nicknameError:

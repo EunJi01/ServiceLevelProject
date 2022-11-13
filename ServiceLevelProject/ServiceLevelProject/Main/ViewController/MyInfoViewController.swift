@@ -14,4 +14,6 @@ final class MyInfoViewController: UIViewController {
 
         view.backgroundColor = .white
     }
+    
+    
 }

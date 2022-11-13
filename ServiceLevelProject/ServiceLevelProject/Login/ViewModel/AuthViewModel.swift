@@ -48,6 +48,7 @@ final class AuthViewModel {
             .emit { vm, number in
                 let verificationID = UserDefaults.authVerificationID
                 let credential = FirebaseAuth.shared.credential(verificationID: verificationID, number: number)
+
                 FirebaseAuth.shared.login(credential: credential) { [weak self] authDataResult, error in
                     if error != nil {
                         self?.showToastRelay.accept(AuthToast.discrepancy.rawValue)
@@ -121,10 +122,9 @@ final class AuthViewModel {
             print(statusCode.rawValue)
             switch statusCode {
             case .success:
-                UserDefaults.alreadySigned = true
+                UserDefaults.authenticationCompleted = true
                 self?.presentMainVCRelay.accept(())
             case .mustSignup:
-                UserDefaults.mustSignup = true
                 self?.pushSignupVCRelay.accept(())
             default:
                 self?.showToastRelay.accept(statusCode.errorDescription)

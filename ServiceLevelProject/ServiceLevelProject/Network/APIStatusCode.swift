@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum APIStatucCode: Int, Error {
+enum APIStatusCode: Int, Error {
     case success = 200
     case alreadySigned = 201
     case nicknameError = 202
@@ -17,7 +17,7 @@ enum APIStatucCode: Int, Error {
     case clientError = 501
 }
 
-extension APIStatucCode: LocalizedError {
+extension APIStatusCode: LocalizedError {
     var errorDescription: String? {
         switch self {
         case .alreadySigned:
