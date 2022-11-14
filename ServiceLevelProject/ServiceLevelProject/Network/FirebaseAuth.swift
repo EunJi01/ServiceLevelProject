@@ -8,7 +8,7 @@
 import Foundation
 import FirebaseAuth
 
-class FirebaseAuth {
+final class FirebaseAuth {
     static let shared = FirebaseAuth()
     private init() { }
     

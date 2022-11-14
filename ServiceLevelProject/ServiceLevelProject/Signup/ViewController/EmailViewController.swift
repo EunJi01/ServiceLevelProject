@@ -44,7 +44,7 @@ final class EmailViewController: UIViewController, CustomView {
         output.pushNextVC
             .withUnretained(self)
             .emit { vc, _ in
-                vc.navigationController?.pushViewController(GenderViewController(), animated: true)
+                vc.transition(GenderViewController(), transitionStyle: .push)
             }
             .disposed(by: disposeBag)
         

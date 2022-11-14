@@ -90,10 +90,18 @@ final class GenderViewModel {
                     self?.showToastRelay.accept(statusCode.errorDescription)
                 case .nicknameError:
                     self?.popToNicknameVCRelay.accept(statusCode.errorDescription ?? "")
+                case .firebaseTokenError:
+                    self?.getIdToken()
                 default:
                     self?.showToastRelay.accept(statusCode.errorDescription)
                 }
             }
+        }
+    }
+    
+    private func getIdToken() {
+        FirebaseAuth.shared.getIDToken { [weak self] error in
+            self?.showToastRelay.accept(AuthToast.tokenError.rawValue)
         }
     }
 }

@@ -44,7 +44,7 @@ final class LoginViewController: UIViewController, CustomView {
         output.pushNextVC
             .withUnretained(self)
             .emit { vc, _ in
-                vc.navigationController?.pushViewController(AuthViewController(), animated: true)
+                vc.transition(AuthViewController(), transitionStyle: .push)
             }
             .disposed(by: disposeBag)
         

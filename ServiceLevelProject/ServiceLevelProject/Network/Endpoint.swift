@@ -11,20 +11,23 @@ import Alamofire
 enum Endpoint {
     case login
     case signup
+    case mypage
     case withdraw
 }
 
 extension Endpoint {
-    static let baseURL = "http://api.sesac.co.kr:1207"
+    static let baseURL = "http://api.sesac.co.kr:1207/"
     
     var url: URL? {
         switch self {
         case .login:
-            return URL(string: Endpoint.baseURL + "/v1/user")
+            return URL(string: Endpoint.baseURL + "v1/user")
         case .signup:
-            return URL(string: Endpoint.baseURL + "/v1/user")
+            return URL(string: Endpoint.baseURL + "v1/user")
+        case .mypage:
+            return URL(string: Endpoint.baseURL + "v1/user/mypage")
         case .withdraw:
-            return URL(string: Endpoint.baseURL + "/v1/withdraw")
+            return URL(string: Endpoint.baseURL + "v1/withdraw")
         }
     }
     
@@ -39,6 +42,8 @@ extension Endpoint {
                 "Content-Type": "application/x-www-form-urlencoded",
                 "idtoken": UserDefaults.idToken
             ]
+        case .mypage:
+            header = [:]
         case .withdraw:
             header = ["idtoken": UserDefaults.idToken]
         }
@@ -50,19 +55,25 @@ extension Endpoint {
         var parameters: [String: String] = [:]
         
         switch self {
-        case .login:
-            break
         case .signup:
             guard let birth = UserDefaults.userBirth else { return [:] }
             parameters = [
-                "phoneNumber": "+82\(UserDefaults.userPhoneNumber)",
+                "phoneNumber": "+82\(UserDefaults.userPhoneNumber.dropFirst())",
                 "FCMtoken": UserDefaults.fcmToken,
                 "nick": UserDefaults.userNickname,
                 "birth": "\(birth)",
                 "email": UserDefaults.userEmail,
                 "gender": "\(UserDefaults.userGender)"
             ]
-        case .withdraw:
+        case .mypage:
+            parameters = [
+                "searchable": "",
+                "ageMin": "",
+                "ageMax": "",
+                "gender": "",
+                "study": ""
+            ]
+        default:
             break
         }
         

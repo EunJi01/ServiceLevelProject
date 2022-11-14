@@ -33,11 +33,7 @@ final class OnboardingPageViewController: UIViewController, CustomView {
         startButton.rx.tap
             .bind { [weak self] _ in
                 UserDefaults.showOnboarding = false
-                
-                let vc = LoginViewController()
-                let nav = UINavigationController(rootViewController: vc)
-                nav.modalPresentationStyle = .fullScreen
-                self?.present(nav, animated: true)
+                self?.transition(LoginViewController(), transitionStyle: .presentFullNavigation)
             }
             .disposed(by: disposeBag)
     }

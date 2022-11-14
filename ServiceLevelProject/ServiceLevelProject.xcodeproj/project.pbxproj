@@ -31,7 +31,13 @@
 		B66DD177291F876A0095BE9B /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = B66DD176291F876A0095BE9B /* Endpoint.swift */; };
 		B66DD179291FB78F0095BE9B /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B66DD178291FB78F0095BE9B /* Date+Extension.swift */; };
 		B67BDE03292102700080EE89 /* NetworkCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = B67BDE02292102700080EE89 /* NetworkCheck.swift */; };
-		B67BDE05292106A20080EE89 /* MyInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B67BDE04292106A20080EE89 /* MyInfoViewModel.swift */; };
+		B67BDE05292106A20080EE89 /* ManageMypageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B67BDE04292106A20080EE89 /* ManageMypageViewModel.swift */; };
+		B67BDE072921D4E00080EE89 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B67BDE062921D4E00080EE89 /* HomeViewController.swift */; };
+		B67BDE2929224A1E0080EE89 /* MypageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B67BDE2829224A1E0080EE89 /* MypageTableViewCell.swift */; };
+		B67BDE2B29224AFF0080EE89 /* ManageMypageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B67BDE2A29224AFF0080EE89 /* ManageMypageViewController.swift */; };
+		B67BDE2D29224BB30080EE89 /* MypageNicknameTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B67BDE2C29224BB30080EE89 /* MypageNicknameTableViewCell.swift */; };
+		B67BDE2F29224C480080EE89 /* Mypage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B67BDE2E29224C480080EE89 /* Mypage.swift */; };
+		B67BDE31292269C60080EE89 /* ResusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B67BDE30292269C60080EE89 /* ResusableView.swift */; };
 		B691FD64291AB3EC00FC47F4 /* IconSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = B691FD63291AB3EC00FC47F4 /* IconSet.swift */; };
 		B691FD71291BE22C00FC47F4 /* NicknameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B691FD70291BE22C00FC47F4 /* NicknameViewController.swift */; };
 		B691FD73291BE23B00FC47F4 /* BirthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B691FD72291BE23B00FC47F4 /* BirthViewController.swift */; };
@@ -52,7 +58,7 @@
 		B69B8805291FCD8A002ECA23 /* APIStatusCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B69B8804291FCD8A002ECA23 /* APIStatusCode.swift */; };
 		B69B8808291FD5EC002ECA23 /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = B69B8807291FD5EC002ECA23 /* UserInfo.swift */; };
 		B69B880B291FDF10002ECA23 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B69B880A291FDF10002ECA23 /* MainTabBarController.swift */; };
-		B69B880F291FFB48002ECA23 /* MyInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B69B880E291FFB48002ECA23 /* MyInfoViewController.swift */; };
+		B69B880F291FFB48002ECA23 /* MypageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B69B880E291FFB48002ECA23 /* MypageViewController.swift */; };
 		B69B88112920E9D8002ECA23 /* LaunchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B69B88102920E9D8002ECA23 /* LaunchViewController.swift */; };
 		B69B88132920F76B002ECA23 /* UINavigationController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B69B88122920F76B002ECA23 /* UINavigationController+Extension.swift */; };
 		B69B88152920FBE2002ECA23 /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B69B88142920FBE2002ECA23 /* UIViewController+Extension.swift */; };
@@ -79,7 +85,13 @@
 		B66DD176291F876A0095BE9B /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
 		B66DD178291FB78F0095BE9B /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
 		B67BDE02292102700080EE89 /* NetworkCheck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkCheck.swift; sourceTree = "<group>"; };
-		B67BDE04292106A20080EE89 /* MyInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyInfoViewModel.swift; sourceTree = "<group>"; };
+		B67BDE04292106A20080EE89 /* ManageMypageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageMypageViewModel.swift; sourceTree = "<group>"; };
+		B67BDE062921D4E00080EE89 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		B67BDE2829224A1E0080EE89 /* MypageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageTableViewCell.swift; sourceTree = "<group>"; };
+		B67BDE2A29224AFF0080EE89 /* ManageMypageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageMypageViewController.swift; sourceTree = "<group>"; };
+		B67BDE2C29224BB30080EE89 /* MypageNicknameTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageNicknameTableViewCell.swift; sourceTree = "<group>"; };
+		B67BDE2E29224C480080EE89 /* Mypage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mypage.swift; sourceTree = "<group>"; };
+		B67BDE30292269C60080EE89 /* ResusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResusableView.swift; sourceTree = "<group>"; };
 		B691FD63291AB3EC00FC47F4 /* IconSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconSet.swift; sourceTree = "<group>"; };
 		B691FD6B291ACDB700FC47F4 /* ServiceLevelProject.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ServiceLevelProject.entitlements; sourceTree = "<group>"; };
 		B691FD70291BE22C00FC47F4 /* NicknameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NicknameViewController.swift; sourceTree = "<group>"; };
@@ -100,7 +112,7 @@
 		B69B8804291FCD8A002ECA23 /* APIStatusCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIStatusCode.swift; sourceTree = "<group>"; };
 		B69B8807291FD5EC002ECA23 /* UserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfo.swift; sourceTree = "<group>"; };
 		B69B880A291FDF10002ECA23 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
-		B69B880E291FFB48002ECA23 /* MyInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyInfoViewController.swift; sourceTree = "<group>"; };
+		B69B880E291FFB48002ECA23 /* MypageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageViewController.swift; sourceTree = "<group>"; };
 		B69B88102920E9D8002ECA23 /* LaunchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchViewController.swift; sourceTree = "<group>"; };
 		B69B88122920F76B002ECA23 /* UINavigationController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+Extension.swift"; sourceTree = "<group>"; };
 		B69B88142920FBE2002ECA23 /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
@@ -163,6 +175,7 @@
 			isa = PBXGroup;
 			children = (
 				B620CD1529195CBC002CE764 /* CustomView.swift */,
+				B67BDE30292269C60080EE89 /* ResusableView.swift */,
 			);
 			path = Protocol;
 			sourceTree = "<group>";
@@ -195,6 +208,39 @@
 				B69B8804291FCD8A002ECA23 /* APIStatusCode.swift */,
 			);
 			path = Network;
+			sourceTree = "<group>";
+		};
+		B67BDE0B29220E680080EE89 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				B67BDE2C29224BB30080EE89 /* MypageNicknameTableViewCell.swift */,
+				B67BDE2829224A1E0080EE89 /* MypageTableViewCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		B67BDE2529220FD80080EE89 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				B67BDE2729220FF10080EE89 /* ViewModel */,
+				B67BDE2629220FE70080EE89 /* ViewController */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		B67BDE2629220FE70080EE89 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				B67BDE062921D4E00080EE89 /* HomeViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		B67BDE2729220FF10080EE89 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		B691FD6C291BDE7B00FC47F4 /* ViewController */ = {
@@ -265,9 +311,11 @@
 				B620CCFA29191D5D002CE764 /* Onboarding */,
 				B620CD1729196595002CE764 /* Login */,
 				B691FD6D291BE1F600FC47F4 /* Signup */,
-				B69B8809291FDEC0002ECA23 /* Main */,
+				B67BDE2529220FD80080EE89 /* Home */,
+				B69B8809291FDEC0002ECA23 /* Mypage */,
 				B692E3DB2919132100BEAF22 /* AppDelegate.swift */,
 				B692E3DD2919132100BEAF22 /* SceneDelegate.swift */,
+				B69B880A291FDF10002ECA23 /* MainTabBarController.swift */,
 				B69B88102920E9D8002ECA23 /* LaunchViewController.swift */,
 				B692E3F7291913DF00BEAF22 /* LaunchScreen.storyboard */,
 				B692E3E42919132300BEAF22 /* Assets.xcassets */,
@@ -285,19 +333,21 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
-		B69B8809291FDEC0002ECA23 /* Main */ = {
+		B69B8809291FDEC0002ECA23 /* Mypage */ = {
 			isa = PBXGroup;
 			children = (
 				B69B880C291FFAC6002ECA23 /* ViewModel */,
 				B69B880D291FFACF002ECA23 /* ViewController */,
+				B67BDE0B29220E680080EE89 /* Cell */,
+				B67BDE2E29224C480080EE89 /* Mypage.swift */,
 			);
-			path = Main;
+			path = Mypage;
 			sourceTree = "<group>";
 		};
 		B69B880C291FFAC6002ECA23 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				B67BDE04292106A20080EE89 /* MyInfoViewModel.swift */,
+				B67BDE04292106A20080EE89 /* ManageMypageViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -305,8 +355,8 @@
 		B69B880D291FFACF002ECA23 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
-				B69B880A291FDF10002ECA23 /* MainTabBarController.swift */,
-				B69B880E291FFB48002ECA23 /* MyInfoViewController.swift */,
+				B69B880E291FFB48002ECA23 /* MypageViewController.swift */,
+				B67BDE2A29224AFF0080EE89 /* ManageMypageViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -418,23 +468,29 @@
 				B620CD1B291979F8002CE764 /* AuthViewController.swift in Sources */,
 				B66DD169291DB43F0095BE9B /* FirebaseAuth.swift in Sources */,
 				B620CD1029195449002CE764 /* ColorSet.swift in Sources */,
-				B69B880F291FFB48002ECA23 /* MyInfoViewController.swift in Sources */,
+				B67BDE2B29224AFF0080EE89 /* ManageMypageViewController.swift in Sources */,
+				B69B880F291FFB48002ECA23 /* MypageViewController.swift in Sources */,
 				B69B8808291FD5EC002ECA23 /* UserInfo.swift in Sources */,
+				B67BDE31292269C60080EE89 /* ResusableView.swift in Sources */,
 				B69B88152920FBE2002ECA23 /* UIViewController+Extension.swift in Sources */,
 				B620CCFE291925D2002CE764 /* OnboardingViewController.swift in Sources */,
 				B69B880B291FDF10002ECA23 /* MainTabBarController.swift in Sources */,
 				B691FD7F291C1A7800FC47F4 /* EmailViewModel.swift in Sources */,
-				B67BDE05292106A20080EE89 /* MyInfoViewModel.swift in Sources */,
+				B67BDE05292106A20080EE89 /* ManageMypageViewModel.swift in Sources */,
 				B692E3DE2919132100BEAF22 /* SceneDelegate.swift in Sources */,
 				B69B88112920E9D8002ECA23 /* LaunchViewController.swift in Sources */,
 				B66DD16D291DEEFA0095BE9B /* APIManager.swift in Sources */,
 				B620CD0C29194F34002CE764 /* String+Extension.swift in Sources */,
 				B620CD1629195CBC002CE764 /* CustomView.swift in Sources */,
+				B67BDE2929224A1E0080EE89 /* MypageTableViewCell.swift in Sources */,
+				B67BDE2F29224C480080EE89 /* Mypage.swift in Sources */,
 				B691FD71291BE22C00FC47F4 /* NicknameViewController.swift in Sources */,
 				B66DD166291DAD910095BE9B /* UserDefaults+Extension.swift in Sources */,
 				B691FD73291BE23B00FC47F4 /* BirthViewController.swift in Sources */,
+				B67BDE072921D4E00080EE89 /* HomeViewController.swift in Sources */,
 				B620CCFC29192559002CE764 /* OnboardingPageViewController.swift in Sources */,
 				B67BDE03292102700080EE89 /* NetworkCheck.swift in Sources */,
+				B67BDE2D29224BB30080EE89 /* MypageNicknameTableViewCell.swift in Sources */,
 				B691FD75291BE24500FC47F4 /* EmailViewController.swift in Sources */,
 				B69B88132920F76B002ECA23 /* UINavigationController+Extension.swift in Sources */,
 			);

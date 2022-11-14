@@ -49,7 +49,7 @@ final class AuthViewController: UIViewController, CustomView {
         output.pushSignupVC
             .withUnretained(self)
             .emit { vc, _ in
-                vc.navigationController?.pushViewController(NicknameViewController(), animated: true)
+                vc.transition(NicknameViewController(), transitionStyle: .push)
             }
             .disposed(by: disposeBag)
         

@@ -43,7 +43,7 @@ final class NicknameViewController: UIViewController, CustomView {
         output.pushNextVC
             .withUnretained(self)
             .emit { vc, _ in
-                vc.navigationController?.pushViewController(BirthViewController(), animated: true)
+                vc.transition(BirthViewController(), transitionStyle: .push)
             }
             .disposed(by: disposeBag)
         

@@ -19,34 +19,44 @@ class LaunchViewController: UIViewController {
         setConfigure()
         setConstraints()
         viewTransition()
+        
+        networkCheck { [weak self] isConnected in
+            // MARK: 분명 전에는 됐는데ㅠㅠㅠ 네트워크 연결 실패했을 때 얼럿이 안뜬다...
+            guard isConnected == true else { return }
+            self?.getIdToken()
+        }
+    }
+    
+    private func getIdToken() {
+        FirebaseAuth.shared.getIDToken { [weak self] error in
+            if error != nil {
+                self?.viewTransition()
+            } else {
+                self?.view.makeToast(APIStatusCode.firebaseTokenError.errorDescription, position: .top)
+            }
+        }
     }
     
     private func viewTransition() {
-        guard networkCheck() else { return }
-        var vc: UIViewController?
-        
         APIManager.shared.get(type: UserInfo.self, endpoint: .login) { [weak self] statusCode in
             if UserDefaults.showOnboarding {
-                vc = OnboardingPageViewController()
+                self?.transition(OnboardingPageViewController(), transitionStyle: .presentFull)
             } else {
                 switch statusCode {
                 case .success:
-                    vc = MainTabBarController()
+                    self?.transition(MainTabBarController(), transitionStyle: .presentFull)
                 case .mustSignup:
                     if UserDefaults.authenticationCompleted {
-                        vc = NicknameViewController()
+                        self?.transition(NicknameViewController(), transitionStyle: .presentFullNavigation)
                     } else {
-                        vc = LoginViewController()
+                        self?.transition(LoginViewController(), transitionStyle: .presentFullNavigation)
                     }
+                case.firebaseTokenError:
+                    print("이 로그는 절대 뜨면 안됨")
                 default:
-                    vc = LoginViewController()
+                    self?.transition(LoginViewController(), transitionStyle: .presentFullNavigation)
                 }
             }
-        
-            guard let vc = vc else { return }
-            let nav = UINavigationController(rootViewController: vc)
-            nav.modalPresentationStyle = .fullScreen
-            self?.present(nav, animated: true)
         }
     }
     

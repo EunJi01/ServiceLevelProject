@@ -72,7 +72,7 @@ final class BirthViewController: UIViewController, CustomView {
         output.pushNextVC
             .withUnretained(self)
             .emit { vc, _ in
-                vc.navigationController?.pushViewController(EmailViewController(), animated: true)
+                vc.transition(EmailViewController(), transitionStyle: .push)
             }
             .disposed(by: disposeBag)
         
