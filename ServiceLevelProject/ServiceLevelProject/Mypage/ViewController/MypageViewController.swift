@@ -26,7 +26,7 @@ final class MypageViewController: UIViewController {
     }
     
     private func bind() {
-        
+        // MARK: 닉네임이랑 프로필사진 유저 정보를 통해 가져와서 보여줘야 함
     }
     
     private func setConfigure() {

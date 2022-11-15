@@ -38,6 +38,7 @@
 		B67BDE2D29224BB30080EE89 /* MypageNicknameTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B67BDE2C29224BB30080EE89 /* MypageNicknameTableViewCell.swift */; };
 		B67BDE2F29224C480080EE89 /* Mypage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B67BDE2E29224C480080EE89 /* Mypage.swift */; };
 		B67BDE31292269C60080EE89 /* ResusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B67BDE30292269C60080EE89 /* ResusableView.swift */; };
+		B67BDE342923F00E0080EE89 /* DoubleSlider in Frameworks */ = {isa = PBXBuildFile; productRef = B67BDE332923F00E0080EE89 /* DoubleSlider */; };
 		B691FD64291AB3EC00FC47F4 /* IconSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = B691FD63291AB3EC00FC47F4 /* IconSet.swift */; };
 		B691FD71291BE22C00FC47F4 /* NicknameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B691FD70291BE22C00FC47F4 /* NicknameViewController.swift */; };
 		B691FD73291BE23B00FC47F4 /* BirthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B691FD72291BE23B00FC47F4 /* BirthViewController.swift */; };
@@ -125,6 +126,7 @@
 			files = (
 				B620CD21291A8CFB002CE764 /* Toast in Frameworks */,
 				B66DD173291EA55B0095BE9B /* FirebaseAuth in Frameworks */,
+				B67BDE342923F00E0080EE89 /* DoubleSlider in Frameworks */,
 				B66DD175291EA55B0095BE9B /* FirebaseMessaging in Frameworks */,
 				B692E3F6291913C700BEAF22 /* RxSwift in Frameworks */,
 				B66DD170291EA5090095BE9B /* Alamofire in Frameworks */,
@@ -336,10 +338,10 @@
 		B69B8809291FDEC0002ECA23 /* Mypage */ = {
 			isa = PBXGroup;
 			children = (
+				B67BDE2E29224C480080EE89 /* Mypage.swift */,
 				B69B880C291FFAC6002ECA23 /* ViewModel */,
 				B69B880D291FFACF002ECA23 /* ViewController */,
 				B67BDE0B29220E680080EE89 /* Cell */,
-				B67BDE2E29224C480080EE89 /* Mypage.swift */,
 			);
 			path = Mypage;
 			sourceTree = "<group>";
@@ -385,6 +387,7 @@
 				B66DD16F291EA5090095BE9B /* Alamofire */,
 				B66DD172291EA55B0095BE9B /* FirebaseAuth */,
 				B66DD174291EA55B0095BE9B /* FirebaseMessaging */,
+				B67BDE332923F00E0080EE89 /* DoubleSlider */,
 			);
 			productName = ServiceLevelProject;
 			productReference = B692E3D82919132100BEAF22 /* ServiceLevelProject.app */;
@@ -420,6 +423,7 @@
 				B620CD1F291A8CFB002CE764 /* XCRemoteSwiftPackageReference "Toast-Swift" */,
 				B66DD16E291EA5080095BE9B /* XCRemoteSwiftPackageReference "Alamofire" */,
 				B66DD171291EA55B0095BE9B /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				B67BDE322923F00E0080EE89 /* XCRemoteSwiftPackageReference "DoubleSlider" */,
 			);
 			productRefGroup = B692E3D92919132100BEAF22 /* Products */;
 			projectDirPath = "";
@@ -719,6 +723,14 @@
 				minimumVersion = 9.0.0;
 			};
 		};
+		B67BDE322923F00E0080EE89 /* XCRemoteSwiftPackageReference "DoubleSlider" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/yhkaplan/DoubleSlider.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
 		B692E3EF291913B800BEAF22 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
@@ -757,6 +769,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = B66DD171291EA55B0095BE9B /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseMessaging;
+		};
+		B67BDE332923F00E0080EE89 /* DoubleSlider */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B67BDE322923F00E0080EE89 /* XCRemoteSwiftPackageReference "DoubleSlider" */;
+			productName = DoubleSlider;
 		};
 		B692E3F0291913B800BEAF22 /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;

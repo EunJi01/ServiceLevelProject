@@ -9,4 +9,5 @@ import UIKit
 
 struct IconSet {
     static let backButton = UIImage(systemName: "arrow.left")
+    static let chevronDown = UIImage(systemName: "chevron.down")
 }

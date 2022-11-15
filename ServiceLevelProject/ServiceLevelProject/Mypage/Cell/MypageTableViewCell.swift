@@ -19,6 +19,7 @@ final class MypageTableViewCell: UITableViewCell, CustomView {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        selectionStyle = .none
         
         setConfigure()
         setConstraints()

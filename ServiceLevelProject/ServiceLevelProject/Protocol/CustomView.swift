@@ -11,6 +11,7 @@ protocol CustomView {
     func customButton(title: String) -> UIButton
     func customTitleLabel(size: CGFloat,text: String, aligment: NSTextAlignment) -> UILabel
     func customUnderlineView() -> UIView
+    func customCardView() -> UIView
 }
 
 extension CustomView {
@@ -41,8 +42,14 @@ extension CustomView {
     
     func customTextField(placeholder: String, keyboard: UIKeyboardType = .default) -> UITextField {
         let view = UITextField()
-        view.placeholder = placeholder
-        view.keyboardType = keyboard
+        let attributes = [NSAttributedString.Key.foregroundColor : UIColor.setColor(.gray7)]
+        view.font = .systemFont(ofSize: 14)
+        view.attributedPlaceholder = NSAttributedString(string: placeholder, attributes: attributes)
+        return view
+    }
+    
+    func customCardView() -> UIView {
+        let view = UIView()
         return view
     }
 }

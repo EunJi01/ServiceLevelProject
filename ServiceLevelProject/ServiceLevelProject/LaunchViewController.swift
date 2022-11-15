@@ -18,12 +18,11 @@ class LaunchViewController: UIViewController {
         
         setConfigure()
         setConstraints()
-        viewTransition()
         
         networkCheck { [weak self] isConnected in
             // MARK: 분명 전에는 됐는데ㅠㅠㅠ 네트워크 연결 실패했을 때 얼럿이 안뜬다...
             guard isConnected == true else { return }
-            self?.getIdToken()
+            self?.viewTransition()
         }
     }
     
@@ -32,7 +31,7 @@ class LaunchViewController: UIViewController {
             if error != nil {
                 self?.viewTransition()
             } else {
-                self?.view.makeToast(APIStatusCode.firebaseTokenError.errorDescription, position: .top)
+                self?.view.makeToast(APIStatusCode.firebaseTokenError.errorDescription, position: .center)
             }
         }
     }
@@ -52,7 +51,7 @@ class LaunchViewController: UIViewController {
                         self?.transition(LoginViewController(), transitionStyle: .presentFullNavigation)
                     }
                 case.firebaseTokenError:
-                    print("이 로그는 절대 뜨면 안됨")
+                    self?.getIdToken()
                 default:
                     self?.transition(LoginViewController(), transitionStyle: .presentFullNavigation)
                 }

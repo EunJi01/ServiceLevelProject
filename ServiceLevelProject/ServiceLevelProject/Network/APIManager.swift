@@ -18,12 +18,12 @@ final class APIManager {
         
         AF.request(url, method: .get, headers: api.headers)
             .responseDecodable(of: T.self) { response in
+        
+                guard let statusCode = response.response?.statusCode else { return }
+                guard let apiStatucCode = APIStatusCode(rawValue: statusCode) else { return }
                 
-            guard let statusCode = response.response?.statusCode else { return }
-            guard let apiStatucCode = APIStatusCode(rawValue: statusCode) else { return }
-            
-            completion(apiStatucCode)
-        }
+                completion(apiStatucCode)
+            }
     }
     
     func post(endpoint: Endpoint, completion: @escaping (APIStatusCode) -> Void) {

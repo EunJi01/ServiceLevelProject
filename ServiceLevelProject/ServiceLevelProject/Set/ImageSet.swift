@@ -20,4 +20,5 @@ enum ImageSet: String {
     // Button
     case man
     case woman
+    case gps
 }
