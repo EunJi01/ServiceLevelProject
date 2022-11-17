@@ -22,23 +22,25 @@ class LaunchViewController: UIViewController {
         networkCheck { [weak self] isConnected in
             // MARK: 분명 전에는 됐는데ㅠㅠㅠ 네트워크 연결 실패했을 때 얼럿이 안뜬다...
             guard isConnected == true else { return }
-            self?.viewTransition()
+            self?.getIdToken()
         }
     }
     
     private func getIdToken() {
         FirebaseAuth.shared.getIDToken { [weak self] error in
             if error != nil {
+                print("여기서 실패?")
                 print(error!)
-                self?.viewTransition()
-            } else {
                 self?.view.makeToast(APIStatusCode.firebaseTokenError.errorDescription, position: .center)
+            } else {
+                print("====idToken====" + UserDefaults.idToken)
+                self?.viewTransition()
             }
         }
     }
     
     private func viewTransition() {
-        APIManager.shared.get(type: MypageUserInfo.self, endpoint: .login) { [weak self] response in
+        APIManager.shared.get(type: UserInfo.self, endpoint: .login) { [weak self] response in
             switch response {
             case .success(let userInfo):
                 UserDefaults.userNickname = userInfo.nick

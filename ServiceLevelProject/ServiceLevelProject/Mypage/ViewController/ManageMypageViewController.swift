@@ -82,7 +82,7 @@ final class ManageMypageViewController: UIViewController, CustomView {
                 vc.studyTextField.text = userInfo.study
                 // 번호검색 허용여부
                 vc.ageRangeLabel.text = "\(userInfo.ageMin)-\(userInfo.ageMax)"
-            }
+            } 
             .disposed(by: disposeBag)
     }
     

@@ -13,6 +13,8 @@ import RxCocoa
 final class HomeViewController: UIViewController {
     let disposeBag = DisposeBag()
     let mapView = MKMapView()
+    let locationManager = CLLocationManager()
+    let currentAnnotation = MKPointAnnotation()
     
     let statusButton: UIButton = {
         let view = UIButton()
@@ -66,6 +68,9 @@ final class HomeViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .white
         
+        locationManager.delegate = self
+        locationManager.requestWhenInUseAuthorization()
+        
         bind()
         setConfigure()
         setConstraints()
@@ -115,5 +120,90 @@ final class HomeViewController: UIViewController {
             make.horizontalEdges.equalTo(allButton.snp.horizontalEdges)
             make.height.equalTo(allButton.snp.height)
         }
+    }
+}
+
+extension HomeViewController {
+    func checkUserDeviceLocationServiceAuthorization() {
+        let authorizationStatus: CLAuthorizationStatus
+        if #available(iOS 14.0, *) {
+            authorizationStatus = locationManager.authorizationStatus
+        } else {
+            authorizationStatus = CLLocationManager.authorizationStatus()
+        }
+        
+        DispatchQueue.global().async { [weak self] in
+              if CLLocationManager.locationServicesEnabled() {
+                  guard let self = self else { return }
+                  self.locationManager(self.locationManager, didChangeAuthorization: authorizationStatus)
+              } else {
+                  self?.showRequestLocationServiceAlert()
+              }
+        }
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+         switch status {
+         case .authorizedAlways, .authorizedWhenInUse:
+             print("GPS 권한 설정됨")
+             self.locationManager.startUpdatingLocation()
+         case .restricted, .notDetermined:
+             print("GPS 권한 설정되지 않음")
+             getLocationUsagePermission()
+         case .denied:
+             print("GPS 권한 요청 거부됨")
+             let campus = CLLocationCoordinate2D(latitude: 37.517829, longitude: 126.886270)
+             setRegionAndAnnotation(center: campus)
+             getLocationUsagePermission()
+         default:
+             print("GPS: Default")
+         }
+     }
+    
+    func showRequestLocationServiceAlert() {
+        showAlert(title: "위치정보 이용", message: "위치 서비스를 사용할 수 없습니다. 기기의 '설정>개인정보 보호'에서 위치 서비스를 켜주세요.", button: "설정으로 이동") { _ in
+            if let appSetting = URL(string: UIApplication.openSettingsURLString) {
+                UIApplication.shared.open(appSetting)
+            }
+        }
+    }
+    
+    func setRegionAndAnnotation(center: CLLocationCoordinate2D) {
+        let region = MKCoordinateRegion(center: center, latitudinalMeters: 700, longitudinalMeters: 700)
+        mapView.setRegion(region, animated: true)
+        currentAnnotation.coordinate = center
+        mapView.addAnnotation(currentAnnotation)
+    }
+    
+    func getLocationUsagePermission() {
+        locationManager.requestWhenInUseAuthorization()
+    }
+}
+
+extension HomeViewController: CLLocationManagerDelegate {
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        print(#function, locations)
+        
+        if let coordinate = locations.last?.coordinate {
+            print("위치 받아옴")
+            setRegionAndAnnotation(center: coordinate)
+        }
+
+        locationManager.stopUpdatingLocation()
+    }
+
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print("사용자 위치를 불러오지 못했습니다.")
+    }
+    
+    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
+        print(#function)
+        checkUserDeviceLocationServiceAuthorization()
+    }
+}
+
+extension HomeViewController: MKMapViewDelegate {
+    func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
+        locationManager.startUpdatingLocation()
     }
 }

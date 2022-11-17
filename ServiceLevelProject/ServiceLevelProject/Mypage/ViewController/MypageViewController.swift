@@ -60,8 +60,8 @@ extension MypageViewController: UITableViewDataSource, UITableViewDelegate {
         } else {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: MypageTableViewCell.reuseIdentifier) as? MypageTableViewCell else { return UITableViewCell() }
             
-            cell.titleLabel.text = MypageUserInfo.allCases[indexPath.row].title
-            cell.iconImageView.image = MypageUserInfo.allCases[indexPath.row].icon
+            cell.titleLabel.text = Mypage.allCases[indexPath.row].title
+            cell.iconImageView.image = Mypage.allCases[indexPath.row].icon
             
             return cell
         }
