@@ -118,16 +118,18 @@ final class AuthViewModel {
     }
     
     private func requestLogin() {
-        APIManager.shared.get(type: UserInfo.self, endpoint: .login) { [weak self] statusCode in
-            print(statusCode.rawValue)
-            switch statusCode {
-            case .success:
+        APIManager.shared.get(type: UpdateUserInfo.self, endpoint: .login) { [weak self] response in
+            switch response {
+            case .success(_):
                 UserDefaults.authenticationCompleted = true
                 self?.presentMainVCRelay.accept(())
-            case .mustSignup:
-                self?.pushSignupVCRelay.accept(())
-            default:
-                self?.showToastRelay.accept(statusCode.errorDescription)
+            case.failure(let statusCode):
+                switch statusCode {
+                case .mustSignup:
+                    self?.pushSignupVCRelay.accept(())
+                default:
+                    self?.showToastRelay.accept(statusCode.errorDescription)
+                }
             }
         }
     }

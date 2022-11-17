@@ -20,13 +20,8 @@ final class MypageViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .white
         
-        bind()
         setConfigure()
         setConstraints()
-    }
-    
-    private func bind() {
-        // MARK: 닉네임이랑 프로필사진 유저 정보를 통해 가져와서 보여줘야 함
     }
     
     private func setConfigure() {
@@ -57,15 +52,16 @@ extension MypageViewController: UITableViewDataSource, UITableViewDelegate {
         if indexPath.section == 0 {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: MypageNicknameTableViewCell.reuseIdentifier) as? MypageNicknameTableViewCell else { return UITableViewCell() }
             
-            cell.nicknameLabel.text = "임시"
+            cell.nicknameLabel.text = UserDefaults.userNickname
+            cell.profileImageView.image = SeSACFace(rawValue: UserDefaults.sesacNumber)?.image
             
             return cell
             
         } else {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: MypageTableViewCell.reuseIdentifier) as? MypageTableViewCell else { return UITableViewCell() }
             
-            cell.titleLabel.text = Mypage.allCases[indexPath.row].title
-            cell.iconImageView.image = Mypage.allCases[indexPath.row].icon
+            cell.titleLabel.text = MypageUserInfo.allCases[indexPath.row].title
+            cell.iconImageView.image = MypageUserInfo.allCases[indexPath.row].icon
             
             return cell
         }

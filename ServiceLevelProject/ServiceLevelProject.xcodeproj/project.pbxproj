@@ -39,7 +39,7 @@
 		B67BDE2F29224C480080EE89 /* Mypage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B67BDE2E29224C480080EE89 /* Mypage.swift */; };
 		B67BDE31292269C60080EE89 /* ResusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B67BDE30292269C60080EE89 /* ResusableView.swift */; };
 		B67BDE342923F00E0080EE89 /* DoubleSlider in Frameworks */ = {isa = PBXBuildFile; productRef = B67BDE332923F00E0080EE89 /* DoubleSlider */; };
-		B691FD64291AB3EC00FC47F4 /* IconSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = B691FD63291AB3EC00FC47F4 /* IconSet.swift */; };
+		B67BDE3629245A2B0080EE89 /* UpdateUserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = B67BDE3529245A2B0080EE89 /* UpdateUserInfo.swift */; };
 		B691FD71291BE22C00FC47F4 /* NicknameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B691FD70291BE22C00FC47F4 /* NicknameViewController.swift */; };
 		B691FD73291BE23B00FC47F4 /* BirthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B691FD72291BE23B00FC47F4 /* BirthViewController.swift */; };
 		B691FD75291BE24500FC47F4 /* EmailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B691FD74291BE24500FC47F4 /* EmailViewController.swift */; };
@@ -93,7 +93,7 @@
 		B67BDE2C29224BB30080EE89 /* MypageNicknameTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageNicknameTableViewCell.swift; sourceTree = "<group>"; };
 		B67BDE2E29224C480080EE89 /* Mypage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mypage.swift; sourceTree = "<group>"; };
 		B67BDE30292269C60080EE89 /* ResusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResusableView.swift; sourceTree = "<group>"; };
-		B691FD63291AB3EC00FC47F4 /* IconSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconSet.swift; sourceTree = "<group>"; };
+		B67BDE3529245A2B0080EE89 /* UpdateUserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateUserInfo.swift; sourceTree = "<group>"; };
 		B691FD6B291ACDB700FC47F4 /* ServiceLevelProject.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ServiceLevelProject.entitlements; sourceTree = "<group>"; };
 		B691FD70291BE22C00FC47F4 /* NicknameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NicknameViewController.swift; sourceTree = "<group>"; };
 		B691FD72291BE23B00FC47F4 /* BirthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BirthViewController.swift; sourceTree = "<group>"; };
@@ -152,7 +152,6 @@
 			children = (
 				B620CD0429192BFE002CE764 /* ImageSet.swift */,
 				B620CD0929194C9C002CE764 /* TextSet.swift */,
-				B691FD63291AB3EC00FC47F4 /* IconSet.swift */,
 				B620CD0F29195449002CE764 /* ColorSet.swift */,
 			);
 			path = Set;
@@ -331,6 +330,7 @@
 			isa = PBXGroup;
 			children = (
 				B69B8807291FD5EC002ECA23 /* UserInfo.swift */,
+				B67BDE3529245A2B0080EE89 /* UpdateUserInfo.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -454,7 +454,6 @@
 			files = (
 				B691FD79291BF40200FC47F4 /* NicknameViewModel.swift in Sources */,
 				B66DD177291F876A0095BE9B /* Endpoint.swift in Sources */,
-				B691FD64291AB3EC00FC47F4 /* IconSet.swift in Sources */,
 				B620CD0529192BFE002CE764 /* ImageSet.swift in Sources */,
 				B692E3E02919132100BEAF22 /* LoginViewController.swift in Sources */,
 				B66DD179291FB78F0095BE9B /* Date+Extension.swift in Sources */,
@@ -497,6 +496,7 @@
 				B67BDE2D29224BB30080EE89 /* MypageNicknameTableViewCell.swift in Sources */,
 				B691FD75291BE24500FC47F4 /* EmailViewController.swift in Sources */,
 				B69B88132920F76B002ECA23 /* UINavigationController+Extension.swift in Sources */,
+				B67BDE3629245A2B0080EE89 /* UpdateUserInfo.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

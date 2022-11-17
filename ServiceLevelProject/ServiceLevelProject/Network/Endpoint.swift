@@ -11,8 +11,13 @@ import Alamofire
 enum Endpoint {
     case login
     case signup
-    case mypage
+    case mypage(searchable: Int, ageMin: Int, ageMax: Int, gender: Int, study: String)
     case withdraw
+    
+    case queueRequest
+    case queueStop
+    case queueSearch
+    case myQueueState
 }
 
 extension Endpoint {
@@ -28,26 +33,28 @@ extension Endpoint {
             return URL(string: Endpoint.baseURL + "v1/user/mypage")
         case .withdraw:
             return URL(string: Endpoint.baseURL + "v1/withdraw")
+        case .queueRequest:
+            return URL(string: Endpoint.baseURL + "v1/queue")
+        case .queueStop:
+            return URL(string: Endpoint.baseURL + "v1/queue")
+        case .queueSearch:
+            return URL(string: Endpoint.baseURL + "v1/queue/search")
+        case .myQueueState:
+            return URL(string: Endpoint.baseURL + "v1/myQueueState")
         }
-    }
+
     
     var headers: HTTPHeaders {
-        var header: HTTPHeaders = [:]
+        var header: HTTPHeaders = [
+            "Content-Type": "application/x-www-form-urlencoded",
+            "idtoken": UserDefaults.idToken
+        ]
         
         switch self {
-        case .login:
-            header = ["idtoken": UserDefaults.idToken]
-        case .signup:
-            header = [
-                "Content-Type": "application/x-www-form-urlencoded",
-                "idtoken": UserDefaults.idToken
-            ]
-        case .mypage:
-            header = [:]
-        case .withdraw:
-            header = ["idtoken": UserDefaults.idToken]
+        default:
+            break
         }
-        
+
         return header
     }
     
@@ -65,13 +72,24 @@ extension Endpoint {
                 "email": UserDefaults.userEmail,
                 "gender": "\(UserDefaults.userGender)"
             ]
-        case .mypage:
+        case .mypage(let searchable, let ageMin, let ageMax, let gender, let study):
             parameters = [
-                "searchable": "",
-                "ageMin": "",
-                "ageMax": "",
-                "gender": "",
-                "study": ""
+                "searchable": "\(searchable)",
+                "ageMin": "\(ageMin)",
+                "ageMax": "\(ageMax)",
+                "gender": "\(gender)",
+                "study": study
+            ]
+        case .queueRequest:
+            parameters = [
+                "lat": "",
+                "long": "",
+                "studylist": ""
+            ]
+        case .queueSearch:
+            parameters = [
+                "lat": "",
+                "long": ""
             ]
         default:
             break

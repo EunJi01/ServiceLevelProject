@@ -29,6 +29,7 @@ class LaunchViewController: UIViewController {
     private func getIdToken() {
         FirebaseAuth.shared.getIDToken { [weak self] error in
             if error != nil {
+                print(error!)
                 self?.viewTransition()
             } else {
                 self?.view.makeToast(APIStatusCode.firebaseTokenError.errorDescription, position: .center)
@@ -37,23 +38,28 @@ class LaunchViewController: UIViewController {
     }
     
     private func viewTransition() {
-        APIManager.shared.get(type: UserInfo.self, endpoint: .login) { [weak self] statusCode in
-            if UserDefaults.showOnboarding {
-                self?.transition(OnboardingPageViewController(), transitionStyle: .presentFull)
-            } else {
-                switch statusCode {
-                case .success:
-                    self?.transition(MainTabBarController(), transitionStyle: .presentFull)
-                case .mustSignup:
-                    if UserDefaults.authenticationCompleted {
-                        self?.transition(NicknameViewController(), transitionStyle: .presentFullNavigation)
-                    } else {
+        APIManager.shared.get(type: MypageUserInfo.self, endpoint: .login) { [weak self] response in
+            switch response {
+            case .success(let userInfo):
+                UserDefaults.userNickname = userInfo.nick
+                UserDefaults.sesacNumber = userInfo.sesac
+                self?.transition(MainTabBarController(), transitionStyle: .presentFull)
+            case .failure(let statusCode):
+                if UserDefaults.showOnboarding {
+                    self?.transition(OnboardingPageViewController(), transitionStyle: .presentFull)
+                } else {
+                    switch statusCode {
+                    case .mustSignup:
+                        if UserDefaults.authenticationCompleted {
+                            self?.transition(NicknameViewController(), transitionStyle: .presentFullNavigation)
+                        } else {
+                            self?.transition(LoginViewController(), transitionStyle: .presentFullNavigation)
+                        }
+                    case.firebaseTokenError:
+                        self?.getIdToken()
+                    default:
                         self?.transition(LoginViewController(), transitionStyle: .presentFullNavigation)
                     }
-                case.firebaseTokenError:
-                    self?.getIdToken()
-                default:
-                    self?.transition(LoginViewController(), transitionStyle: .presentFullNavigation)
                 }
             }
         }

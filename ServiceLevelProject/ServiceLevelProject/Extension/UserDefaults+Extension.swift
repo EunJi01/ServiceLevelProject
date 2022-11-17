@@ -53,4 +53,7 @@ extension UserDefaults {
     
     @UserDefault(key: "userGender", defaultValue: 10)
     static var userGender: Int
+    
+    @UserDefault(key: "sesacNumber", defaultValue: 1)
+    static var sesacNumber: Int
 }

@@ -86,8 +86,6 @@ final class GenderViewModel {
                 switch statusCode {
                 case .success:
                     self?.presentMainVCRelay.accept(())
-                case .alreadySigned:
-                    self?.showToastRelay.accept(statusCode.errorDescription)
                 case .nicknameError:
                     self?.popToNicknameVCRelay.accept(statusCode.errorDescription ?? "")
                 case .firebaseTokenError:

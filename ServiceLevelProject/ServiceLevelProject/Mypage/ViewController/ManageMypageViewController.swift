@@ -12,6 +12,7 @@ import DoubleSlider
 
 final class ManageMypageViewController: UIViewController, CustomView {
     private let disposeBag = DisposeBag()
+    private let vm = ManageMypageViewModel()
     
     private let saveButton = UIBarButtonItem(title: "저장", style: .plain, target: ManageMypageViewController.self, action: nil)
     
@@ -25,12 +26,15 @@ final class ManageMypageViewController: UIViewController, CustomView {
     private lazy var womanButton: UIButton = customButton(title: "여자")
     private lazy var studyTextField: UITextField = customTextField(placeholder: "스터디를 입력해 주세요")
     private lazy var underline: UIView = customUnderlineView()
-    private let searchForNumbersSwitch = UISwitch()
+    private let searchForNumbersSwitch = UISwitch(frame: .zero)
     private let ageGroupSlider = UISlider()
     private lazy var ageRangeLabel = customTitleLabel(size: 14, text: "임시")
 
-    private let imageView = UIImageView()
-    private lazy var cardView = customCardView()
+    private let backgroundImageView = UIImageView()
+    private let sesacImageView = UIImageView()
+    private let nicknameView = UIView() // 임시... 나중에 꼭 카드뷰 하자...
+    private let nicknameLabel = UILabel()
+    
     private let myGenderView = UIView()
     private let studyView = UIView()
     private let searchForNumbersView = UIView()
@@ -51,7 +55,8 @@ final class ManageMypageViewController: UIViewController, CustomView {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        navigationItem.rightBarButtonItem = saveButton
+        
+        vm.getUserInfo()
         
         bind()
         setProperties()
@@ -60,12 +65,38 @@ final class ManageMypageViewController: UIViewController, CustomView {
     }
     
     private func bind() {
-
+        let input = ManageMypageViewModel.Input(
+            saveButton: saveButton.rx.tap
+                .asSignal()
+        )
+        
+        let output = vm.transform(input: input)
+        
+        output.getUserInfo
+            .withUnretained(self)
+            .emit { vc, userInfo in
+                vc.backgroundImageView.image = SeSACBackground(rawValue: userInfo.background)?.image
+                vc.sesacImageView.image = SeSACFace(rawValue: userInfo.sesac)?.image
+                vc.nicknameLabel.text = userInfo.nick
+                // 성별
+                vc.studyTextField.text = userInfo.study
+                // 번호검색 허용여부
+                vc.ageRangeLabel.text = "\(userInfo.ageMin)-\(userInfo.ageMax)"
+            }
+            .disposed(by: disposeBag)
     }
     
     private func setProperties() {
-        imageView.backgroundColor = .red
-        imageView.layer.cornerRadius = 10
+        navigationItem.rightBarButtonItem = saveButton
+        
+        backgroundImageView.contentMode = .scaleAspectFill
+        backgroundImageView.clipsToBounds = true
+        backgroundImageView.layer.cornerRadius = 10
+        
+        nicknameView.layer.borderColor = UIColor.setColor(.gray2).cgColor
+        nicknameView.layer.borderWidth = 1
+        nicknameView.layer.cornerRadius = 10
+        nicknameLabel.font = .boldSystemFont(ofSize: 16)
         
         ageRangeLabel.textColor = .setColor(.green)
         searchForNumbersSwitch.tintColor = .setColor(.green)
@@ -84,8 +115,13 @@ final class ManageMypageViewController: UIViewController, CustomView {
     
     private func setConfigure() {
         view.addSubview(scrollView)
-        scrollView.addSubview(imageView)
-        scrollView.addSubview(stackView)
+        
+        [backgroundImageView, sesacImageView, nicknameView, stackView].forEach {
+            scrollView.addSubview($0)
+        }
+
+        backgroundImageView.addSubview(sesacImageView)
+        nicknameView.addSubview(nicknameLabel)
 
         [myGenderLabel, manButton, womanButton].forEach {
             myGenderView.addSubview($0)
@@ -111,13 +147,30 @@ final class ManageMypageViewController: UIViewController, CustomView {
             make.edges.equalTo(view.safeAreaLayoutGuide)
         }
         
-        imageView.snp.makeConstraints { make in
+        backgroundImageView.snp.makeConstraints { make in
             make.top.horizontalEdges.equalTo(view.safeAreaLayoutGuide).inset(16)
-            make.height.equalTo(scrollView.snp.width).multipliedBy(0.5)
+            make.height.equalTo(scrollView.snp.width).multipliedBy(0.525)
+        }
+        
+        sesacImageView.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.centerY.equalToSuperview().multipliedBy(1.2)
+            make.height.width.equalTo(backgroundImageView.snp.height).multipliedBy(0.9)
+        }
+        
+        nicknameView.snp.makeConstraints { make in
+            make.top.equalTo(backgroundImageView.snp.bottom)
+            make.horizontalEdges.equalToSuperview().inset(16)
+            make.height.equalTo(58)
+        }
+        
+        nicknameLabel.snp.makeConstraints { make in
+            make.centerY.equalToSuperview()
+            make.leading.equalTo(16)
         }
         
         stackView.snp.makeConstraints { make in
-            make.top.equalTo(imageView.snp.bottom)
+            make.top.equalTo(nicknameView.snp.bottom).offset(20)
             make.horizontalEdges.equalToSuperview()
             make.width.equalToSuperview()
         }
@@ -126,7 +179,7 @@ final class ManageMypageViewController: UIViewController, CustomView {
             guard label != ageGroupLabel else { continue }
             label.snp.makeConstraints { make in
                 make.leading.equalToSuperview().inset(16)
-                make.top.bottom.equalToSuperview().inset(30)
+                make.top.bottom.equalToSuperview().inset(20)
             }
         }
         
