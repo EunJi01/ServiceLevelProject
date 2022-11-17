@@ -40,7 +40,7 @@ class LaunchViewController: UIViewController {
     }
     
     private func viewTransition() {
-        APIManager.shared.get(type: UserInfo.self, endpoint: .login) { [weak self] response in
+        APIManager.shared.sesac(type: UserInfo.self, method: .get, endpoint: .login) { [weak self] response in
             switch response {
             case .success(let userInfo):
                 UserDefaults.userNickname = userInfo.nick

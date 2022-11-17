@@ -21,6 +21,9 @@ enum ImageSet: String {
     case man
     case woman
     case gps
+    
+    // 그 외
+    case mapMarker = "map_marker"
 }
 
 struct IconSet {

@@ -55,7 +55,7 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
     
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
         //completionHandler([.alert, .badge, .sound])
-        // 앱이 포그라운드에 있을 대 호출되는 메서드
+        // 앱이 포그라운드에 있을 때 호출되는 메서드
     }
     
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {

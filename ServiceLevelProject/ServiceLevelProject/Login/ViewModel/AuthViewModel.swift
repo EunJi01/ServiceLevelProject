@@ -118,7 +118,7 @@ final class AuthViewModel {
     }
     
     private func requestLogin() {
-        APIManager.shared.get(type: UpdateUserInfo.self, endpoint: .login) { [weak self] response in
+        APIManager.shared.sesac(type: UpdateUserInfo.self, method: .get, endpoint: .login) { [weak self] response in
             switch response {
             case .success(_):
                 UserDefaults.authenticationCompleted = true

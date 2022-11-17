@@ -1,0 +1,22 @@
+//
+//  SearchSesac.swift
+//  ServiceLevelProject
+//
+//  Created by 황은지 on 2022/11/18.
+//
+
+import Foundation
+
+struct SearchSesac {
+    let fromQueueDB: [FromQueueDB]
+    let fromQueueDBRequested: [Any?]
+    let fromRecommend: [String]
+}
+
+struct FromQueueDB {
+    let studylist, reviews: [String]
+    let reputation: [Int]
+    let uid, nick: String
+    let gender, type, sesac, background: Int
+    let long, lat: Double
+}

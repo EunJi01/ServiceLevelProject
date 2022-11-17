@@ -68,18 +68,14 @@ final class HomeViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .white
         
+        mapView.delegate = self
         locationManager.delegate = self
         locationManager.requestWhenInUseAuthorization()
         
-        bind()
         setConfigure()
         setConstraints()
     }
-    
-    private func bind() {
-        
-    }
-    
+
     private func setConfigure() {
         [mapView, statusButton, allButton, manButton, womanButton, gpsButton].forEach {
             view.addSubview($0)
@@ -121,9 +117,45 @@ final class HomeViewController: UIViewController {
             make.height.equalTo(allButton.snp.height)
         }
     }
+    
+    func statusButtonTapped() {
+        // 현재 위치 받아와서 Study 쪽으로 넘기며 푸시?
+    }
 }
 
 extension HomeViewController {
+    private func setRegion(center: CLLocationCoordinate2D) {
+        let region = MKCoordinateRegion(center: center, latitudinalMeters: 700, longitudinalMeters: 700)
+        mapView.setRegion(region, animated: true)
+        currentAnnotation.coordinate = center
+        mapView.addAnnotation(currentAnnotation)
+    }
+    
+    private func setCurrentAnnotation(center: CLLocationCoordinate2D) {
+        let pin = MKPointAnnotation()
+        pin.coordinate = center
+        mapView.addAnnotation(pin)
+    }
+    
+    private func setSesacPin(sesac_image: Int, center: CLLocationCoordinate2D) {
+       let pin = CustomAnnotation(sesac_image: sesac_image, coordinate: center)
+        mapView.addAnnotation(pin)
+    }
+    
+    private func getLocationUsagePermission() {
+        locationManager.requestWhenInUseAuthorization()
+    }
+    
+    private func showRequestLocationServiceAlert() {
+        showAlert(title: "위치정보 이용", message: "위치 서비스를 사용할 수 없습니다. 기기의 '설정>개인정보 보호'에서 위치 서비스를 켜주세요.", button: "설정으로 이동") { _ in
+            if let appSetting = URL(string: UIApplication.openSettingsURLString) {
+                UIApplication.shared.open(appSetting)
+            }
+        }
+    }
+}
+
+extension HomeViewController: CLLocationManagerDelegate {
     func checkUserDeviceLocationServiceAuthorization() {
         let authorizationStatus: CLAuthorizationStatus
         if #available(iOS 14.0, *) {
@@ -153,40 +185,25 @@ extension HomeViewController {
          case .denied:
              print("GPS 권한 요청 거부됨")
              let campus = CLLocationCoordinate2D(latitude: 37.517829, longitude: 126.886270)
-             setRegionAndAnnotation(center: campus)
+             setRegion(center: campus)
+             setCurrentAnnotation(center: campus)
              getLocationUsagePermission()
          default:
              print("GPS: Default")
          }
      }
     
-    func showRequestLocationServiceAlert() {
-        showAlert(title: "위치정보 이용", message: "위치 서비스를 사용할 수 없습니다. 기기의 '설정>개인정보 보호'에서 위치 서비스를 켜주세요.", button: "설정으로 이동") { _ in
-            if let appSetting = URL(string: UIApplication.openSettingsURLString) {
-                UIApplication.shared.open(appSetting)
-            }
-        }
-    }
-    
-    func setRegionAndAnnotation(center: CLLocationCoordinate2D) {
-        let region = MKCoordinateRegion(center: center, latitudinalMeters: 700, longitudinalMeters: 700)
-        mapView.setRegion(region, animated: true)
-        currentAnnotation.coordinate = center
-        mapView.addAnnotation(currentAnnotation)
-    }
-    
-    func getLocationUsagePermission() {
-        locationManager.requestWhenInUseAuthorization()
-    }
-}
-
-extension HomeViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         print(#function, locations)
         
         if let coordinate = locations.last?.coordinate {
             print("위치 받아옴")
-            setRegionAndAnnotation(center: coordinate)
+            setRegion(center: coordinate)
+            setCurrentAnnotation(center: coordinate)
+        
+//            addCustomPin(sesac_image: 1, center: coordinate)
+//            let lat = coordinate.latitude
+//            let lon = coordinate.longitude
         }
 
         locationManager.stopUpdatingLocation()
@@ -197,7 +214,6 @@ extension HomeViewController: CLLocationManagerDelegate {
     }
     
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
-        print(#function)
         checkUserDeviceLocationServiceAuthorization()
     }
 }
@@ -205,5 +221,31 @@ extension HomeViewController: CLLocationManagerDelegate {
 extension HomeViewController: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
         locationManager.startUpdatingLocation()
+    }
+    
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        guard let annotation = annotation as? CustomAnnotation else { return nil }
+
+        var annotationView = self.mapView.dequeueReusableAnnotationView(withIdentifier: CustomAnnotationView.identifier)
+        
+        if annotationView == nil {
+            annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: CustomAnnotationView.identifier)
+            annotationView?.canShowCallout = false
+            annotationView?.contentMode = .scaleAspectFit
+        } else {
+            annotationView?.annotation = annotation
+        }
+        
+        guard let sesacNumber = annotation.sesac_image else { return nil }
+        guard let sesacImage = SeSACFace(rawValue: sesacNumber)?.image else { return nil }
+        
+        let size = CGSize(width: 85, height: 85)
+        UIGraphicsBeginImageContext(size)
+        
+        sesacImage.draw(in: CGRect(x: 0, y: 0, width: size.width, height: size.height))
+        let resizedImage = UIGraphicsGetImageFromCurrentImageContext()
+        annotationView?.image = resizedImage
+        
+        return annotationView
     }
 }

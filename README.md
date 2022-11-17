@@ -65,6 +65,8 @@
 | 15 | ManageMypage | Layout | 5h |  |  |
 | 16 | ManageMypage | 데이터 뷰에 보여주기 | 1h |  |  |
 | 17 | Home | MapView 권한/위치 | 2h |  |  |
+| 17 | Home | CustomAnnotation | 1h |  |  |
+| 17 | 모듈화 | APIManager 간소화 | 30m |  |  |
 |  |  |  |  |  |  |
 | **3주차** |  |  |  |  | **~2022.11.27** |
 |  |  |  |  |  |  |
@@ -139,7 +141,9 @@
 - 정보관리뷰의 레이아웃이 마음처럼 잡히지 않는다. 너무너무 화난다.
 
 #### 11/16
-- 아파서 토하고 몸져누웠음ㅠ
+- 아파서 토하고 몸져누웠음ㅠㅠㅠ
 
 #### 11/17
 - MapView 권한 설정/ 분기처리 / 현재 위치 받아오기 / 현재위치 혹은 영등포캠퍼스 어노테이션 구현
+- CustomAnnotationView 라는 이름의 MKAnnotationView 와 CustomAnnotation를 만들어 새싹 이미지를 핀으로 사용할 수 있도록 준비했다.
+- MapView 쪽 진입하니 도저히 rx로 구현하기가 어려워서, 우선은 MVC 패턴으로 구현했다...

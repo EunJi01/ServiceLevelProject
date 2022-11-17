@@ -59,7 +59,7 @@ final class ManageMypageViewModel {
     }
     
     func getUserInfo() {
-        APIManager.shared.get(type: UpdateUserInfo.self, endpoint: .login) { [weak self] response in
+        APIManager.shared.sesac(type: UpdateUserInfo.self, method: .get, endpoint: .login) { [weak self] response in
             switch response {
             case .success(let userInfo):
                 self?.getUserInfoRelay.accept(userInfo)

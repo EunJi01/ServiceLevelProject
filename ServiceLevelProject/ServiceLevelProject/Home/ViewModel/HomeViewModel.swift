@@ -25,8 +25,4 @@ final class HomeViewModel {
         
         return Output()
     }
-    
-//    func getMyQueteState() {
-//        APIManager.shared.get(type: <#T##Decodable.Protocol#>, endpoint: <#T##Endpoint#>, completion: <#T##(Result<Decodable, APIStatusCode>) -> Void#>)
-//    }
 }

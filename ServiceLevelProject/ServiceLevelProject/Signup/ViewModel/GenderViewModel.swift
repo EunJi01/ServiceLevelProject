@@ -82,16 +82,19 @@ final class GenderViewModel {
         if UserDefaults.userGender == 10 {
             showToastRelay.accept(GenderToast.notValid.rawValue)
         } else {
-            APIManager.shared.post(endpoint: .signup) { [weak self] statusCode in
-                switch statusCode {
-                case .success:
+            APIManager.shared.sesac(method: .post, endpoint: .signup) { [weak self] response in
+                switch response {
+                case .success(_):
                     self?.presentMainVCRelay.accept(())
-                case .nicknameError:
-                    self?.popToNicknameVCRelay.accept(statusCode.errorDescription ?? "")
-                case .firebaseTokenError:
-                    self?.getIdToken()
-                default:
-                    self?.showToastRelay.accept(statusCode.errorDescription)
+                case .failure(let statusCode):
+                    switch statusCode {
+                    case .nicknameError:
+                        self?.popToNicknameVCRelay.accept(statusCode.errorDescription ?? "")
+                    case .firebaseTokenError:
+                        self?.getIdToken()
+                    default:
+                        self?.showToastRelay.accept(statusCode.errorDescription)
+                    }
                 }
             }
         }
