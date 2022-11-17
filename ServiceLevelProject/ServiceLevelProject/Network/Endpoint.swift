@@ -42,7 +42,7 @@ extension Endpoint {
         case .myQueueState:
             return URL(string: Endpoint.baseURL + "v1/myQueueState")
         }
-
+    }
     
     var headers: HTTPHeaders {
         var header: HTTPHeaders = [
@@ -54,7 +54,7 @@ extension Endpoint {
         default:
             break
         }
-
+        
         return header
     }
     
@@ -98,3 +98,4 @@ extension Endpoint {
         return parameters
     }
 }
+

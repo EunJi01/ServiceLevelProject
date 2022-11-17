@@ -47,15 +47,15 @@ final class ManageMypageViewModel {
     
     private func updateUserInfo() {
         // 값에 접근하고 싶으면 어떡하지... 근데 임의로 초기값 넣어놨다가 데이터 받아와서 고치기 전에 사용자가 저장하면 어떡하지...
-        APIManager.shared.put(endpoint:.mypage(searchable: <#T##Int#>, ageMin: <#T##Int#>, ageMax: <#T##Int#>, gender: <#T##Int#>, study: <#T##String#>))
-        { [weak self] statusCode in
-            switch statusCode {
-            case .success:
-                self?.switchIsOnRelay.accept(self?.switchIsOn())
-            default:
-                self?.showToastRelay.accept(statusCode.errorDescription)
-            }
-        }
+//        APIManager.shared.put(endpoint:.mypage(searchable: <#T##Int#>, ageMin: <#T##Int#>, ageMax: <#T##Int#>, gender: <#T##Int#>, study: <#T##String#>))
+//        { [weak self] statusCode in
+//            switch statusCode {
+//            case .success:
+//                self?.switchIsOnRelay.accept(self?.switchIsOn())
+//            default:
+//                self?.showToastRelay.accept(statusCode.errorDescription)
+//            }
+//        }
     }
     
     func getUserInfo() {
