@@ -21,7 +21,7 @@ enum Endpoint {
 }
 
 extension Endpoint {
-    static let baseURL = "http://api.sesac.co.kr:1207/"
+    static let baseURL = "http://api.sesac.co.kr:1210/"
     
     var url: URL? {
         switch self {
@@ -44,17 +44,33 @@ extension Endpoint {
         }
     }
     
+    var method: HTTPMethod {
+        switch self {
+        case .login:
+            return .get
+        case .signup:
+            return .post
+        case .mypage:
+            return .put
+        case .withdraw:
+            return .post
+        case .queueRequest:
+            return .post
+        case .queueStop:
+            return .delete
+        case .queueSearch:
+            return .post
+        case .myQueueState:
+            return .get
+        }
+    }
+    
     var headers: HTTPHeaders {
-        var header: HTTPHeaders = [
+        let header: HTTPHeaders = [
             "Content-Type": "application/x-www-form-urlencoded",
             "idtoken": UserDefaults.idToken
         ]
-        
-        switch self {
-        default:
-            break
-        }
-        
+
         return header
     }
     
@@ -63,15 +79,15 @@ extension Endpoint {
         
         switch self {
         case .signup:
-            guard let birth = UserDefaults.userBirth else { return [:] }
             parameters = [
                 "phoneNumber": "+82\(UserDefaults.userPhoneNumber.dropFirst())",
                 "FCMtoken": UserDefaults.fcmToken,
                 "nick": UserDefaults.userNickname,
-                "birth": "\(birth)",
+                "birth": "\(UserDefaults.userBirth!)",
                 "email": UserDefaults.userEmail,
                 "gender": "\(UserDefaults.userGender)"
             ]
+
         case .mypage(let searchable, let ageMin, let ageMax, let gender, let study):
             parameters = [
                 "searchable": "\(searchable)",

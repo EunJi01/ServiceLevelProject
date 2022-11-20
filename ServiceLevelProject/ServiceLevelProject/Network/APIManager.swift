@@ -12,21 +12,22 @@ final class APIManager {
     static let shared = APIManager()
     private init() { }
     
-    func sesac<T: Decodable>(type: T.Type = String.self, method: HTTPMethod, endpoint: Endpoint, completion: @escaping (Result<T, APIStatusCode>) -> Void) {
+    func sesac<T: Decodable>(type: T.Type = String.self, endpoint: Endpoint, completion: @escaping (Result<T, APIStatusCode>) -> Void) {
         
-        let api = endpoint
-        guard let url = api.url else { return }
+        guard let url = endpoint.url else { return }
         
-        AF.request(url, method: .get, headers: api.headers)
+        AF.request(url, method: endpoint.method, headers: endpoint.headers)
             .responseDecodable(of: T.self) { response in
         
                 switch response.result {
                 case .success(let data):
                     completion(.success(data))
+                    print("APIManager - 성공!")
                 case .failure(_):
                     guard let statusCode = response.response?.statusCode else { return }
                     guard let error = APIStatusCode(rawValue: statusCode) else { return }
                     completion(.failure(error))
+                    print("APIManager - 실패!")
                 }
             }
     }

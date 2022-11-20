@@ -18,9 +18,11 @@ final class HomeViewController: UIViewController {
     
     let statusButton: UIButton = {
         let view = UIButton()
-        view.tintColor = .black
+        view.tintColor = .white
         view.backgroundColor = .black
         view.layer.cornerRadius = 32
+        view.setImage(IconSet.search, for: .normal)
+        // MARK: 버튼 사이즈 키워야함
         return view
     }()
     
@@ -74,6 +76,7 @@ final class HomeViewController: UIViewController {
         
         setConfigure()
         setConstraints()
+        statusButtonTapped()
     }
 
     private func setConfigure() {
@@ -120,6 +123,11 @@ final class HomeViewController: UIViewController {
     
     func statusButtonTapped() {
         // 현재 위치 받아와서 Study 쪽으로 넘기며 푸시?
+        // let lat = coordinate.latitude
+        // let lon = coordinate.longitude
+        
+        // addCustomPin(sesac_image: 1, center: coordinate)
+        transition(StudySearchViewController(), transitionStyle: .push)
     }
 }
 
@@ -200,10 +208,6 @@ extension HomeViewController: CLLocationManagerDelegate {
             print("위치 받아옴")
             setRegion(center: coordinate)
             setCurrentAnnotation(center: coordinate)
-        
-//            addCustomPin(sesac_image: 1, center: coordinate)
-//            let lat = coordinate.latitude
-//            let lon = coordinate.longitude
         }
 
         locationManager.stopUpdatingLocation()

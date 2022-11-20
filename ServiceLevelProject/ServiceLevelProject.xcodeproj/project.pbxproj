@@ -155,7 +155,7 @@
 			path = Onboarding;
 			sourceTree = "<group>";
 		};
-		B620CD0329192BA9002CE764 /* Set */ = {
+		B620CD0329192BA9002CE764 /* Utility */ = {
 			isa = PBXGroup;
 			children = (
 				B62A8A7D2926B7C300D84D79 /* CustomAnnotation.swift */,
@@ -163,7 +163,7 @@
 				B620CD0929194C9C002CE764 /* TextSet.swift */,
 				B620CD0F29195449002CE764 /* ColorSet.swift */,
 			);
-			path = Set;
+			path = Utility;
 			sourceTree = "<group>";
 		};
 		B620CD0629193522002CE764 /* Extension */ = {
@@ -317,7 +317,7 @@
 				B691FD6B291ACDB700FC47F4 /* ServiceLevelProject.entitlements */,
 				B620CD1429195C80002CE764 /* Protocol */,
 				B620CD0629193522002CE764 /* Extension */,
-				B620CD0329192BA9002CE764 /* Set */,
+				B620CD0329192BA9002CE764 /* Utility */,
 				B66DD167291DB4140095BE9B /* Network */,
 				B69B8806291FD5C9002ECA23 /* Model */,
 				B620CCFA29191D5D002CE764 /* Onboarding */,

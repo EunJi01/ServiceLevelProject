@@ -21,6 +21,7 @@ final class ManageMypageViewController: UIViewController, CustomView {
     private lazy var searchForNumbersLabel: UILabel = customTitleLabel(size: 14, text: "내 번호 검색 허용")
     private lazy var ageGroupLabel: UILabel = customTitleLabel(size: 14, text: "상대방 연령대")
     private lazy var withdrawLabel: UILabel = customTitleLabel(size: 14, text: "회원탈퇴")
+    private let withdrawButton: UIButton = UIButton()
     
     private lazy var manButton: UIButton = customButton(title: "남자")
     private lazy var womanButton: UIButton = customButton(title: "여자")
@@ -57,7 +58,7 @@ final class ManageMypageViewController: UIViewController, CustomView {
         view.backgroundColor = .white
         
         vm.getUserInfo()
-        
+
         bind()
         setProperties()
         setConfigure()
@@ -67,6 +68,8 @@ final class ManageMypageViewController: UIViewController, CustomView {
     private func bind() {
         let input = ManageMypageViewModel.Input(
             saveButton: saveButton.rx.tap
+                .asSignal(),
+            withdrawButton: withdrawButton.rx.tap
                 .asSignal()
         )
         
@@ -84,8 +87,41 @@ final class ManageMypageViewController: UIViewController, CustomView {
                 vc.ageRangeLabel.text = "\(userInfo.ageMin)-\(userInfo.ageMax)"
             } 
             .disposed(by: disposeBag)
+
+        output.withdraw
+            .withUnretained(self)
+            .emit { vc, _ in
+                print("눌리긴 했나?")
+                vc.showWithdrawAlert()
+            }
+            .disposed(by: disposeBag)
+        
+        output.showToast
+            .withUnretained(self)
+            .emit { vc, text in
+                vc.view.makeToast(text, position: .top)
+            }
+            .disposed(by: disposeBag)
     }
     
+    private func showWithdrawAlert() {
+        let alert = UIAlertController(title: "회원탈퇴", message: "탈퇴하시면 모든 정보가 사라집니다!", preferredStyle: .alert)
+        let ok = UIAlertAction(title: "탈퇴", style: .destructive, handler: { [weak self] _ in self?.resetOnboarding() })
+        let cancel = UIAlertAction(title: "취소", style: .cancel)
+        alert.addAction(ok)
+        alert.addAction(cancel)
+        self.present(alert, animated: true)
+    }
+    
+    private func resetOnboarding() {
+        let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene
+        let sceneDelegate = windowScene?.delegate as? SceneDelegate
+        let vc = OnboardingViewController()
+        
+        sceneDelegate?.window?.rootViewController = vc
+        sceneDelegate?.window?.makeKeyAndVisible()
+    }
+
     private func setProperties() {
         navigationItem.rightBarButtonItem = saveButton
         
@@ -139,7 +175,9 @@ final class ManageMypageViewController: UIViewController, CustomView {
             ageGroupView.addSubview($0)
         }
         
-        withdrawView.addSubview(withdrawLabel)
+        [withdrawLabel, withdrawButton].forEach {
+            withdrawView.addSubview($0)
+        }
     }
     
     private func setConstraints() {
@@ -181,6 +219,10 @@ final class ManageMypageViewController: UIViewController, CustomView {
                 make.leading.equalToSuperview().inset(16)
                 make.top.bottom.equalToSuperview().inset(20)
             }
+        }
+        
+        withdrawButton.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
         }
         
         womanButton.snp.makeConstraints { make in

@@ -14,6 +14,7 @@ final class ManageMypageViewModel {
     
     struct Input {
         let saveButton: Signal<Void>
+        let withdrawButton: Signal<Void>
     }
     
     struct Output {
@@ -21,12 +22,14 @@ final class ManageMypageViewModel {
         let showToast: Signal<String?>
         let getUserInfo: Signal<UpdateUserInfo>
         let switchIsOn: Signal<Bool?>
+        let withdraw: Signal<Void>
     }
     
     private let updateUserInfoRelay = PublishRelay<Void>()
     private let showToastRelay = PublishRelay<String?>()
     private let getUserInfoRelay = PublishRelay<UpdateUserInfo>()
     private let switchIsOnRelay = PublishRelay<Bool?>()
+    private let withdrawRelay = PublishRelay<Void>()
     
     func transform(input: Input) -> Output {
         input.saveButton
@@ -37,11 +40,19 @@ final class ManageMypageViewModel {
             }
             .disposed(by: disposeBag)
         
+        input.withdrawButton
+            .withUnretained(self)
+            .emit { vm, _ in
+                vm.withdraw()
+            }
+            .disposed(by: disposeBag)
+        
         return Output(
             updateUserInfo: updateUserInfoRelay.asSignal(),
             showToast: showToastRelay.asSignal(),
             getUserInfo: getUserInfoRelay.asSignal(),
-            switchIsOn: switchIsOnRelay.asSignal()
+            switchIsOn: switchIsOnRelay.asSignal(),
+            withdraw: withdrawRelay.asSignal()
         )
     }
     
@@ -58,8 +69,27 @@ final class ManageMypageViewModel {
 //        }
     }
     
+    private func withdraw() {
+        APIManager.shared.sesac(endpoint: .withdraw) { [weak self] response in
+            switch response {
+            case .success(_):
+                for key in UserDefaults.standard.dictionaryRepresentation().keys {
+                            UserDefaults.standard.removeObject(forKey: key.description)
+                        }
+            case .failure(let statusCode):
+                // MARK: 자꾸 500 에러 발생...
+                self?.showToastRelay.accept(statusCode.errorDescription)
+            }
+        }
+    }
+
+    private func switchIsOn() -> Bool {
+        
+        return true
+    }
+    
     func getUserInfo() {
-        APIManager.shared.sesac(type: UpdateUserInfo.self, method: .get, endpoint: .login) { [weak self] response in
+        APIManager.shared.sesac(type: UpdateUserInfo.self, endpoint: .login) { [weak self] response in
             switch response {
             case .success(let userInfo):
                 self?.getUserInfoRelay.accept(userInfo)
@@ -67,10 +97,5 @@ final class ManageMypageViewModel {
                 self?.showToastRelay.accept(statusCode.errorDescription)
             }
         }
-    }
-    
-    private func switchIsOn() -> Bool {
-        
-        return true
     }
 }

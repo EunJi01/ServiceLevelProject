@@ -118,14 +118,14 @@ final class AuthViewModel {
     }
     
     private func requestLogin() {
-        APIManager.shared.sesac(type: UpdateUserInfo.self, method: .get, endpoint: .login) { [weak self] response in
+        APIManager.shared.sesac(type: UpdateUserInfo.self, endpoint: .login) { [weak self] response in
             switch response {
             case .success(_):
-                UserDefaults.authenticationCompleted = true
                 self?.presentMainVCRelay.accept(())
             case.failure(let statusCode):
                 switch statusCode {
                 case .mustSignup:
+                    UserDefaults.authenticationCompleted = true
                     self?.pushSignupVCRelay.accept(())
                 default:
                     self?.showToastRelay.accept(statusCode.errorDescription)

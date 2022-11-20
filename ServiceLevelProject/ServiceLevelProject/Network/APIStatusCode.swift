@@ -31,7 +31,7 @@ extension APIStatusCode: LocalizedError {
         case .mustSignup:
             return "미가입 회원입니다."
         case .serverError:
-            return "서버에 에러가 발생했습니다."
+            return "서버 에러가 발생했습니다."
         case .clientError:
             return "클라이언트 에러가 발생했습니다."
         }

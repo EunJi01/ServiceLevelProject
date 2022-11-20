@@ -82,7 +82,7 @@ final class GenderViewModel {
         if UserDefaults.userGender == 10 {
             showToastRelay.accept(GenderToast.notValid.rawValue)
         } else {
-            APIManager.shared.sesac(method: .post, endpoint: .signup) { [weak self] response in
+            APIManager.shared.sesac(endpoint: .signup) { [weak self] response in
                 switch response {
                 case .success(_):
                     self?.presentMainVCRelay.accept(())
@@ -94,6 +94,15 @@ final class GenderViewModel {
                         self?.getIdToken()
                     default:
                         self?.showToastRelay.accept(statusCode.errorDescription)
+                        // MARK: 501... 왜이러지
+                        print(
+                            "phoneNumber: +82\(UserDefaults.userPhoneNumber.dropFirst())",
+                            "FCMtoken: \(UserDefaults.fcmToken)",
+                            "nick: \(UserDefaults.userNickname)",
+                            "birth: \(UserDefaults.userBirth!)",
+                            "email: \(UserDefaults.userEmail)",
+                            "gender: \(UserDefaults.userGender)"
+                        )
                     }
                 }
             }
