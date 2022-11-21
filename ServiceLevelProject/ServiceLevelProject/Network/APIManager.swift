@@ -13,12 +13,12 @@ final class APIManager {
     private init() { }
     
     func sesac<T: Decodable>(type: T.Type = String.self, endpoint: Endpoint, completion: @escaping (Result<T, APIStatusCode>) -> Void) {
-        
+
         guard let url = endpoint.url else { return }
         
-        AF.request(url, method: endpoint.method, headers: endpoint.headers)
+        AF.request(url, method: endpoint.method, parameters: endpoint.parameters, headers: endpoint.headers)
             .responseDecodable(of: T.self) { response in
-        
+
                 switch response.result {
                 case .success(let data):
                     completion(.success(data))
@@ -27,7 +27,7 @@ final class APIManager {
                     guard let statusCode = response.response?.statusCode else { return }
                     guard let error = APIStatusCode(rawValue: statusCode) else { return }
                     completion(.failure(error))
-                    print("APIManager - 실패!")
+                    print("APIManager - 실패! \(statusCode)")
                 }
             }
     }

@@ -31,43 +31,44 @@
 | 날짜 | View | 세부내용 | 소요시간 | 특이사항 | 기간 |
 | --- | --- | --- | --- | --- | --- |
 | **1주차** |  |  |  |  | **~2022.11.13** |
-| 7 | 모듈화 | Extension, Protocol, enum... | 2h |  |  |
-| 7 | Onboarding | PageViewController 구성 | 4h |  |  |
-| 8 | Login | Layout | 2h |  |  |
-| 8 | Login | TextField 하이픈 추가 | 2h |  |  |
-| 8 | Login | 전화번호 유효성 검사 | 3h |  |  |
-| 8 | Login | Firebase Auth | 3h |  |  |
-| 9 | Login | 하이픈 버그 수정 | 1h |  |  |
-| 9 | Login | TextField 하이라이트 | 1h |  |  |
-| 9 | Login | TextField 글자수 제한 | 1h |  |  |
-| 9 | Auth | Layout | 1h |  |  |
-| 9 | Auth | 인증번호로 로그인 | 1h |  |  |
-| 9 | Nickname | Layout | 30m |  |  |
-| 9 | Nickname | 유효성 검사/UI 반응 구현 | 1h |  |  |
-| 9 | Email | 유효성 검사/UI 반응 구현 | 1h |  |  |
-| 10 | Birth | Layout | 2h |  |  |
-| 10 | Gender | Layout | 1h |  |  |
-| 10 | Gender | 성별 선택 UI 반응 구현 | 1h |  |  |
-| 11 | 모듈화 | UserDefaultsKey 개선 | 30m |  |  |
-| 11 | 모듈화 | 네트워트 관련 코드 분리 | 30m |  |  |
-| 11 | SceneDelegate | rootView 조건 구현 | 30m |  |  |
-| 11 | Auth | 인증번호 재전송 구현 | 1h |  |  |
-| 12 | Birth | DatePicker 구현 | 4h | 기존 입력값 불러오는 코드 삽질 |  |
-| 13 | 회원가입 | 회원가입 API 통신 | 6h | 삽질 끝판왕 |  |
-| 13 | Login/Auth | 중복 클릭 방지 | 1h |  |  |
-| 13 | Signup | 부적절한 닉네임 분기처리 | 1h |  |  |
-| 13 | Launch | 네트워크 체크/rootView 분기처리 | 2h |  |  |
+|  | 모듈화 | Extension, Protocol, enum... | 2h |  |  |
+|  | Onboarding | PageViewController 구성 | 4h |  |  |
+|  | Login | Layout | 2h |  |  |
+|  | Login | TextField 하이픈 추가 | 2h |  |  |
+|  | Login | 전화번호 유효성 검사 | 3h |  |  |
+|  | Login | Firebase Auth | 3h |  |  |
+|  | Login | 하이픈 버그 수정 | 1h |  |  |
+|  | Login | TextField 하이라이트 | 1h |  |  |
+|  | Login | TextField 글자수 제한 | 1h |  |  |
+|  | Auth | Layout | 1h |  |  |
+|  | Auth | 인증번호로 로그인 | 1h |  |  |
+|  | Nickname | Layout | 30m |  |  |
+|  | Nickname | 유효성 검사/UI 반응 구현 | 1h |  |  |
+|  | Email | 유효성 검사/UI 반응 구현 | 1h |  |  |
+|  | Birth | Layout | 2h |  |  |
+|  | Gender | Layout | 1h |  |  |
+|  | Gender | 성별 선택 UI 반응 구현 | 1h |  |  |
+|  | 모듈화 | UserDefaultsKey 개선 | 30m |  |  |
+|  | 모듈화 | 네트워트 관련 코드 분리 | 30m |  |  |
+|  | SceneDelegate | rootView 조건 구현 | 30m |  |  |
+|  | Auth | 인증번호 재전송 구현 | 1h |  |  |
+|  | Birth | DatePicker 구현 | 4h | 기존 입력값 불러오는 코드 삽질 |  |
+|  | 회원가입 | 회원가입 API 통신 | 6h | 삽질 끝판왕 |  |
+|  | Login/Auth | 중복 클릭 방지 | 1h |  |  |
+|  | Signup | 부적절한 닉네임 분기처리 | 1h |  |  |
+|  | Launch | 네트워크 체크/rootView 분기처리 | 2h |  |  |
 |  |  |  |  |  |  |
 | **2주차** |  |  |  |  | **~2022.11.20** |
-| 14 | Mypage | Layout | 1h |  |  |
-| 14 | Launch/회원가입 | idToken 갱신 코드 추가 | 1h |  |  |
-| 15 | Home | Layout | 1h |  |  |
-| 15 | ManageMypage | Layout | 5h |  |  |
-| 16 | ManageMypage | 데이터 뷰에 보여주기 | 1h |  |  |
-| 17 | Home | MapView 권한/위치 | 2h |  |  |
-| 17 | Home | CustomAnnotation | 1h |  |  |
-| 17 | 모듈화 | APIManager 간소화 | 30m |  |  |
-| 18 | ManageMypage | 회원탈퇴 구현 | 30m |  |  |
+|  | Mypage | Layout | 1h |  |  |
+|  | Launch/회원가입 | idToken 갱신 코드 추가 | 1h |  |  |
+|  | Home | Layout | 1h |  |  |
+|  | ManageMypage | Layout | 5h |  |  |
+|  | ManageMypage | 데이터 뷰에 보여주기 | 1h |  |  |
+|  | Home | MapView 권한/위치 | 2h |  |  |
+|  | Home | CustomAnnotation | 1h |  |  |
+|  | 모듈화 | APIManager 간소화 | 30m |  |  |
+|  | ManageMypage | 회원탈퇴 구현 | 30m |  |  |
+|  | Home | API 통신/어노테이션 띄우기 | 2h |  |  |
 |  |  |  |  |  |  |
 | **3주차** |  |  |  |  | **~2022.11.27** |
 |  |  |  |  |  |  |
@@ -137,17 +138,16 @@
 - 정보관리 화면은... 셀마다 너무 다른 구성이라 어떻게 UI를 만들어야 할지 감이 잘 안잡힌다.
 - 스크롤뷰와 스텍뷰로 구성해야 할까...? 그렇다면 UILabel도 하나하나 객체를 생성해야 하는 걸까? 팀원분들은 어떻게 했는지 내일 여쭤봐야겠다.
 
-#### 11/15
+#### 11/15 - 11/18
 - Home쪽 레이아웃을 간단하게 잡았으며, 버튼쪽 cornerRadius는 maskedCorners를 활용해 부분적으로 둥글게 말아주었다.
 - 정보관리뷰의 레이아웃이 마음처럼 잡히지 않는다. 너무너무 화난다.
-
-#### 11/16
-- 아파서 토하고 몸져누웠음ㅠㅠㅠ
-
-#### 11/17
 - MapView 권한 설정/ 분기처리 / 현재 위치 받아오기 / 현재위치 혹은 영등포캠퍼스 어노테이션 구현
 - CustomAnnotationView 라는 이름의 MKAnnotationView 와 CustomAnnotation를 만들어 새싹 이미지를 핀으로 사용할 수 있도록 준비했다.
 - MapView 쪽 진입하니 도저히 rx로 구현하기가 어려워서, 우선은 MVC 패턴으로 구현했다...
-
-#### 11/18
 - 회원탈퇴 버튼을 누르면 얼럿을 띄우고, 탈퇴 버튼을 누르면 모든 로컬 데이터와 서버 데이터를 삭제한 후 온보딩 화면으로 이동하도록 구현했다.
+
+#### 11/19 - 11/22
+- 회원가입/회원탈퇴 API 통신 부분에서의 클라이언트 에러와 서버 에러를 수정했다.
+- 각각 파라미터 바디 누락과 요청하는 서버의 주소가 잘못된 것이 원인이었다.
+- Codable 프로토콜을 채택한 Struct의 프로퍼티에 Any 타입이 있으면 에러가 발생한다.
+- 위치를 받아온 후 (권한이 없을 경우 캠퍼스 기준) API 통신을 진행하고, 주변에 있는 새싹들의 위치를 어노테이션을 통해 표시했다.

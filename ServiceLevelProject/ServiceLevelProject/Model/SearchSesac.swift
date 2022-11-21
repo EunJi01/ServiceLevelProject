@@ -7,13 +7,13 @@
 
 import Foundation
 
-struct SearchSesac {
+struct SearchSesac: Codable {
     let fromQueueDB: [FromQueueDB]
-    let fromQueueDBRequested: [Any?]
+//    let fromQueueDBRequested: [Any?]
     let fromRecommend: [String]
 }
 
-struct FromQueueDB {
+struct FromQueueDB: Codable {
     let studylist, reviews: [String]
     let reputation: [Int]
     let uid, nick: String

@@ -7,6 +7,7 @@
 
 import Foundation
 import Alamofire
+import MapKit
 
 enum Endpoint {
     case login
@@ -16,7 +17,7 @@ enum Endpoint {
     
     case queueRequest
     case queueStop
-    case queueSearch
+    case queueSearch(lat: CLLocationDegrees, long: CLLocationDegrees)
     case myQueueState
 }
 
@@ -32,7 +33,7 @@ extension Endpoint {
         case .mypage:
             return URL(string: Endpoint.baseURL + "v1/user/mypage")
         case .withdraw:
-            return URL(string: Endpoint.baseURL + "v1/withdraw")
+            return URL(string: Endpoint.baseURL + "v1/user/withdraw")
         case .queueRequest:
             return URL(string: Endpoint.baseURL + "v1/queue")
         case .queueStop:
@@ -102,10 +103,10 @@ extension Endpoint {
                 "long": "",
                 "studylist": ""
             ]
-        case .queueSearch:
+        case .queueSearch(let lat, let long):
             parameters = [
-                "lat": "",
-                "long": ""
+                "lat": "\(lat)",
+                "long": "\(long)"
             ]
         default:
             break

@@ -91,7 +91,6 @@ final class ManageMypageViewController: UIViewController, CustomView {
         output.withdraw
             .withUnretained(self)
             .emit { vc, _ in
-                print("눌리긴 했나?")
                 vc.showWithdrawAlert()
             }
             .disposed(by: disposeBag)

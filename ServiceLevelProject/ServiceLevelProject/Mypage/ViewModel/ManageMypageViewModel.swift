@@ -77,7 +77,6 @@ final class ManageMypageViewModel {
                             UserDefaults.standard.removeObject(forKey: key.description)
                         }
             case .failure(let statusCode):
-                // MARK: 자꾸 500 에러 발생...
                 self?.showToastRelay.accept(statusCode.errorDescription)
             }
         }

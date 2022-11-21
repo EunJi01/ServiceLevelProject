@@ -11,12 +11,12 @@ import RxSwift
 import RxCocoa
 
 final class HomeViewController: UIViewController {
-    let disposeBag = DisposeBag()
-    let mapView = MKMapView()
-    let locationManager = CLLocationManager()
-    let currentAnnotation = MKPointAnnotation()
+    private let disposeBag = DisposeBag()
+    private let mapView = MKMapView()
+    private let locationManager = CLLocationManager()
+    private let currentAnnotation = MKPointAnnotation()
     
-    let statusButton: UIButton = {
+    private let statusButton: UIButton = {
         let view = UIButton()
         view.tintColor = .white
         view.backgroundColor = .black
@@ -26,7 +26,7 @@ final class HomeViewController: UIViewController {
         return view
     }()
     
-    let allButton: UIButton = {
+    private let allButton: UIButton = {
         let view = UIButton()
         view.setTitle("전체", for: .normal)
         view.setTitleColor(.black, for: .normal)
@@ -37,7 +37,7 @@ final class HomeViewController: UIViewController {
         return view
     }()
     
-    let manButton: UIButton = {
+    private let manButton: UIButton = {
         let view = UIButton()
         view.setTitle("남자", for: .normal)
         view.setTitleColor(.black, for: .normal)
@@ -46,7 +46,7 @@ final class HomeViewController: UIViewController {
         return view
     }()
     
-    let womanButton: UIButton = {
+    private let womanButton: UIButton = {
         let view = UIButton()
         view.setTitle("여자", for: .normal)
         view.setTitleColor(.black, for: .normal)
@@ -57,12 +57,18 @@ final class HomeViewController: UIViewController {
         return view
     }()
     
-    let gpsButton: UIButton = {
+    private let gpsButton: UIButton = {
         let view = UIButton()
         view.tintColor = .black
         view.setImage(.setImage(.gps), for: .normal)
         view.backgroundColor = .white
         view.layer.cornerRadius = 10
+        return view
+    }()
+    
+    private let centerImageView: UIImageView = {
+        let view = UIImageView()
+        view.image = .setImage(.mapMarker)
         return view
     }()
 
@@ -76,11 +82,10 @@ final class HomeViewController: UIViewController {
         
         setConfigure()
         setConstraints()
-        statusButtonTapped()
     }
 
     private func setConfigure() {
-        [mapView, statusButton, allButton, manButton, womanButton, gpsButton].forEach {
+        [mapView, statusButton, allButton, manButton, womanButton, gpsButton, centerImageView].forEach {
             view.addSubview($0)
         }
     }
@@ -119,6 +124,12 @@ final class HomeViewController: UIViewController {
             make.horizontalEdges.equalTo(allButton.snp.horizontalEdges)
             make.height.equalTo(allButton.snp.height)
         }
+        
+        centerImageView.snp.makeConstraints { make in
+            make.center.equalTo(mapView.snp.center)
+            make.height.equalTo(45.33)
+            make.width.equalTo(34.67)
+        }
     }
     
     func statusButtonTapped() {
@@ -129,20 +140,27 @@ final class HomeViewController: UIViewController {
         // addCustomPin(sesac_image: 1, center: coordinate)
         transition(StudySearchViewController(), transitionStyle: .push)
     }
+    
+    func searchSesac(center: CLLocationCoordinate2D) {
+        APIManager.shared.sesac(type: SearchSesac.self, endpoint: .queueSearch(lat: center.latitude, long: center.longitude)) { [weak self] response in
+            switch response {
+            case .success(let sesac):
+                for sesac in sesac.fromQueueDB {
+                    let location = CLLocationCoordinate2D(latitude: sesac.lat, longitude: sesac.long)
+                    self?.setSesacPin(sesac_image: sesac.sesac, center: location)
+                }
+                
+            case .failure(let statusCode):
+                self?.view.makeToast(statusCode.errorDescription, position: .center)
+            }
+        }
+    }
 }
 
 extension HomeViewController {
     private func setRegion(center: CLLocationCoordinate2D) {
         let region = MKCoordinateRegion(center: center, latitudinalMeters: 700, longitudinalMeters: 700)
         mapView.setRegion(region, animated: true)
-        currentAnnotation.coordinate = center
-        mapView.addAnnotation(currentAnnotation)
-    }
-    
-    private func setCurrentAnnotation(center: CLLocationCoordinate2D) {
-        let pin = MKPointAnnotation()
-        pin.coordinate = center
-        mapView.addAnnotation(pin)
     }
     
     private func setSesacPin(sesac_image: Int, center: CLLocationCoordinate2D) {
@@ -194,7 +212,7 @@ extension HomeViewController: CLLocationManagerDelegate {
              print("GPS 권한 요청 거부됨")
              let campus = CLLocationCoordinate2D(latitude: 37.517829, longitude: 126.886270)
              setRegion(center: campus)
-             setCurrentAnnotation(center: campus)
+             searchSesac(center: campus)
              getLocationUsagePermission()
          default:
              print("GPS: Default")
@@ -207,14 +225,14 @@ extension HomeViewController: CLLocationManagerDelegate {
         if let coordinate = locations.last?.coordinate {
             print("위치 받아옴")
             setRegion(center: coordinate)
-            setCurrentAnnotation(center: coordinate)
+            // MARK: 아무리 움직여도 무한으로 돌아온다ㅋㅋㅋㅋ어이없네ㅜ
         }
 
         locationManager.stopUpdatingLocation()
     }
 
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        print("사용자 위치를 불러오지 못했습니다.")
+        checkUserDeviceLocationServiceAuthorization()
     }
     
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
