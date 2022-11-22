@@ -14,7 +14,6 @@ final class HomeViewController: UIViewController {
     private let disposeBag = DisposeBag()
     private let mapView = MKMapView()
     private let locationManager = CLLocationManager()
-    private let currentAnnotation = MKPointAnnotation()
     
     private let statusButton: UIButton = {
         let view = UIButton()
@@ -78,10 +77,22 @@ final class HomeViewController: UIViewController {
         
         mapView.delegate = self
         locationManager.delegate = self
-        locationManager.requestWhenInUseAuthorization()
+        //locationManager.requestWhenInUseAuthorization()
         
+        bind()
         setConfigure()
         setConstraints()
+    }
+    
+    private func bind() {
+        statusButton.addTarget(self, action: #selector(statusButtonTapped), for: .touchUpInside)
+    }
+    
+    @objc func statusButtonTapped() {
+        // 현재 위치 받아와서 Study 쪽으로 넘기며 푸시?
+        // let lat = coordinate.latitude
+        // let lon = coordinate.longitude
+        transition(StudySearchViewController(), transitionStyle: .push)
     }
 
     private func setConfigure() {
@@ -131,16 +142,7 @@ final class HomeViewController: UIViewController {
             make.width.equalTo(34.67)
         }
     }
-    
-    func statusButtonTapped() {
-        // 현재 위치 받아와서 Study 쪽으로 넘기며 푸시?
-        // let lat = coordinate.latitude
-        // let lon = coordinate.longitude
-        
-        // addCustomPin(sesac_image: 1, center: coordinate)
-        transition(StudySearchViewController(), transitionStyle: .push)
-    }
-    
+
     func searchSesac(center: CLLocationCoordinate2D) {
         APIManager.shared.sesac(type: SearchSesac.self, endpoint: .queueSearch(lat: center.latitude, long: center.longitude)) { [weak self] response in
             switch response {
@@ -159,7 +161,7 @@ final class HomeViewController: UIViewController {
 
 extension HomeViewController {
     private func setRegion(center: CLLocationCoordinate2D) {
-        let region = MKCoordinateRegion(center: center, latitudinalMeters: 700, longitudinalMeters: 700)
+        let region = MKCoordinateRegion(center: center, latitudinalMeters: 300, longitudinalMeters: 300)
         mapView.setRegion(region, animated: true)
     }
     
@@ -167,11 +169,7 @@ extension HomeViewController {
        let pin = CustomAnnotation(sesac_image: sesac_image, coordinate: center)
         mapView.addAnnotation(pin)
     }
-    
-    private func getLocationUsagePermission() {
-        locationManager.requestWhenInUseAuthorization()
-    }
-    
+
     private func showRequestLocationServiceAlert() {
         showAlert(title: "위치정보 이용", message: "위치 서비스를 사용할 수 없습니다. 기기의 '설정>개인정보 보호'에서 위치 서비스를 켜주세요.", button: "설정으로 이동") { _ in
             if let appSetting = URL(string: UIApplication.openSettingsURLString) {
@@ -191,51 +189,67 @@ extension HomeViewController: CLLocationManagerDelegate {
         }
         
         DispatchQueue.global().async { [weak self] in
+            guard let self = self else { return }
               if CLLocationManager.locationServicesEnabled() {
-                  guard let self = self else { return }
                   self.locationManager(self.locationManager, didChangeAuthorization: authorizationStatus)
+                  //self.checkUserCurrentLacationAuthorization(authorizationStatus)
               } else {
-                  self?.showRequestLocationServiceAlert()
+                  self.showRequestLocationServiceAlert()
               }
         }
     }
     
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
          switch status {
+         case .notDetermined:
+             print("GPS 권한 미설정")
+             locationManager.desiredAccuracy = kCLLocationAccuracyBest
+             locationManager.requestWhenInUseAuthorization()
          case .authorizedAlways, .authorizedWhenInUse:
-             print("GPS 권한 설정됨")
+             print("GPS 권한 허용됨")
              self.locationManager.startUpdatingLocation()
-         case .restricted, .notDetermined:
-             print("GPS 권한 설정되지 않음")
-             getLocationUsagePermission()
-         case .denied:
-             print("GPS 권한 요청 거부됨")
+         case .denied, .restricted:
+             print("GPS 권한 거부됨 - 아이폰 설정으로 유도")
              let campus = CLLocationCoordinate2D(latitude: 37.517829, longitude: 126.886270)
              setRegion(center: campus)
              searchSesac(center: campus)
-             getLocationUsagePermission()
          default:
              print("GPS: Default")
          }
      }
     
+//    func checkUserCurrentLacationAuthorization(_ authorizationStatus: CLAuthorizationStatus) {
+//        switch authorizationStatus { // 스위치 자동완성 후 수정
+//        case .notDetermined:
+//            print("NOTDETERMINED")
+//            locationManager.desiredAccuracy = kCLLocationAccuracyBest
+//            locationManager.requestWhenInUseAuthorization()
+//        case .restricted, .denied:
+//            print("DENIED, 아이폰 설정으로 유도")
+//        case .authorizedWhenInUse:
+//            print("WHEN IN USE")
+//            locationManager.startUpdatingLocation()
+//        default:
+//            print("DEFAULT")
+//        }
+//    }
+    
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        print(#function, locations)
-        
         if let coordinate = locations.last?.coordinate {
             print("위치 받아옴")
             setRegion(center: coordinate)
             // MARK: 아무리 움직여도 무한으로 돌아온다ㅋㅋㅋㅋ어이없네ㅜ
         }
-
         locationManager.stopUpdatingLocation()
     }
 
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        checkUserDeviceLocationServiceAuthorization()
+        print("위치 정보 받아오지 못함 - \(error)")
     }
     
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
+        // MARK: 뷰디드로드에서 checkUserDeviceLocationServiceAuthorization 호출하지 않으면 안뜸
+        print("여기 호출 안됨...ㅜ ㅜ locationManagerDidChangeAuthorization")
         checkUserDeviceLocationServiceAuthorization()
     }
 }

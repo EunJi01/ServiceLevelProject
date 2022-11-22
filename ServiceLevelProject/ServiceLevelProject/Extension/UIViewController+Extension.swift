@@ -25,6 +25,7 @@ extension UIViewController {
             let nav = UINavigationController(rootViewController: viewController)
             self.present(nav, animated: true)
         case .push:
+            viewController.hidesBottomBarWhenPushed = true
             self.navigationController?.pushViewController(viewController, animated: true)
         case .presentFullNavigation:
             let nav = UINavigationController(rootViewController: viewController)

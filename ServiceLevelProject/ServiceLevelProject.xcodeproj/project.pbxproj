@@ -25,6 +25,8 @@
 		B62A8A7E2926B7C300D84D79 /* CustomAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = B62A8A7D2926B7C300D84D79 /* CustomAnnotation.swift */; };
 		B62A8A802926C56500D84D79 /* SearchSesac.swift in Sources */ = {isa = PBXBuildFile; fileRef = B62A8A7F2926C56500D84D79 /* SearchSesac.swift */; };
 		B62A8A822926C72F00D84D79 /* StudySearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B62A8A812926C72F00D84D79 /* StudySearchViewController.swift */; };
+		B62A8A88292D172D00D84D79 /* StudySearchCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B62A8A87292D172D00D84D79 /* StudySearchCollectionViewCell.swift */; };
+		B62A8A8A292D517E00D84D79 /* CollectionViewLeftAlignFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = B62A8A89292D517E00D84D79 /* CollectionViewLeftAlignFlowLayout.swift */; };
 		B66DD166291DAD910095BE9B /* UserDefaults+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B66DD165291DAD910095BE9B /* UserDefaults+Extension.swift */; };
 		B66DD169291DB43F0095BE9B /* FirebaseAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = B66DD168291DB43F0095BE9B /* FirebaseAuth.swift */; };
 		B66DD16B291DE90C0095BE9B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B66DD16A291DE90C0095BE9B /* GoogleService-Info.plist */; };
@@ -87,6 +89,8 @@
 		B62A8A7D2926B7C300D84D79 /* CustomAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAnnotation.swift; sourceTree = "<group>"; };
 		B62A8A7F2926C56500D84D79 /* SearchSesac.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchSesac.swift; sourceTree = "<group>"; };
 		B62A8A812926C72F00D84D79 /* StudySearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudySearchViewController.swift; sourceTree = "<group>"; };
+		B62A8A87292D172D00D84D79 /* StudySearchCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudySearchCollectionViewCell.swift; sourceTree = "<group>"; };
+		B62A8A89292D517E00D84D79 /* CollectionViewLeftAlignFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewLeftAlignFlowLayout.swift; sourceTree = "<group>"; };
 		B66DD165291DAD910095BE9B /* UserDefaults+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+Extension.swift"; sourceTree = "<group>"; };
 		B66DD168291DB43F0095BE9B /* FirebaseAuth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseAuth.swift; sourceTree = "<group>"; };
 		B66DD16A291DE90C0095BE9B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -158,10 +162,11 @@
 		B620CD0329192BA9002CE764 /* Utility */ = {
 			isa = PBXGroup;
 			children = (
-				B62A8A7D2926B7C300D84D79 /* CustomAnnotation.swift */,
 				B620CD0429192BFE002CE764 /* ImageSet.swift */,
 				B620CD0929194C9C002CE764 /* TextSet.swift */,
 				B620CD0F29195449002CE764 /* ColorSet.swift */,
+				B62A8A7D2926B7C300D84D79 /* CustomAnnotation.swift */,
+				B62A8A89292D517E00D84D79 /* CollectionViewLeftAlignFlowLayout.swift */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -208,6 +213,14 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
+		B62A8A86292D16F700D84D79 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				B62A8A87292D172D00D84D79 /* StudySearchCollectionViewCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
 		B66DD167291DB4140095BE9B /* Network */ = {
 			isa = PBXGroup;
 			children = (
@@ -234,6 +247,7 @@
 			children = (
 				B67BDE2729220FF10080EE89 /* ViewModel */,
 				B67BDE2629220FE70080EE89 /* ViewController */,
+				B62A8A86292D16F700D84D79 /* Cell */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -475,7 +489,9 @@
 				B691FD77291BE24E00FC47F4 /* GenderViewController.swift in Sources */,
 				B69B8805291FCD8A002ECA23 /* APIStatusCode.swift in Sources */,
 				B692E3DC2919132100BEAF22 /* AppDelegate.swift in Sources */,
+				B62A8A8A292D517E00D84D79 /* CollectionViewLeftAlignFlowLayout.swift in Sources */,
 				B620CD19291965F3002CE764 /* LoginViewModel.swift in Sources */,
+				B62A8A88292D172D00D84D79 /* StudySearchCollectionViewCell.swift in Sources */,
 				B620CD1D291979FF002CE764 /* AuthViewModel.swift in Sources */,
 				B620CD0A29194C9C002CE764 /* TextSet.swift in Sources */,
 				B691FD7D291C1A6F00FC47F4 /* BirthViewModel.swift in Sources */,

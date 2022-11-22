@@ -27,6 +27,130 @@
 
 -------------
 
+### 코드블럭 모음
+- StudySearchView (셀 길이에 맞게 왼쪽 정렬)
+```
+// 커스텀 클래스
+class CollectionViewLeftAlignFlowLayout: UICollectionViewFlowLayout {
+    let cellSpacing: CGFloat = 10
+ 
+    override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
+        self.minimumLineSpacing = 10.0
+        self.sectionInset = UIEdgeInsets(top: 12.0, left: 16.0, bottom: 0.0, right: 16.0)
+        let attributes = super.layoutAttributesForElements(in: rect)
+ 
+        var leftMargin = sectionInset.left
+        var maxY: CGFloat = -1.0
+        attributes?.forEach { layoutAttribute in
+            if layoutAttribute.frame.origin.y >= maxY {
+                leftMargin = sectionInset.left
+            }
+            layoutAttribute.frame.origin.x = leftMargin
+            leftMargin += layoutAttribute.frame.width + cellSpacing
+            maxY = max(layoutAttribute.frame.maxY, maxY)
+        }
+        return attributes
+    }
+}
+
+// 사용 예시
+    private let collectionView: UICollectionView = {
+        let layout = CollectionViewLeftAlignFlowLayout()
+        let view = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        view.register(StudySearchCollectionViewCell.self, forCellWithReuseIdentifier: StudySearchCollectionViewCell.reuseIdentifier)
+        if let flowLayout = view.collectionViewLayout as? UICollectionViewFlowLayout {
+            flowLayout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
+          }
+        return view
+    }()
+```
+
+- CustomAnnotation
+```
+// 커스텀 클래스
+class CustomAnnotationView: MKAnnotationView {
+    static let identifier = "CustomAnnotationView"
+    
+    override init(annotation: MKAnnotation?, reuseIdentifier: String?){
+        super.init(annotation: annotation, reuseIdentifier: reuseIdentifier)
+        frame = CGRect(x: 0, y: 0, width: 40, height: 50)
+        centerOffset = CGPoint(x: 0, y: -frame.size.height / 2)
+        setupUI()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func setupUI() {
+        backgroundColor = .clear
+    }
+}
+
+class CustomAnnotation: NSObject, MKAnnotation {
+  let sesac_image: Int?
+  let coordinate: CLLocationCoordinate2D
+
+  init(
+    sesac_image: Int?,
+    coordinate: CLLocationCoordinate2D
+  ) {
+    self.sesac_image = sesac_image
+    self.coordinate = coordinate
+
+    super.init()
+  }
+}
+
+// 사용예시
+extension HomeViewController: MKMapViewDelegate {
+    func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
+        locationManager.startUpdatingLocation()
+    }
+    
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        guard let annotation = annotation as? CustomAnnotation else { return nil }
+
+        var annotationView = self.mapView.dequeueReusableAnnotationView(withIdentifier: CustomAnnotationView.identifier)
+        
+        if annotationView == nil {
+            annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: CustomAnnotationView.identifier)
+            annotationView?.canShowCallout = false
+            annotationView?.contentMode = .scaleAspectFit
+        } else {
+            annotationView?.annotation = annotation
+        }
+        
+        guard let sesacNumber = annotation.sesac_image else { return nil }
+        guard let sesacImage = SeSACFace(rawValue: sesacNumber)?.image else { return nil }
+        
+        let size = CGSize(width: 85, height: 85)
+        UIGraphicsBeginImageContext(size)
+        
+        sesacImage.draw(in: CGRect(x: 0, y: 0, width: size.width, height: size.height))
+        let resizedImage = UIGraphicsGetImageFromCurrentImageContext()
+        annotationView?.image = resizedImage
+        
+        return annotationView
+    }
+}
+```
+
+- UINavigationBar에 Custom SearchBar 넣기
+```
+    private let searchBar: UISearchBar = {
+        var width = UIScreen.main.bounds.size.width
+        let view = UISearchBar(frame: CGRect(x: 0, y: 0, width: width - 12, height: 0))
+        view.placeholder = "띄어쓰기로 복수 입력이 가능해요"
+        view.searchTextField.font = .systemFont(ofSize: 14)
+        return view
+    }()
+    
+    navigationItem.rightBarButtonItem = UIBarButtonItem(customView: searchBar)
+```
+
+-------------
+
 ### 개발 공수
 | 날짜 | View | 세부내용 | 소요시간 | 특이사항 | 기간 |
 | --- | --- | --- | --- | --- | --- |
@@ -69,6 +193,7 @@
 |  | 모듈화 | APIManager 간소화 | 30m |  |  |
 |  | ManageMypage | 회원탈퇴 구현 | 30m |  |  |
 |  | Home | API 통신/어노테이션 띄우기 | 2h |  |  |
+|  | StudySearch | Layout | 2h |  |  |
 |  |  |  |  |  |  |
 | **3주차** |  |  |  |  | **~2022.11.27** |
 |  |  |  |  |  |  |
@@ -151,3 +276,8 @@
 - 각각 파라미터 바디 누락과 요청하는 서버의 주소가 잘못된 것이 원인이었다.
 - Codable 프로토콜을 채택한 Struct의 프로퍼티에 Any 타입이 있으면 에러가 발생한다.
 - 위치를 받아온 후 (권한이 없을 경우 캠퍼스 기준) API 통신을 진행하고, 주변에 있는 새싹들의 위치를 어노테이션을 통해 표시했다.
+- 예전에 작성했던 맵뷰 코드와 거의 동일하게 작성했는데, 지도를 드래그해도 계속 원래 위치로 돌아오고 업데이트 코드가 재귀적으로 실행되는 버그가 있다.
+
+#### 11/23 - 11/26
+- 컬렉션뷰 셀들을 왼쪽 정렬 해주는 CollectionViewLeftAlignFlowLayout 클래스를 만들어, 이를 활용해 StudySearchView의 레이아웃을 구성했다.
+- UINavigationBar에 Item으로 Custom SearchBar를 설정했다.
