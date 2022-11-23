@@ -14,20 +14,7 @@
 #### Onboarding
 - 임시.
 
--------------
-
-### 구현 기능
-- 임시.
-
--------------
-
-### 보완해야 할 점!
-- UINavigationBar 백버튼 이미지/타이틀
-- 현재 런치스크린이 뜰 때만 네트워크 상태 체크를 하지만, API 통신하는 모든 곳에서 네트워크 체크하도록 개선하기
-
--------------
-
-### 코드블럭 모음
+## 코드블럭 모음
 - StudySearchView (셀 길이에 맞게 왼쪽 정렬)
 ```
 // 커스텀 클래스
@@ -281,3 +268,5 @@ extension HomeViewController: MKMapViewDelegate {
 #### 11/23 - 11/26
 - 컬렉션뷰 셀들을 왼쪽 정렬 해주는 CollectionViewLeftAlignFlowLayout 클래스를 만들어, 이를 활용해 StudySearchView의 레이아웃을 구성했다.
 - UINavigationBar에 Item으로 Custom SearchBar를 설정했다.
+- 맵뷰가 재귀적으로 호출되는 버그의 원인은 regionDidChangeAnimated에서 locationManager.startUpdatingLocation()를 호출했기 때문으로, 이 부분을 지우니 해결되었다.
+- 그리고 regionDidChangeAnimated에서는 대신 API 통신 메서드를 호출해, 맵뷰의 중심좌표에서 (mapView.centerCoordinate) 주변의 새싹을 표시하도록 했다.

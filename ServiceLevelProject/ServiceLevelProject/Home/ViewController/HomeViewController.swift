@@ -77,7 +77,7 @@ final class HomeViewController: UIViewController {
         
         mapView.delegate = self
         locationManager.delegate = self
-        //locationManager.requestWhenInUseAuthorization()
+        locationManager.requestWhenInUseAuthorization() // MARK: 왜 직접 호출해야 하지?
         
         bind()
         setConfigure()
@@ -144,6 +144,7 @@ final class HomeViewController: UIViewController {
     }
 
     func searchSesac(center: CLLocationCoordinate2D) {
+        print("searchSesac API 통신")
         APIManager.shared.sesac(type: SearchSesac.self, endpoint: .queueSearch(lat: center.latitude, long: center.longitude)) { [weak self] response in
             switch response {
             case .success(let sesac):
@@ -192,7 +193,6 @@ extension HomeViewController: CLLocationManagerDelegate {
             guard let self = self else { return }
               if CLLocationManager.locationServicesEnabled() {
                   self.locationManager(self.locationManager, didChangeAuthorization: authorizationStatus)
-                  //self.checkUserCurrentLacationAuthorization(authorizationStatus)
               } else {
                   self.showRequestLocationServiceAlert()
               }
@@ -218,27 +218,10 @@ extension HomeViewController: CLLocationManagerDelegate {
          }
      }
     
-//    func checkUserCurrentLacationAuthorization(_ authorizationStatus: CLAuthorizationStatus) {
-//        switch authorizationStatus { // 스위치 자동완성 후 수정
-//        case .notDetermined:
-//            print("NOTDETERMINED")
-//            locationManager.desiredAccuracy = kCLLocationAccuracyBest
-//            locationManager.requestWhenInUseAuthorization()
-//        case .restricted, .denied:
-//            print("DENIED, 아이폰 설정으로 유도")
-//        case .authorizedWhenInUse:
-//            print("WHEN IN USE")
-//            locationManager.startUpdatingLocation()
-//        default:
-//            print("DEFAULT")
-//        }
-//    }
-    
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if let coordinate = locations.last?.coordinate {
             print("위치 받아옴")
             setRegion(center: coordinate)
-            // MARK: 아무리 움직여도 무한으로 돌아온다ㅋㅋㅋㅋ어이없네ㅜ
         }
         locationManager.stopUpdatingLocation()
     }
@@ -256,7 +239,7 @@ extension HomeViewController: CLLocationManagerDelegate {
 
 extension HomeViewController: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
-        locationManager.startUpdatingLocation()
+        searchSesac(center: mapView.centerCoordinate)
     }
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {

@@ -27,6 +27,7 @@
 		B62A8A822926C72F00D84D79 /* StudySearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B62A8A812926C72F00D84D79 /* StudySearchViewController.swift */; };
 		B62A8A88292D172D00D84D79 /* StudySearchCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B62A8A87292D172D00D84D79 /* StudySearchCollectionViewCell.swift */; };
 		B62A8A8A292D517E00D84D79 /* CollectionViewLeftAlignFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = B62A8A89292D517E00D84D79 /* CollectionViewLeftAlignFlowLayout.swift */; };
+		B62A8A8C292D59EC00D84D79 /* StudySearchCollectionViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B62A8A8B292D59EC00D84D79 /* StudySearchCollectionViewHeader.swift */; };
 		B66DD166291DAD910095BE9B /* UserDefaults+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B66DD165291DAD910095BE9B /* UserDefaults+Extension.swift */; };
 		B66DD169291DB43F0095BE9B /* FirebaseAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = B66DD168291DB43F0095BE9B /* FirebaseAuth.swift */; };
 		B66DD16B291DE90C0095BE9B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B66DD16A291DE90C0095BE9B /* GoogleService-Info.plist */; };
@@ -91,6 +92,7 @@
 		B62A8A812926C72F00D84D79 /* StudySearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudySearchViewController.swift; sourceTree = "<group>"; };
 		B62A8A87292D172D00D84D79 /* StudySearchCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudySearchCollectionViewCell.swift; sourceTree = "<group>"; };
 		B62A8A89292D517E00D84D79 /* CollectionViewLeftAlignFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewLeftAlignFlowLayout.swift; sourceTree = "<group>"; };
+		B62A8A8B292D59EC00D84D79 /* StudySearchCollectionViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudySearchCollectionViewHeader.swift; sourceTree = "<group>"; };
 		B66DD165291DAD910095BE9B /* UserDefaults+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+Extension.swift"; sourceTree = "<group>"; };
 		B66DD168291DB43F0095BE9B /* FirebaseAuth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseAuth.swift; sourceTree = "<group>"; };
 		B66DD16A291DE90C0095BE9B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -217,6 +219,7 @@
 			isa = PBXGroup;
 			children = (
 				B62A8A87292D172D00D84D79 /* StudySearchCollectionViewCell.swift */,
+				B62A8A8B292D59EC00D84D79 /* StudySearchCollectionViewHeader.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -513,6 +516,7 @@
 				B69B88112920E9D8002ECA23 /* LaunchViewController.swift in Sources */,
 				B62A8A7E2926B7C300D84D79 /* CustomAnnotation.swift in Sources */,
 				B66DD16D291DEEFA0095BE9B /* APIManager.swift in Sources */,
+				B62A8A8C292D59EC00D84D79 /* StudySearchCollectionViewHeader.swift in Sources */,
 				B62A8A802926C56500D84D79 /* SearchSesac.swift in Sources */,
 				B620CD0C29194F34002CE764 /* String+Extension.swift in Sources */,
 				B620CD1629195CBC002CE764 /* CustomView.swift in Sources */,
