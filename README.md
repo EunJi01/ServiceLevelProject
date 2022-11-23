@@ -181,6 +181,7 @@ extension HomeViewController: MKMapViewDelegate {
 |  | ManageMypage | 회원탈퇴 구현 | 30m |  |  |
 |  | Home | API 통신/어노테이션 띄우기 | 2h |  |  |
 |  | StudySearch | Layout | 2h |  |  |
+|  | StudySearch | searchBar | 2h |  |  |
 |  |  |  |  |  |  |
 | **3주차** |  |  |  |  | **~2022.11.27** |
 |  |  |  |  |  |  |
@@ -270,3 +271,4 @@ extension HomeViewController: MKMapViewDelegate {
 - UINavigationBar에 Item으로 Custom SearchBar를 설정했다.
 - 맵뷰가 재귀적으로 호출되는 버그의 원인은 regionDidChangeAnimated에서 locationManager.startUpdatingLocation()를 호출했기 때문으로, 이 부분을 지우니 해결되었다.
 - 그리고 regionDidChangeAnimated에서는 대신 API 통신 메서드를 호출해, 맵뷰의 중심좌표에서 (mapView.centerCoordinate) 주변의 새싹을 표시하도록 했다.
+- returnKey를 누를 경우 searchBar의 text를 띄어쓰기 기준으로 나눈 후, 유효성 검사를 통과하면 내가 하고싶은 스터디 배열에 추가해 컬렉션뷰에 보여주도록 구현했다.

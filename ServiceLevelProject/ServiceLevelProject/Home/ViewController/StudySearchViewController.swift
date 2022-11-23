@@ -6,8 +6,12 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
 class StudySearchViewController: UIViewController, CustomView {
+    let disposeBag = DisposeBag()
+    let vm = StudySearchViewModel()
 
     private let collectionView: UICollectionView = {
         let layout = CollectionViewLeftAlignFlowLayout()
@@ -30,8 +34,6 @@ class StudySearchViewController: UIViewController, CustomView {
     
     private lazy var searchButton: UIButton = customButton(title: "새싹 찾기")
     
-    let dummy = ["스위프트", "파이썬", "알고리즘", "가나다라마바사아자차카타파하", "ㅎ하하하ㅏ하du"]
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
@@ -40,8 +42,33 @@ class StudySearchViewController: UIViewController, CustomView {
         collectionView.dataSource = self
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: searchBar)
         
+        bind()
         setConfigure()
         setConstraints()
+    }
+    
+    private func bind() {
+        let input = StudySearchViewModel.Input(
+            returnKey: searchBar.rx.searchButtonClicked
+                .withLatestFrom(searchBar.rx.text.orEmpty)
+                .asSignal(onErrorJustReturn: "")
+        )
+        
+        let output = vm.transform(input: input)
+        
+        output.addStudy
+            .withUnretained(self)
+            .emit { vc, textList in
+                vc.collectionView.reloadData()
+            }
+            .disposed(by: disposeBag)
+        
+        output.showToast
+            .withUnretained(self)
+            .emit { vc, text in
+                vc.view.makeToast(text, position: .top)
+            }
+            .disposed(by: disposeBag)
     }
     
     private func setConfigure() {
@@ -82,7 +109,11 @@ extension StudySearchViewController: UICollectionViewDelegate, UICollectionViewD
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return dummy.count
+        if section == 0 {
+            return vm.recommendedStudy.value.count
+        } else {
+            return vm.wishStudy.value.count
+        }
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -93,9 +124,9 @@ extension StudySearchViewController: UICollectionViewDelegate, UICollectionViewD
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: StudySearchCollectionViewCell.reuseIdentifier, for: indexPath) as? StudySearchCollectionViewCell else { return UICollectionViewCell() }
         
         if indexPath.section == 0 {
-            cell.studyLabel.text = dummy[indexPath.row]
+            cell.studyLabel.text = vm.recommendedStudy.value[indexPath.row]
         } else {
-            cell.studyLabel.text = dummy[indexPath.row]
+            cell.studyLabel.text = vm.wishStudy.value[indexPath.row]
         }
         
         return cell

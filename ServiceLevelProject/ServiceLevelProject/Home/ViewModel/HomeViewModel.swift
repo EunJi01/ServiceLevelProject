@@ -13,16 +13,17 @@ final class HomeViewModel {
     let disposeBag = DisposeBag()
     
     struct Input {
-        
+
     }
     
     struct Output {
-        
+
     }
-    
+
     func transform(input: Input) -> Output {
-        
-        
-        return Output()
+
+        return Output(
+            
+        )
     }
 }

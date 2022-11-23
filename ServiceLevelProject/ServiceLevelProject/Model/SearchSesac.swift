@@ -9,7 +9,7 @@ import Foundation
 
 struct SearchSesac: Codable {
     let fromQueueDB: [FromQueueDB]
-//    let fromQueueDBRequested: [Any?]
+    let fromQueueDBRequested: [FromQueueDB]
     let fromRecommend: [String]
 }
 
