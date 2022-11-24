@@ -32,7 +32,7 @@ class StudySearchViewController: UIViewController, CustomView {
         return view
     }()
     
-    private lazy var searchButton: UIButton = customButton(title: "새싹 찾기")
+    private lazy var searchSesacButton: UIButton = customButton(title: "새싹 찾기")
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,7 +51,8 @@ class StudySearchViewController: UIViewController, CustomView {
         let input = StudySearchViewModel.Input(
             returnKey: searchBar.rx.searchButtonClicked
                 .withLatestFrom(searchBar.rx.text.orEmpty)
-                .asSignal(onErrorJustReturn: "")
+                .asSignal(onErrorJustReturn: ""),
+            searchSesacButton: searchSesacButton.rx.tap.asSignal(onErrorJustReturn: ())
         )
         
         let output = vm.transform(input: input)
@@ -72,9 +73,9 @@ class StudySearchViewController: UIViewController, CustomView {
     }
     
     private func setConfigure() {
-        searchButton.backgroundColor = .setColor(.green)
+        searchSesacButton.backgroundColor = .setColor(.green)
         
-        [collectionView, searchButton].forEach {
+        [collectionView, searchSesacButton].forEach {
             view.addSubview($0)
         }
     }
@@ -86,7 +87,7 @@ class StudySearchViewController: UIViewController, CustomView {
             make.bottom.equalTo(view.safeAreaLayoutGuide).offset(80)
         }
         
-        searchButton.snp.makeConstraints { make in
+        searchSesacButton.snp.makeConstraints { make in
             make.horizontalEdges.bottom.equalTo(view.safeAreaLayoutGuide).inset(16)
             make.height.equalTo(48)
         }
@@ -110,7 +111,7 @@ extension StudySearchViewController: UICollectionViewDelegate, UICollectionViewD
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if section == 0 {
-            return vm.recommendedStudy.value.count
+            return vm.recommendedStudy.value.count + vm.nearbyStudy.value.count
         } else {
             return vm.wishStudy.value.count
         }
@@ -124,7 +125,12 @@ extension StudySearchViewController: UICollectionViewDelegate, UICollectionViewD
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: StudySearchCollectionViewCell.reuseIdentifier, for: indexPath) as? StudySearchCollectionViewCell else { return UICollectionViewCell() }
         
         if indexPath.section == 0 {
-            cell.studyLabel.text = vm.recommendedStudy.value[indexPath.row]
+            if indexPath.row < vm.recommendedStudy.value.count {
+                cell.studyLabel.text = vm.recommendedStudy.value[indexPath.row]
+            } else {
+                cell.studyLabel.text = vm.nearbyStudy.value[indexPath.row - vm.recommendedStudy.value.count]
+            }
+            
         } else {
             cell.studyLabel.text = vm.wishStudy.value[indexPath.row]
         }

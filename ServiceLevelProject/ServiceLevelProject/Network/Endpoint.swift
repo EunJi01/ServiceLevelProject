@@ -15,7 +15,7 @@ enum Endpoint {
     case mypage(searchable: Int, ageMin: Int, ageMax: Int, gender: Int, study: String)
     case withdraw
     
-    case queueRequest
+    case queueRequest(lat: CLLocationDegrees, long: CLLocationDegrees, studyList: [String])
     case queueStop
     case queueSearch(lat: CLLocationDegrees, long: CLLocationDegrees)
     case myQueueState
@@ -97,11 +97,11 @@ extension Endpoint {
                 "gender": "\(gender)",
                 "study": study
             ]
-        case .queueRequest:
+        case .queueRequest(let lat, let long, let studyList):
             parameters = [
-                "lat": "",
-                "long": "",
-                "studylist": ""
+                "lat": "\(lat)",
+                "long": "\(long)",
+                "studylist": "\(studyList)"
             ]
         case .queueSearch(let lat, let long):
             parameters = [

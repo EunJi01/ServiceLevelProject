@@ -15,6 +15,10 @@ final class HomeViewController: UIViewController {
     private let mapView = MKMapView()
     private let locationManager = CLLocationManager()
     
+    var center: CLLocationCoordinate2D?
+    var recommendedStudy: [String] = []
+    var nearbyStudy: [String] = []
+    
     private let statusButton: UIButton = {
         let view = UIButton()
         view.tintColor = .white
@@ -89,10 +93,11 @@ final class HomeViewController: UIViewController {
     }
     
     @objc func statusButtonTapped() {
-        // 현재 위치 받아와서 Study 쪽으로 넘기며 푸시?
-        // let lat = coordinate.latitude
-        // let lon = coordinate.longitude
-        transition(StudySearchViewController(), transitionStyle: .push)
+        let vc = StudySearchViewController()
+        vc.vm.center = center
+        vc.vm.recommendedStudy.accept(recommendedStudy)
+        vc.vm.nearbyStudy.accept(nearbyStudy)
+        transition(vc, transitionStyle: .push)
     }
 
     private func setConfigure() {
@@ -148,8 +153,10 @@ final class HomeViewController: UIViewController {
         APIManager.shared.sesac(type: SearchSesac.self, endpoint: .queueSearch(lat: center.latitude, long: center.longitude)) { [weak self] response in
             switch response {
             case .success(let sesac):
+                self?.recommendedStudy = sesac.fromRecommend
                 for sesac in sesac.fromQueueDB {
                     let location = CLLocationCoordinate2D(latitude: sesac.lat, longitude: sesac.long)
+                    self?.nearbyStudy.append(contentsOf: sesac.studylist)
                     self?.setSesacPin(sesac_image: sesac.sesac, center: location)
                 }
                 
@@ -232,13 +239,14 @@ extension HomeViewController: CLLocationManagerDelegate {
     
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
         // MARK: 뷰디드로드에서 checkUserDeviceLocationServiceAuthorization 호출하지 않으면 안뜸
-        print("여기 호출 안됨...ㅜ ㅜ locationManagerDidChangeAuthorization")
+        print("locationManagerDidChangeAuthorization")
         checkUserDeviceLocationServiceAuthorization()
     }
 }
 
 extension HomeViewController: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
+        center = mapView.centerCoordinate
         searchSesac(center: mapView.centerCoordinate)
     }
     
