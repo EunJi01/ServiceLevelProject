@@ -94,7 +94,6 @@ final class GenderViewModel {
                         self?.getIdToken()
                     default:
                         self?.showToastRelay.accept(statusCode.errorDescription)
-                        // MARK: 501... 왜이러지
                         print(
                             "phoneNumber: +82\(UserDefaults.userPhoneNumber.dropFirst())",
                             "FCMtoken: \(UserDefaults.fcmToken)",

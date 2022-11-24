@@ -91,7 +91,8 @@ final class ManageMypageViewController: UIViewController, CustomView {
         output.withdraw
             .withUnretained(self)
             .emit { vc, _ in
-                vc.showWithdrawAlert()
+                vc.showAlert(title: "회원탈퇴", message: "탈퇴하시면 모든 정보가 사라집니다!", button: "탈퇴",
+                             buttonAction: { [weak self] _ in self?.resetOnboarding() })
             }
             .disposed(by: disposeBag)
         
@@ -101,15 +102,6 @@ final class ManageMypageViewController: UIViewController, CustomView {
                 vc.view.makeToast(text, position: .top)
             }
             .disposed(by: disposeBag)
-    }
-    
-    private func showWithdrawAlert() {
-        let alert = UIAlertController(title: "회원탈퇴", message: "탈퇴하시면 모든 정보가 사라집니다!", preferredStyle: .alert)
-        let ok = UIAlertAction(title: "탈퇴", style: .destructive, handler: { [weak self] _ in self?.resetOnboarding() })
-        let cancel = UIAlertAction(title: "취소", style: .cancel)
-        alert.addAction(ok)
-        alert.addAction(cancel)
-        self.present(alert, animated: true)
     }
     
     private func resetOnboarding() {
@@ -151,7 +143,7 @@ final class ManageMypageViewController: UIViewController, CustomView {
     private func setConfigure() {
         view.addSubview(scrollView)
         
-        [backgroundImageView, sesacImageView, nicknameView, stackView].forEach {
+        [backgroundImageView, nicknameView, stackView].forEach {
             scrollView.addSubview($0)
         }
 

@@ -34,11 +34,13 @@ final class StudySearchViewModel {
         let addStudy: Signal<Void>
         let showToast: Signal<String?>
         let searchSesac: Signal<Void>
+        let pushNextVC: Signal<Void>
     }
     
     private let addStudyRelay = PublishRelay<Void>()
     private let showToastRealy = PublishRelay<String?>()
     private let searchSesacRealy = PublishRelay<Void>()
+    private let pushNextVCRelay = PublishRelay<Void>()
     
     func transform(input: Input) -> Output {
         input.returnKey
@@ -51,20 +53,22 @@ final class StudySearchViewModel {
         input.searchSesacButton
             .withUnretained(self)
             .emit { vm, _ in
-                
+                //vm.searchSesac()
+                vm.pushNextVCRelay.accept(()) // 통신에 성공했을 때 값을 넘기며 푸쉬하도록 나중에 옮기기!
             }
             .disposed(by: disposeBag)
         
         return Output(
             addStudy: addStudyRelay.asSignal(),
             showToast: showToastRealy.asSignal(),
-            searchSesac: searchSesacRealy.asSignal()
+            searchSesac: searchSesacRealy.asSignal(),
+            pushNextVC: pushNextVCRelay.asSignal()
         )
     }
     
-    private func validate(text: String) {
+    func validate(text: String) {
         let studyList = text.components(separatedBy: " ")
-        
+
         for study in studyList {
             if wishStudy.contains(study) {
                 showToastRealy.accept(StudySearchToast.alreadyAdded.rawValue)

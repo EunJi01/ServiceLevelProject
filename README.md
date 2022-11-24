@@ -183,6 +183,7 @@ extension HomeViewController: MKMapViewDelegate {
 |  | StudySearch | Layout | 2h |  |  |
 |  | StudySearch | searchBar | 2h |  |  |
 |  | StudySearch | 추천 스터디/주변 스터디 | 2h |  |  |
+|  | StudySearch | 셀을 클릭했을 때 기능(추가/삭제) | 2h |  |  |
 |  |  |  |  |  |  |
 | **3주차** |  |  |  |  | **~2022.11.27** |
 |  |  |  |  |  |  |
@@ -274,4 +275,4 @@ extension HomeViewController: MKMapViewDelegate {
 - 그리고 regionDidChangeAnimated에서는 대신 API 통신 메서드를 호출해, 맵뷰의 중심좌표에서 (mapView.centerCoordinate) 주변의 새싹을 표시하도록 했다.
 - returnKey를 누를 경우 searchBar의 text를 띄어쓰기 기준으로 나눈 후, 유효성 검사를 통과하면 내가 하고싶은 스터디 배열에 추가해 컬렉션뷰에 보여주도록 구현했다.
 - HomeView에서 StudySearchView로 화면전환할 때 현재 위치 좌표와 추천 스터디, 주변 스터디 리스트를 넘겨주도록 했다.
-- 주변 스터디 리스트 중복 제거, anything 제외, 갯수 8개 제한 등 세세한 개선이 필요할 것 같다.
+- 주변 스터디 리스트 중복 제거, 추천/주변 스터디를 클릭해 내가 하고싶은 스터디 추가, 내가 하고싶은 스터디 제거 등의 기능을 구현했다.

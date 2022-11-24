@@ -84,9 +84,8 @@ final class HomeViewController: UIViewController {
         
         let campus = CLLocationCoordinate2D(latitude: 37.517829, longitude: 126.886270)
         setRegion(center: campus)
-        searchSesac(center: campus)
         
-        locationManager.requestWhenInUseAuthorization() // MARK: 왜 직접 호출해야 하지?
+        locationManager.requestWhenInUseAuthorization() // 왜 직접 호출해야 하지?
         
         bind()
         setConfigure()
@@ -101,7 +100,7 @@ final class HomeViewController: UIViewController {
         let vc = StudySearchViewController()
         vc.vm.center = center
         vc.vm.recommendedStudy = recommendedStudy
-        vc.vm.nearbyStudy = nearbyStudy
+        vc.vm.nearbyStudy = nearbyStudy.uniqued()
         transition(vc, transitionStyle: .push)
     }
 
@@ -161,7 +160,7 @@ final class HomeViewController: UIViewController {
                 self?.recommendedStudy = sesac.fromRecommend
                 for sesac in sesac.fromQueueDB {
                     let location = CLLocationCoordinate2D(latitude: sesac.lat, longitude: sesac.long)
-                    self?.nearbyStudy = sesac.studylist.uniqued()
+                    self?.nearbyStudy.append(contentsOf: sesac.studylist.filter { $0 != "" })
                     self?.setSesacPin(sesac_image: sesac.sesac, center: location)
                 }
                 

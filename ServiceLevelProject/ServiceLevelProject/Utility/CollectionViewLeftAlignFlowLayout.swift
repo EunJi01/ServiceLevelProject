@@ -11,9 +11,10 @@ final class CollectionViewLeftAlignFlowLayout: UICollectionViewFlowLayout {
     let cellSpacing: CGFloat = 10
  
     override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
-//        guard let width = collectionView?.bounds.width else { return nil }
-//        self.headerReferenceSize = CGSize(width: width, height: 20)
-//        self.sectionHeadersPinToVisibleBounds = true
+        //super.layoutAttributesForElements(in: rect)
+        guard let width = collectionView?.bounds.width else { return nil }
+        self.headerReferenceSize = CGSize(width: width, height: 20)
+        self.sectionHeadersPinToVisibleBounds = true
         self.minimumLineSpacing = 10
         self.sectionInset = UIEdgeInsets(top: 12.0, left: 16.0, bottom: 0.0, right: 16.0)
         

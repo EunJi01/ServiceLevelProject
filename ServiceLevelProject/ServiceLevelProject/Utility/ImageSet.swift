@@ -32,6 +32,7 @@ struct IconSet {
     static let search = UIImage(systemName: "magnifyingglass")
     static let explore = UIImage(systemName: "antenna.radiowaves.left.and.right")
     static let massage = UIImage(systemName: "envelope")
+    static let refresh = UIImage(systemName: "arrow.clockwise")
 }
 
 enum SeSACFace: Int {

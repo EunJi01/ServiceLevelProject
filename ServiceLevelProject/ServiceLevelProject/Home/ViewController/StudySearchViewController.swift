@@ -71,6 +71,13 @@ final class StudySearchViewController: UIViewController, CustomView {
                 vc.view.makeToast(text, position: .top)
             }
             .disposed(by: disposeBag)
+        
+        output.pushNextVC
+            .withUnretained(self)
+            .emit { vc, _ in
+                vc.transition(SearchResultViewController(), transitionStyle: .push)
+            }
+            .disposed(by: disposeBag)
     }
     
     private func setConfigure() {
@@ -97,8 +104,6 @@ final class StudySearchViewController: UIViewController, CustomView {
 
 extension StudySearchViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        print("11")
-        // MARK: 메서드 자체가 실행이 안된다!
         guard kind == UICollectionView.elementKindSectionHeader, let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: StudySearchCollectionViewHeader.reuseIdentifier, for: indexPath) as? StudySearchCollectionViewHeader else { return UICollectionReusableView() }
         
         if indexPath.section == 0 {
@@ -112,11 +117,15 @@ extension StudySearchViewController: UICollectionViewDelegate, UICollectionViewD
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if indexPath.section == 0 {
-            //vm.wishStudy.append(<#T##newElement: String##String#>)
+            if indexPath.row < vm.recommendedStudy.count {
+                vm.validate(text: vm.recommendedStudy[indexPath.row])
+            } else {
+                vm.validate(text: vm.nearbyStudy[indexPath.row - vm.recommendedStudy.count])
+            }
         } else if indexPath.section == 1 {
             vm.wishStudy.remove(at: indexPath.row)
-            collectionView.reloadData()
         }
+        collectionView.reloadData()
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
