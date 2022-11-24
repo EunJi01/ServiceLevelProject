@@ -7,11 +7,11 @@
 
 import UIKit
 
-class StudySearchCollectionViewCell: UICollectionViewCell {
+final class StudySearchCollectionViewCell: UICollectionViewCell {
     let borderView: UIImageView = {
         let view = UIImageView()
         view.layer.cornerRadius = 10
-        view.layer.borderColor = UIColor.setColor(.gray2).cgColor
+        view.layer.borderColor = UIColor.setColor(.gray3).cgColor
         view.layer.borderWidth = 1
         return view
     }()

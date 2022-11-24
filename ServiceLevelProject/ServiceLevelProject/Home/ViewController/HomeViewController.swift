@@ -81,6 +81,11 @@ final class HomeViewController: UIViewController {
         
         mapView.delegate = self
         locationManager.delegate = self
+        
+        let campus = CLLocationCoordinate2D(latitude: 37.517829, longitude: 126.886270)
+        setRegion(center: campus)
+        searchSesac(center: campus)
+        
         locationManager.requestWhenInUseAuthorization() // MARK: 왜 직접 호출해야 하지?
         
         bind()
@@ -95,8 +100,8 @@ final class HomeViewController: UIViewController {
     @objc func statusButtonTapped() {
         let vc = StudySearchViewController()
         vc.vm.center = center
-        vc.vm.recommendedStudy.accept(recommendedStudy)
-        vc.vm.nearbyStudy.accept(nearbyStudy)
+        vc.vm.recommendedStudy = recommendedStudy
+        vc.vm.nearbyStudy = nearbyStudy
         transition(vc, transitionStyle: .push)
     }
 
@@ -156,7 +161,7 @@ final class HomeViewController: UIViewController {
                 self?.recommendedStudy = sesac.fromRecommend
                 for sesac in sesac.fromQueueDB {
                     let location = CLLocationCoordinate2D(latitude: sesac.lat, longitude: sesac.long)
-                    self?.nearbyStudy.append(contentsOf: sesac.studylist)
+                    self?.nearbyStudy = sesac.studylist.uniqued()
                     self?.setSesacPin(sesac_image: sesac.sesac, center: location)
                 }
                 
@@ -217,9 +222,6 @@ extension HomeViewController: CLLocationManagerDelegate {
              self.locationManager.startUpdatingLocation()
          case .denied, .restricted:
              print("GPS 권한 거부됨 - 아이폰 설정으로 유도")
-             let campus = CLLocationCoordinate2D(latitude: 37.517829, longitude: 126.886270)
-             setRegion(center: campus)
-             searchSesac(center: campus)
          default:
              print("GPS: Default")
          }

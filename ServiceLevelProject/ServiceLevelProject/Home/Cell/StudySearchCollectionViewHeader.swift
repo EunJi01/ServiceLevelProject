@@ -7,8 +7,8 @@
 
 import UIKit
 
-class StudySearchCollectionViewHeader: UICollectionReusableView, CustomView {
-    lazy var studyLabel: UILabel = customTitleLabel(size: 12, text: "Test", aligment: .left)
+final class StudySearchCollectionViewHeader: UICollectionReusableView, CustomView {
+    lazy var studyLabel: UILabel = customTitleLabel(size: 12, text: "", aligment: .left)
     
     override init(frame: CGRect) {
         super.init(frame: frame)

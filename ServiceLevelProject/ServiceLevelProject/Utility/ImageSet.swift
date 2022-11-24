@@ -35,59 +35,29 @@ struct IconSet {
 }
 
 enum SeSACFace: Int {
-    case sesacFace1 = 0
-    case sesacFace2 = 1
-    case sesacFace3 = 2
-    case sesacFace4 = 3
-    case sesacFace5 = 4
+    case sesacFace1
+    case sesacFace2
+    case sesacFace3
+    case sesacFace4
+    case sesacFace5
     
     var image: UIImage? {
-        switch self {
-        case .sesacFace1:
-            return UIImage(named: "sesac_face_1")
-        case .sesacFace2:
-            return UIImage(named: "sesac_face_2")
-        case .sesacFace3:
-            return UIImage(named: "sesac_face_3")
-        case .sesacFace4:
-            return UIImage(named: "sesac_face_4")
-        case .sesacFace5:
-            return UIImage(named: "sesac_face_5")
-        }
+        return UIImage(named: "sesac_face_\(rawValue + 1)")
     }
 }
 
 enum SeSACBackground: Int {
-    case sesacBackground1 = 0
-    case sesacBackground2 = 1
-    case sesacBackground3 = 2
-    case sesacBackground4 = 3
-    case sesacBackground5 = 4
-    case sesacBackground6 = 5
-    case sesacBackground7 = 6
-    case sesacBackground8 = 7
-    case sesacBackground9 = 8
+    case sesacBackground1
+    case sesacBackground2
+    case sesacBackground3
+    case sesacBackground4
+    case sesacBackground5
+    case sesacBackground6
+    case sesacBackground7
+    case sesacBackground8
+    case sesacBackground9
     
     var image: UIImage? {
-        switch self {
-        case .sesacBackground1:
-            return UIImage(named: "sesac_background_1")
-        case .sesacBackground2:
-            return UIImage(named: "sesac_background_2")
-        case .sesacBackground3:
-            return UIImage(named: "sesac_background_3")
-        case .sesacBackground4:
-            return UIImage(named: "sesac_background_4")
-        case .sesacBackground5:
-            return UIImage(named: "sesac_background_5")
-        case .sesacBackground6:
-            return UIImage(named: "sesac_background_6")
-        case .sesacBackground7:
-            return UIImage(named: "sesac_background_7")
-        case .sesacBackground8:
-            return UIImage(named: "sesac_background_8")
-        case .sesacBackground9:
-            return UIImage(named: "sesac_background_9")
-        }
+        return UIImage(named: "sesac_background_\(rawValue + 1)")
     }
 }

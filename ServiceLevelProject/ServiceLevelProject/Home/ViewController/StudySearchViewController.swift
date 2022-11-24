@@ -9,7 +9,7 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-class StudySearchViewController: UIViewController, CustomView {
+final class StudySearchViewController: UIViewController, CustomView {
     let disposeBag = DisposeBag()
     let vm = StudySearchViewModel()
 
@@ -60,6 +60,7 @@ class StudySearchViewController: UIViewController, CustomView {
         output.addStudy
             .withUnretained(self)
             .emit { vc, textList in
+                vc.searchBar.text = ""
                 vc.collectionView.reloadData()
             }
             .disposed(by: disposeBag)
@@ -100,20 +101,29 @@ extension StudySearchViewController: UICollectionViewDelegate, UICollectionViewD
         // MARK: 메서드 자체가 실행이 안된다!
         guard kind == UICollectionView.elementKindSectionHeader, let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: StudySearchCollectionViewHeader.reuseIdentifier, for: indexPath) as? StudySearchCollectionViewHeader else { return UICollectionReusableView() }
         
+        if indexPath.section == 0 {
+            header.studyLabel.text = "지금 추천하는"
+        } else {
+            header.studyLabel.text = "내가 하고 싶은"
+        }
+        
         return header
     }
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        print("22")
-        // MARK: 메서드 자체가 실행이 안된다!
-        return CGSize(width: UIScreen.main.bounds.size.width, height: 20)
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if indexPath.section == 0 {
+            //vm.wishStudy.append(<#T##newElement: String##String#>)
+        } else if indexPath.section == 1 {
+            vm.wishStudy.remove(at: indexPath.row)
+            collectionView.reloadData()
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if section == 0 {
-            return vm.recommendedStudy.value.count + vm.nearbyStudy.value.count
+            return vm.recommendedStudy.count + vm.nearbyStudy.count
         } else {
-            return vm.wishStudy.value.count
+            return vm.wishStudy.count
         }
     }
     
@@ -125,14 +135,20 @@ extension StudySearchViewController: UICollectionViewDelegate, UICollectionViewD
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: StudySearchCollectionViewCell.reuseIdentifier, for: indexPath) as? StudySearchCollectionViewCell else { return UICollectionViewCell() }
         
         if indexPath.section == 0 {
-            if indexPath.row < vm.recommendedStudy.value.count {
-                cell.studyLabel.text = vm.recommendedStudy.value[indexPath.row]
+            if indexPath.row < vm.recommendedStudy.count {
+                cell.studyLabel.textColor = .setColor(.error)
+                cell.borderView.layer.borderColor = UIColor.setColor(.error).cgColor
+                cell.studyLabel.text = vm.recommendedStudy[indexPath.row]
             } else {
-                cell.studyLabel.text = vm.nearbyStudy.value[indexPath.row - vm.recommendedStudy.value.count]
+                cell.studyLabel.textColor = .black
+                cell.borderView.layer.borderColor = UIColor.setColor(.gray3).cgColor
+                cell.studyLabel.text = vm.nearbyStudy[indexPath.row - vm.recommendedStudy.count]
             }
             
         } else {
-            cell.studyLabel.text = vm.wishStudy.value[indexPath.row]
+            cell.studyLabel.textColor = .setColor(.green)
+            cell.borderView.layer.borderColor = UIColor.setColor(.green).cgColor
+            cell.studyLabel.text = "\(vm.wishStudy[indexPath.row])  X"
         }
         
         return cell

@@ -8,7 +8,7 @@
 import UIKit
 import MapKit
 
-class CustomAnnotationView: MKAnnotationView {
+final class CustomAnnotationView: MKAnnotationView {
     static let identifier = "CustomAnnotationView"
     
     override init(annotation: MKAnnotation?, reuseIdentifier: String?){
@@ -27,7 +27,7 @@ class CustomAnnotationView: MKAnnotationView {
     }
 }
 
-class CustomAnnotation: NSObject, MKAnnotation {
+final class CustomAnnotation: NSObject, MKAnnotation {
   let sesac_image: Int?
   let coordinate: CLLocationCoordinate2D
 

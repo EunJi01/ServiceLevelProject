@@ -21,9 +21,9 @@ final class StudySearchViewModel {
     let disposeBag = DisposeBag()
     
     var center: CLLocationCoordinate2D?
-    var recommendedStudy = BehaviorRelay<[String]>(value: [])
-    var nearbyStudy = BehaviorRelay<[String]>(value: [])
-    var wishStudy = BehaviorRelay<[String]>(value: [])
+    var recommendedStudy: [String] = []
+    var nearbyStudy: [String] = []
+    var wishStudy: [String] = []
     
     struct Input {
         let returnKey: Signal<String>
@@ -44,9 +44,7 @@ final class StudySearchViewModel {
         input.returnKey
             .withUnretained(self)
             .emit { vm, text in
-                let studyList = text.components(separatedBy: " ")
-                vm.validate(studyList: studyList)
-                vm.addStudyRelay.accept(())
+                vm.validate(text: text)
             }
             .disposed(by: disposeBag)
         
@@ -64,18 +62,19 @@ final class StudySearchViewModel {
         )
     }
     
-    private func validate(studyList: [String]) {
-        if (wishStudy.value.count + studyList.count) > 8 {
-            showToastRealy.accept(StudySearchToast.studyListCount.rawValue)
-        }
+    private func validate(text: String) {
+        let studyList = text.components(separatedBy: " ")
         
         for study in studyList {
-            if (1...10).contains(study.count) {
-                wishStudy.accept([study])
-            } else if wishStudy.value.contains(study) {
+            if wishStudy.contains(study) {
                 showToastRealy.accept(StudySearchToast.alreadyAdded.rawValue)
-            } else {
+            } else if !((1...8).contains(study.count)) {
                 showToastRealy.accept(StudySearchToast.studyCount.rawValue)
+            } else if wishStudy.count > 7 {
+                showToastRealy.accept(StudySearchToast.studyListCount.rawValue)
+            } else {
+                wishStudy.append(study)
+                addStudyRelay.accept(())
             }
         }
     }
@@ -86,7 +85,7 @@ final class StudySearchViewModel {
             return
         }
         
-        APIManager.shared.sesac(endpoint: .queueRequest(lat: center.latitude, long: center.longitude, studyList: wishStudy.value)) { [weak self] response in
+        APIManager.shared.sesac(endpoint: .queueRequest(lat: center.latitude, long: center.longitude, studyList: wishStudy)) { [weak self] response in
             switch response {
             case .success(_):
                 print("성공! 화면전환")
