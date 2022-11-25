@@ -32,9 +32,9 @@ final class HomeViewController: UIViewController {
     private let allButton: UIButton = {
         let view = UIButton()
         view.setTitle("전체", for: .normal)
-        view.setTitleColor(.black, for: .normal)
+        view.setTitleColor(.white, for: .normal)
         view.titleLabel?.font = .systemFont(ofSize: 14)
-        view.backgroundColor = .white
+        view.backgroundColor = .setColor(.green)
         view.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         view.layer.cornerRadius = 10
         return view
@@ -160,7 +160,7 @@ final class HomeViewController: UIViewController {
                 self?.recommendedStudy = sesac.fromRecommend
                 for sesac in sesac.fromQueueDB {
                     let location = CLLocationCoordinate2D(latitude: sesac.lat, longitude: sesac.long)
-                    self?.nearbyStudy.append(contentsOf: sesac.studylist.filter { $0 != "" })
+                    self?.nearbyStudy.append(contentsOf: sesac.studylist.filter { $0 != "" && $0 != "anything" })
                     self?.setSesacPin(sesac_image: sesac.sesac, center: location)
                 }
                 
@@ -239,7 +239,6 @@ extension HomeViewController: CLLocationManagerDelegate {
     }
     
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
-        // MARK: 뷰디드로드에서 checkUserDeviceLocationServiceAuthorization 호출하지 않으면 안뜸
         print("locationManagerDidChangeAuthorization")
         checkUserDeviceLocationServiceAuthorization()
     }

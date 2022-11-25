@@ -14,7 +14,7 @@ final class StudySearchViewController: UIViewController, CustomView {
     let vm = StudySearchViewModel()
 
     private let collectionView: UICollectionView = {
-        let layout = CollectionViewLeftAlignFlowLayout()
+        let layout = StudyListLayout()
         let view = UICollectionView(frame: .zero, collectionViewLayout: layout)
         view.register(StudySearchCollectionViewCell.self, forCellWithReuseIdentifier: StudySearchCollectionViewCell.reuseIdentifier)
         if let flowLayout = view.collectionViewLayout as? UICollectionViewFlowLayout {
@@ -103,18 +103,6 @@ final class StudySearchViewController: UIViewController, CustomView {
 }
 
 extension StudySearchViewController: UICollectionViewDelegate, UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        guard kind == UICollectionView.elementKindSectionHeader, let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: StudySearchCollectionViewHeader.reuseIdentifier, for: indexPath) as? StudySearchCollectionViewHeader else { return UICollectionReusableView() }
-        
-        if indexPath.section == 0 {
-            header.studyLabel.text = "지금 추천하는"
-        } else {
-            header.studyLabel.text = "내가 하고 싶은"
-        }
-        
-        return header
-    }
-    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if indexPath.section == 0 {
             if indexPath.row < vm.recommendedStudy.count {
@@ -161,5 +149,27 @@ extension StudySearchViewController: UICollectionViewDelegate, UICollectionViewD
         }
         
         return cell
+    }
+}
+
+extension StudySearchViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        guard kind == UICollectionView.elementKindSectionHeader, let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: StudySearchCollectionViewHeader.reuseIdentifier, for: indexPath) as? StudySearchCollectionViewHeader else { return UICollectionReusableView() }
+        
+        if indexPath.section == 0 {
+            header.studyLabel.text = "지금 추천하는"
+        } else {
+            header.studyLabel.text = "내가 하고 싶은"
+        }
+        
+        return header
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        return CGSize(width: UIScreen.main.bounds.size.width, height: 20)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets(top: 24, left: 0, bottom: 0, right: 0)
     }
 }

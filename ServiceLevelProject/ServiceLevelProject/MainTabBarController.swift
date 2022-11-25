@@ -10,7 +10,6 @@ import UIKit
 enum mainTabBar: CaseIterable {
     case home
     case shop
-    case friend
     case mypage
     
     var title: String {
@@ -19,8 +18,6 @@ enum mainTabBar: CaseIterable {
             return "홈"
         case .shop:
             return "새싹샵"
-        case .friend:
-            return "새싹친구"
         case .mypage:
             return "내정보"
         }
@@ -32,8 +29,6 @@ enum mainTabBar: CaseIterable {
             return UIImage(systemName: "house")
         case .shop:
             return UIImage(systemName: "gift")
-        case .friend:
-            return UIImage(systemName: "leaf")
         case .mypage:
             return UIImage(systemName: "person")
         }
@@ -44,8 +39,6 @@ enum mainTabBar: CaseIterable {
         case .home:
             return HomeViewController()
         case .shop:
-            return HomeViewController()
-        case .friend:
             return HomeViewController()
         case .mypage:
             return MypageViewController()
