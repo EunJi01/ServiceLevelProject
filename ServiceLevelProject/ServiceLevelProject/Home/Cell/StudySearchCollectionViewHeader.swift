@@ -12,12 +12,7 @@ final class StudySearchCollectionViewHeader: UICollectionReusableView, CustomVie
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
-        backgroundColor = .red
-        studyLabel.backgroundColor = .yellow
-        
         addSubview(studyLabel)
-        
     }
     
     required init?(coder: NSCoder) {

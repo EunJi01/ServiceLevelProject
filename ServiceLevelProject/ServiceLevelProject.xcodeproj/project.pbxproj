@@ -246,8 +246,8 @@
 			children = (
 				B67BDE02292102700080EE89 /* NetworkCheck.swift */,
 				B66DD168291DB43F0095BE9B /* FirebaseAuth.swift */,
-				B66DD176291F876A0095BE9B /* Endpoint.swift */,
 				B66DD16C291DEEFA0095BE9B /* APIManager.swift */,
+				B66DD176291F876A0095BE9B /* Endpoint.swift */,
 				B69B8804291FCD8A002ECA23 /* APIStatusCode.swift */,
 			);
 			path = Network;

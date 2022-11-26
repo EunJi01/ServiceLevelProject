@@ -54,7 +54,7 @@ final class StudySearchViewModel {
             .withUnretained(self)
             .emit { vm, _ in
                 //vm.searchSesac()
-                vm.pushNextVCRelay.accept(()) // 통신에 성공했을 때 값을 넘기며 푸쉬하도록 나중에 옮기기!
+                vm.pushNextVCRelay.accept(())
             }
             .disposed(by: disposeBag)
         
@@ -89,10 +89,14 @@ final class StudySearchViewModel {
             return
         }
         
+        if wishStudy.isEmpty {
+            wishStudy.append("anything")
+        }
+        
         APIManager.shared.sesac(endpoint: .queueRequest(lat: center.latitude, long: center.longitude, studyList: wishStudy)) { [weak self] response in
             switch response {
             case .success(_):
-                print("성공! 화면전환")
+                self?.pushNextVCRelay.accept(())
             case .failure(let statusCode):
                 self?.showToastRealy.accept(statusCode.errorDescription)
             }

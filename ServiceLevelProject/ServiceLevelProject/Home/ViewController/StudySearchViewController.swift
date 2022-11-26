@@ -75,7 +75,9 @@ final class StudySearchViewController: UIViewController, CustomView {
         output.pushNextVC
             .withUnretained(self)
             .emit { vc, _ in
-                vc.transition(SearchResultViewController(), transitionStyle: .push)
+                let nextVC = SearchResultViewController()
+                nextVC.vm.center = vc.vm.center
+                vc.transition(nextVC, transitionStyle: .push)
             }
             .disposed(by: disposeBag)
     }
@@ -170,6 +172,6 @@ extension StudySearchViewController: UICollectionViewDelegateFlowLayout {
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: 24, left: 0, bottom: 0, right: 0)
+        return UIEdgeInsets(top: 12, left: 0, bottom: 12, right: 0)
     }
 }

@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class SearchResultTableViewCell: UITableViewCell {
+final class SearchResultTableViewCell: UITableViewCell, CustomView {
     let backgroundImageView: UIImageView = {
         let view = UIImageView()
         view.contentMode = .scaleAspectFill
@@ -30,12 +30,13 @@ final class SearchResultTableViewCell: UITableViewCell {
         return view
     }()
     
+    lazy var requestButton: UIButton = customButton(title: "요청하기")
     let sesacImageView = UIImageView()
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         selectionStyle = .none
-        backgroundColor = .blue
+
         setConfigure()
         setConstraints()
     }
@@ -45,11 +46,15 @@ final class SearchResultTableViewCell: UITableViewCell {
     }
     
     private func setConfigure() {
+        requestButton.tintColor = .white
+        requestButton.backgroundColor = .setColor(.error)
+        
         [backgroundImageView, nicknameView].forEach {
             addSubview($0)
         }
 
         backgroundImageView.addSubview(sesacImageView)
+        backgroundImageView.addSubview(requestButton)
         nicknameView.addSubview(nicknameLabel)
     }
     
@@ -68,12 +73,19 @@ final class SearchResultTableViewCell: UITableViewCell {
         nicknameView.snp.makeConstraints { make in
             make.top.equalTo(backgroundImageView.snp.bottom)
             make.horizontalEdges.equalToSuperview().inset(16)
+            make.bottom.equalToSuperview().inset(16)
             make.height.equalTo(58)
         }
 
         nicknameLabel.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
             make.leading.equalTo(16)
+        }
+        
+        requestButton.snp.makeConstraints { make in
+            make.top.trailing.equalToSuperview().inset(16)
+            make.height.equalTo(40)
+            make.width.equalTo(80)
         }
     }
 }

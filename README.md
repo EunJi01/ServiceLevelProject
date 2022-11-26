@@ -184,6 +184,8 @@ extension HomeViewController: MKMapViewDelegate {
 |  | StudySearch | searchBar | 2h |  |  |
 |  | StudySearch | 추천 스터디/주변 스터디 | 2h |  |  |
 |  | StudySearch | 셀을 클릭했을 때 기능(추가/삭제) | 2h |  |  |
+|  | StudySearch | HeaderView | 4h | 삽질 |  |
+|  | SearchResult | Layout | 2h |  |  |
 |  |  |  |  |  |  |
 | **3주차** |  |  |  |  | **~2022.11.27** |
 |  |  |  |  |  |  |
@@ -276,3 +278,9 @@ extension HomeViewController: MKMapViewDelegate {
 - returnKey를 누를 경우 searchBar의 text를 띄어쓰기 기준으로 나눈 후, 유효성 검사를 통과하면 내가 하고싶은 스터디 배열에 추가해 컬렉션뷰에 보여주도록 구현했다.
 - HomeView에서 StudySearchView로 화면전환할 때 현재 위치 좌표와 추천 스터디, 주변 스터디 리스트를 넘겨주도록 했다.
 - 주변 스터디 리스트 중복 제거, 추천/주변 스터디를 클릭해 내가 하고싶은 스터디 추가, 내가 하고싶은 스터디 제거 등의 기능을 구현했다.
+- CollectionView의 HeaderView로 엄청나게 삽질을 했는데, 알고보니 블로그에서 긁어온... CollectionViewLeftAlignFlowLayout 코드 때문이었던 것 같다.
+- 해당 코드를 다른 코드로 대체해 레이아웃을 잡아주니 정상적으로 구현되었다!
+
+#### 11/27 - 11/30
+- 새싹 검색 결과 뷰를 대강 만들고, 다듬기 전에 우선 API 통신으로 받아온 데이터를 제대로 보여줄 수 있는지 테스트했다.
+- 데이터를 받아온 후의 셀 리로드 시점에 대해 조금 고민했었는데, 새로고침 버튼으로 사용하려고 만든 refreshRelay 를 API 통신 시의 completionHandler에서 accept 해주니 간단하게 해결할 수 있었다.

@@ -28,6 +28,7 @@ class SearchResultViewController: UIViewController, CustomView {
     private let tableView: UITableView = {
         let view = UITableView(frame: .zero, style: .plain)
         view.register(SearchResultTableViewCell.self, forCellReuseIdentifier: SearchResultTableViewCell.reuseIdentifier)
+        view.separatorStyle = .none
         return view
     }()
     
@@ -41,10 +42,32 @@ class SearchResultViewController: UIViewController, CustomView {
         bind()
         setConfigure()
         setConstraints()
+
+        guard let center = vm.center else { return }
+        vm.searchSesac(center:center)
     }
     
     private func bind() {
-
+        let input = SearchResultViewModel.Input(
+            refreshButton: refreshButton.rx.tap.asSignal(),
+            changeStudyButton: changeStudyButton.rx.tap.asSignal()
+        )
+        
+        let output = vm.transform(input: input)
+        
+        output.showToast
+            .withUnretained(self)
+            .emit { vc, text in
+                vc.view.makeToast(text, position: .top)
+            }
+            .disposed(by: disposeBag)
+        
+        output.refresh
+            .withUnretained(self)
+            .emit { vc, _ in
+                vc.tableView.reloadData()
+            }
+            .disposed(by: disposeBag)
     }
     
     private func setConfigure() {
@@ -76,15 +99,18 @@ class SearchResultViewController: UIViewController, CustomView {
 
 extension SearchResultViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 2
+        return vm.result.fromQueueDB.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        print("11")
+
         guard let cell = tableView.dequeueReusableCell(withIdentifier: SearchResultTableViewCell.reuseIdentifier) as? SearchResultTableViewCell else { return UITableViewCell() }
-        print("22")
-        cell.nicknameView.backgroundColor = .yellow
-        cell.backgroundImageView.backgroundColor = .red
+        
+        let sesac = vm.result.fromQueueDB[indexPath.row]
+        
+        cell.backgroundImageView.image = SeSACBackground(rawValue: sesac.background)?.image
+        cell.sesacImageView.image = SeSACFace(rawValue: sesac.sesac)?.image
+        cell.nicknameLabel.text = sesac.nick
         
         return cell
     }
