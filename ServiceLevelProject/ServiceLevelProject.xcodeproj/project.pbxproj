@@ -77,6 +77,9 @@
 		B69B88112920E9D8002ECA23 /* LaunchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B69B88102920E9D8002ECA23 /* LaunchViewController.swift */; };
 		B69B88132920F76B002ECA23 /* UINavigationController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B69B88122920F76B002ECA23 /* UINavigationController+Extension.swift */; };
 		B69B88152920FBE2002ECA23 /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B69B88142920FBE2002ECA23 /* UIViewController+Extension.swift */; };
+		B6B7DE4929339E7D007B2D29 /* SearchTabmanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6B7DE4829339E7D007B2D29 /* SearchTabmanViewController.swift */; };
+		B6B7DE4B2933A319007B2D29 /* NearbyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6B7DE4A2933A319007B2D29 /* NearbyViewController.swift */; };
+		B6B7DE4D2933A32E007B2D29 /* RequestReceivedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6B7DE4C2933A32E007B2D29 /* RequestReceivedViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -144,6 +147,9 @@
 		B69B88102920E9D8002ECA23 /* LaunchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchViewController.swift; sourceTree = "<group>"; };
 		B69B88122920F76B002ECA23 /* UINavigationController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+Extension.swift"; sourceTree = "<group>"; };
 		B69B88142920FBE2002ECA23 /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
+		B6B7DE4829339E7D007B2D29 /* SearchTabmanViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTabmanViewController.swift; sourceTree = "<group>"; };
+		B6B7DE4A2933A319007B2D29 /* NearbyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearbyViewController.swift; sourceTree = "<group>"; };
+		B6B7DE4C2933A32E007B2D29 /* RequestReceivedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestReceivedViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -277,7 +283,10 @@
 			children = (
 				B67BDE062921D4E00080EE89 /* HomeViewController.swift */,
 				B62A8A812926C72F00D84D79 /* StudySearchViewController.swift */,
+				B6B7DE4829339E7D007B2D29 /* SearchTabmanViewController.swift */,
 				B62A8A93292FA09E00D84D79 /* SearchResultViewController.swift */,
+				B6B7DE4A2933A319007B2D29 /* NearbyViewController.swift */,
+				B6B7DE4C2933A32E007B2D29 /* RequestReceivedViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -503,6 +512,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B6B7DE4929339E7D007B2D29 /* SearchTabmanViewController.swift in Sources */,
+				B6B7DE4D2933A32E007B2D29 /* RequestReceivedViewController.swift in Sources */,
 				B691FD79291BF40200FC47F4 /* NicknameViewModel.swift in Sources */,
 				B66DD177291F876A0095BE9B /* Endpoint.swift in Sources */,
 				B620CD0529192BFE002CE764 /* ImageSet.swift in Sources */,
@@ -519,6 +530,7 @@
 				B620CD19291965F3002CE764 /* LoginViewModel.swift in Sources */,
 				B62A8A88292D172D00D84D79 /* StudySearchCollectionViewCell.swift in Sources */,
 				B620CD1D291979FF002CE764 /* AuthViewModel.swift in Sources */,
+				B6B7DE4B2933A319007B2D29 /* NearbyViewController.swift in Sources */,
 				B620CD0A29194C9C002CE764 /* TextSet.swift in Sources */,
 				B691FD7D291C1A6F00FC47F4 /* BirthViewModel.swift in Sources */,
 				B691FD81291C1A7F00FC47F4 /* GenderViewModel.swift in Sources */,

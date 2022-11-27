@@ -25,7 +25,7 @@ class SearchResultViewController: UIViewController, CustomView {
         return view
     }()
     
-    private let tableView: UITableView = {
+    let tableView: UITableView = {
         let view = UITableView(frame: .zero, style: .plain)
         view.register(SearchResultTableViewCell.self, forCellReuseIdentifier: SearchResultTableViewCell.reuseIdentifier)
         view.separatorStyle = .none
@@ -35,16 +35,10 @@ class SearchResultViewController: UIViewController, CustomView {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-
-        tableView.delegate = self
-        tableView.dataSource = self
         
         bind()
         setConfigure()
         setConstraints()
-
-        guard let center = vm.center else { return }
-        vm.searchSesac(center:center)
     }
     
     private func bind() {
@@ -68,6 +62,13 @@ class SearchResultViewController: UIViewController, CustomView {
                 vc.tableView.reloadData()
             }
             .disposed(by: disposeBag)
+        
+        output.pop
+            .withUnretained(self)
+            .emit { vc, _ in
+                vc.navigationController?.popViewController(animated: true)
+            }
+            .disposed(by: disposeBag)
     }
     
     private func setConfigure() {
@@ -84,6 +85,7 @@ class SearchResultViewController: UIViewController, CustomView {
             make.trailing.equalTo(refreshButton.snp.leading).offset(-8)
             make.height.equalTo(48)
         }
+        
         refreshButton.snp.makeConstraints { make in
             make.trailing.bottom.equalTo(view.safeAreaLayoutGuide).inset(16)
             make.width.height.equalTo(48)
@@ -94,24 +96,5 @@ class SearchResultViewController: UIViewController, CustomView {
             make.top.equalTo(view.safeAreaLayoutGuide)
             make.bottom.equalTo(refreshButton.snp.top).offset(-16)
         }
-    }
-}
-
-extension SearchResultViewController: UITableViewDataSource, UITableViewDelegate {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return vm.result.fromQueueDB.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: SearchResultTableViewCell.reuseIdentifier) as? SearchResultTableViewCell else { return UITableViewCell() }
-        
-        let sesac = vm.result.fromQueueDB[indexPath.row]
-        
-        cell.backgroundImageView.image = SeSACBackground(rawValue: sesac.background)?.image
-        cell.sesacImageView.image = SeSACFace(rawValue: sesac.sesac)?.image
-        cell.nicknameLabel.text = sesac.nick
-        
-        return cell
     }
 }

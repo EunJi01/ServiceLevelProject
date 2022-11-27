@@ -186,6 +186,8 @@ extension HomeViewController: MKMapViewDelegate {
 |  | StudySearch | 셀을 클릭했을 때 기능(추가/삭제) | 2h |  |  |
 |  | StudySearch | HeaderView | 4h | 삽질 |  |
 |  | SearchResult | Layout | 2h |  |  |
+|  | SearchResult | API 통신/데이터 보여주기 | 2h |  |  |
+|  | TabMan | Layout | 2h |  |  |
 |  |  |  |  |  |  |
 | **3주차** |  |  |  |  | **~2022.11.27** |
 |  |  |  |  |  |  |
@@ -284,3 +286,5 @@ extension HomeViewController: MKMapViewDelegate {
 #### 11/27 - 11/30
 - 새싹 검색 결과 뷰를 대강 만들고, 다듬기 전에 우선 API 통신으로 받아온 데이터를 제대로 보여줄 수 있는지 테스트했다.
 - 데이터를 받아온 후의 셀 리로드 시점에 대해 조금 고민했었는데, 새로고침 버튼으로 사용하려고 만든 refreshRelay 를 API 통신 시의 completionHandler에서 accept 해주니 간단하게 해결할 수 있었다.
+- 새로고침 버튼을 누르면 셀 리로드 뿐만 아니라 네트워크 통신부터 다시 해야 한다는 사실을 깨달았다! 명세서를 잘 보자^ㅠ^... (+스터디 변경 버튼 클릭 시 VC의 pop 뿐만 아니라 매칭 대기상태를 바꾸는 API를 호출해야 한다.)
+- 탭맨 라이브러리를 활용해 상단의 세그먼트 컨트롤을 구현했으며, 그 과정에서 기존 SearchResultViewController를 부모클래스로 하는 각 탭 (NearbyViewController, RequestReceivedViewController)을 만들었다.

@@ -158,6 +158,7 @@ final class HomeViewController: UIViewController {
             switch response {
             case .success(let sesac):
                 self?.recommendedStudy = sesac.fromRecommend
+                self?.nearbyStudy = []
                 for sesac in sesac.fromQueueDB {
                     let location = CLLocationCoordinate2D(latitude: sesac.lat, longitude: sesac.long)
                     self?.nearbyStudy.append(contentsOf: sesac.studylist.filter { $0 != "" && $0 != "anything" })

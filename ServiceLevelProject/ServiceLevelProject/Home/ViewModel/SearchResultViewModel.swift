@@ -25,10 +25,12 @@ final class SearchResultViewModel {
     struct Output {
         let showToast: Signal<String?>
         let refresh: Signal<Void>
+        let pop: Signal<Void>
     }
     
+    let refreshRelay = PublishRelay<Void>()
     private let showToastRelay = PublishRelay<String?>()
-    private let refreshRelay = PublishRelay<Void>()
+    private let popRelay = PublishRelay<Void>()
     
     func transform(input: Input) -> Output {
 //        input.requestButton
@@ -45,21 +47,17 @@ final class SearchResultViewModel {
             }
             .disposed(by: disposeBag)
         
+        input.changeStudyButton
+            .withUnretained(self)
+            .emit { vm, _ in
+                vm.popRelay.accept(())
+            }
+            .disposed(by: disposeBag)
+        
         return Output(
             showToast: showToastRelay.asSignal(),
-            refresh: refreshRelay.asSignal()
+            refresh: refreshRelay.asSignal(),
+            pop: popRelay.asSignal()
         )
-    }
-    
-    func searchSesac(center: CLLocationCoordinate2D) {
-        APIManager.shared.sesac(type: SearchSesac.self, endpoint: .queueSearch(lat: center.latitude, long: center.longitude)) { [weak self] response in
-            switch response {
-            case .success(let sesac):
-                self?.result = sesac
-                self?.refreshRelay.accept(())
-            case .failure(let statusCode):
-                self?.showToastRelay.accept(statusCode.errorDescription)
-            }
-        }
     }
 }
