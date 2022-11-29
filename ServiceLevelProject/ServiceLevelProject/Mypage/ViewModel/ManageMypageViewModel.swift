@@ -25,7 +25,7 @@ final class ManageMypageViewModel {
     }
     
     struct Output {
-        let save: Signal<Void>
+        let popVC: Signal<Void>
         let showToast: Signal<String?>
         let getUserInfo: Signal<UpdateUserInfo>
         let switchIsOn: Signal<Bool>
@@ -35,7 +35,7 @@ final class ManageMypageViewModel {
         let changeGender: Signal<Int>
     }
     
-    private let saveRelay = PublishRelay<Void>()
+    private let popVCRelay = PublishRelay<Void>()
     private let showToastRelay = PublishRelay<String?>()
     private let getUserInfoRelay = PublishRelay<UpdateUserInfo>()
     private let switchIsOnRelay = PublishRelay<Bool>()
@@ -48,9 +48,7 @@ final class ManageMypageViewModel {
         input.saveButton
             .withUnretained(self)
             .emit { vm, update in
-                print("저장")
-                //vm.updateUserInfo()
-                //vm.saveRelay
+                vm.updateUserInfo()
             }
             .disposed(by: disposeBag)
         
@@ -92,7 +90,7 @@ final class ManageMypageViewModel {
             .disposed(by: disposeBag)
         
         return Output(
-            save: saveRelay.asSignal(),
+            popVC: popVCRelay.asSignal(),
             showToast: showToastRelay.asSignal(),
             getUserInfo: getUserInfoRelay.asSignal(),
             switchIsOn: switchIsOnRelay.asSignal(),
@@ -125,18 +123,17 @@ extension ManageMypageViewModel {
     }
     
     private func updateUserInfo() {
-//        guard let info = info else { return }
-//        // MARK: 성별, 연령대 업데이트 구현필요
-//
-//        APIManager.shared.sesac(endpoint: .mypage(searchable: info.searchable, ageMin: info.ageMin, ageMax: info.ageMax, gender: info.gender, study: info.study)) { [weak self] response in
-//            switch response {
-//            case .success(_):
-//                print("업데이트 성공!")
-//                self?.saveRelay.accept(())
-//            case .failure(let statusCode):
-//                self?.showToastRelay.accept(statusCode.errorDescription)
-//            }
-//        }
+        guard let info = info else { return }
+        // MARK: 연령대 업데이트 구현 필요
+
+        APIManager.shared.sesac(endpoint: .mypage(searchable: info.searchable, ageMin: info.ageMin, ageMax: info.ageMax, gender: info.gender, study: info.study)) { [weak self] response in
+            switch response {
+            case .success(_):
+                self?.popVCRelay.accept(())
+            case .failure(let statusCode):
+                self?.showToastRelay.accept(statusCode.errorDescription)
+            }
+        }
     }
                 
     

@@ -118,6 +118,13 @@ final class ManageMypageViewController: UIViewController, CustomView {
                 vc.view.makeToast(text, position: .top)
             }
             .disposed(by: disposeBag)
+        
+        output.popVC
+            .withUnretained(self)
+            .emit { vc, _ in
+                vc.navigationController?.popViewController(animated: true)
+            }
+            .disposed(by: disposeBag)
     }
     
     private func resetOnboarding() {
