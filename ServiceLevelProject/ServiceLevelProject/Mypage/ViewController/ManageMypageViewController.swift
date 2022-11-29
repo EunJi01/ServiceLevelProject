@@ -67,10 +67,12 @@ final class ManageMypageViewController: UIViewController, CustomView {
     
     private func bind() {
         let input = ManageMypageViewModel.Input(
-            saveButton: saveButton.rx.tap
-                .asSignal(),
-            withdrawButton: withdrawButton.rx.tap
-                .asSignal()
+            manButton: manButton.rx.tap.asSignal(),
+            womanButton: womanButton.rx.tap.asSignal(),
+            studyTextField: studyTextField.rx.text.orEmpty.asSignal(onErrorJustReturn: ""),
+            searchForNumbersSwitch: searchForNumbersSwitch.rx.isOn.asSignal(onErrorJustReturn: false),
+            saveButton: saveButton.rx.tap.asSignal(),
+            withdrawButton: withdrawButton.rx.tap.asSignal()
         )
         
         let output = vm.transform(input: input)
@@ -82,10 +84,17 @@ final class ManageMypageViewController: UIViewController, CustomView {
                 vc.sesacImageView.image = SeSACFace(rawValue: userInfo.sesac)?.image
                 vc.nicknameLabel.text = userInfo.nick
                 // 성별
+                // 연령대
                 vc.studyTextField.text = userInfo.study
-                // 번호검색 허용여부
                 vc.ageRangeLabel.text = "\(userInfo.ageMin)-\(userInfo.ageMax)"
             } 
+            .disposed(by: disposeBag)
+        
+        output.switchIsOn
+            .withUnretained(self)
+            .emit { vc, isOn in
+                vc.searchForNumbersSwitch.setOn(isOn, animated: false)
+            }
             .disposed(by: disposeBag)
 
         output.withdraw

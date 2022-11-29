@@ -12,8 +12,6 @@ import RxCocoa
 final class ChattingViewController: UIViewController {
     let disposeBag = DisposeBag()
     let vm = ChattingViewModel()
-    
-    
 
     override func viewDidLoad() {
         super.viewDidLoad()
