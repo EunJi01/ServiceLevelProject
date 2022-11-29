@@ -18,6 +18,8 @@ class RequestReceivedViewController: SearchResultViewController {
         super.tableView.delegate = self
         super.tableView.dataSource = self
         
+        super.nodataTitleLabel.text = "아직 받은 요청이 없어요ㅠ"
+
         bind()
     }
     
@@ -36,11 +38,12 @@ class RequestReceivedViewController: SearchResultViewController {
 
 extension RequestReceivedViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        checkResult()
         return vm.result.fromQueueDBRequested.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-
+        
         guard let cell = tableView.dequeueReusableCell(withIdentifier: SearchResultTableViewCell.reuseIdentifier) as? SearchResultTableViewCell else { return UITableViewCell() }
         
         let sesac = vm.result.fromQueueDBRequested[indexPath.row]
@@ -61,5 +64,15 @@ extension RequestReceivedViewController: UITableViewDataSource, UITableViewDeleg
             .disposed(by: super.disposeBag)
         
         return cell
+    }
+}
+
+extension RequestReceivedViewController {
+    private func checkResult() {
+        if vm.result.fromQueueDBRequested.isEmpty {
+            super.nodataView.isHidden = false
+        } else {
+            super.nodataView.isHidden = true
+        }
     }
 }

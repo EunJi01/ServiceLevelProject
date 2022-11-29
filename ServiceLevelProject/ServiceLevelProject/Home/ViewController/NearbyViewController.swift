@@ -36,6 +36,7 @@ class NearbyViewController: SearchResultViewController {
 
 extension NearbyViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        checkResult()
         return vm.result.fromQueueDB.count
     }
     
@@ -59,5 +60,15 @@ extension NearbyViewController: UITableViewDataSource, UITableViewDelegate {
             .disposed(by: super.disposeBag)
         
         return cell
+    }
+}
+
+extension NearbyViewController {
+    private func checkResult() {
+        if vm.result.fromQueueDB.isEmpty {
+            super.nodataView.isHidden = false
+        } else {
+            super.nodataView.isHidden = true
+        }
     }
 }

@@ -20,8 +20,7 @@ final class HomeViewController: UIViewController {
         let view = UIButton()
         view.tintColor = .white
         view.backgroundColor = .black
-        view.layer.cornerRadius = 32
-        // MARK: 버튼 사이즈 키워야함
+        view.layer.cornerRadius = 30
         return view
     }()
     
@@ -86,6 +85,7 @@ final class HomeViewController: UIViewController {
         setConstraints()
         
         statusButton.addTarget(self, action: #selector(statusButtonTapped), for: .touchUpInside)
+        gpsButton.addTarget(self, action: #selector(gpsButtonTapped), for: .touchUpInside)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -116,7 +116,7 @@ final class HomeViewController: UIViewController {
         }
     }
     
-    @objc func statusButtonTapped() {
+    @objc private func statusButtonTapped() {
         APIManager.shared.sesac(type: State.self, endpoint: .myQueueState) { [weak self] response in
             switch response {
                 
@@ -136,6 +136,10 @@ final class HomeViewController: UIViewController {
                 }
             }
         }
+    }
+    
+    @objc private func gpsButtonTapped() {
+        checkUserDeviceLocationServiceAuthorization()
     }
     
     private func pushStudySearchView() {
@@ -171,7 +175,7 @@ final class HomeViewController: UIViewController {
         
         statusButton.snp.makeConstraints { make in
             make.trailing.bottom.equalTo(view.safeAreaLayoutGuide).inset(16)
-            make.height.width.equalTo(64)
+            make.height.width.equalTo(60)
         }
         
         allButton.snp.makeConstraints { make in
@@ -274,6 +278,8 @@ extension HomeViewController: CLLocationManagerDelegate {
              print("GPS 권한 허용됨")
              self.locationManager.startUpdatingLocation()
          case .denied, .restricted:
+             let campus = CLLocationCoordinate2D(latitude: 37.517829, longitude: 126.886270)
+             setRegion(center: campus)
              print("GPS 권한 거부됨 - 아이폰 설정으로 유도")
          default:
              print("GPS: Default")

@@ -189,6 +189,7 @@ extension HomeViewController: MKMapViewDelegate {
 |  | SearchResult | API 통신/데이터 보여주기 | 2h |  |  |
 |  | TabMan | Layout | 2h |  |  |
 |  | SearchResult | 요청하기/수락하기 버튼 | 3h |  |  |
+|  | SearchResult |  | 3h |  |  |
 |  |  |  |  |  |  |
 | **3주차** |  |  |  |  | **~2022.11.27** |
 |  |  |  |  |  |  |

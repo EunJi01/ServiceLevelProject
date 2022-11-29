@@ -28,10 +28,10 @@ final class APIManager {
                     
                     if statusCode == 200 && type == String.self {
                         completion(.success("" as! T))
-                        print("APIManager - 성공! \(statusCode)")
+                        print("APIManager - 성공!")
                     } else {
                         completion(.failure(error))
-                        print("APIManager - 실패! \(statusCode)")
+                        print("APIManager - \(statusCode)")
                     }
                 }
             }

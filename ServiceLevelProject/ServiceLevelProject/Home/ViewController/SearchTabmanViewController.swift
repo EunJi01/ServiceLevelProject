@@ -57,6 +57,7 @@ class SearchTabmanViewController: TabmanViewController {
                 self?.requestReceivedVC.vm.result = sesac
                 self?.nearbyVC.vm.refreshRelay.accept(())
                 self?.requestReceivedVC.vm.refreshRelay.accept(())
+                
             case .failure(let statusCode):
                 self?.view.makeToast(statusCode.errorDescription, position: .top)
             }

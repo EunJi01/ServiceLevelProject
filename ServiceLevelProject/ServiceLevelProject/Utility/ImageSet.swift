@@ -24,6 +24,7 @@ enum ImageSet: String {
     
     // 그 외
     case mapMarker = "map_marker"
+    case sesacNodata = "sesac_nodata"
 }
 
 struct IconSet {

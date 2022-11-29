@@ -15,6 +15,16 @@ class SearchResultViewController: UIViewController, CustomView {
 
     private lazy var changeStudyButton: UIButton = customButton(title: "스터디 변경하기")
     
+    let nodataView = UIView()
+    lazy var nodataTitleLabel: UILabel = customTitleLabel(size: 20, text: "아쉽게도 주변에 새싹이 없어요ㅠ")
+    lazy var nodataSubLabel: UILabel = customTitleLabel(size: 14, text: "스터디를 변경하거나 조금만 더 기다려 주세요!")
+    
+    private let nodataImageView: UIImageView = {
+        let view = UIImageView()
+        view.image = .setImage(.sesacNodata)
+        return view
+    }()
+    
     private let refreshButton: UIButton = {
         let view = UIButton()
         view.setImage(IconSet.refresh, for: .normal)
@@ -35,6 +45,9 @@ class SearchResultViewController: UIViewController, CustomView {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+        
+        nodataSubLabel.textColor = .setColor(.gray7)
+        nodataView.isHidden = true
         
         bind()
         setConfigure()
@@ -74,8 +87,12 @@ class SearchResultViewController: UIViewController, CustomView {
     private func setConfigure() {
         changeStudyButton.backgroundColor = .setColor(.green)
         
-        [tableView, changeStudyButton, refreshButton].forEach {
+        [tableView, changeStudyButton, refreshButton, nodataView].forEach {
             view.addSubview($0)
+        }
+        
+        [nodataImageView, nodataTitleLabel, nodataSubLabel].forEach {
+            nodataView.addSubview($0)
         }
     }
     
@@ -95,6 +112,27 @@ class SearchResultViewController: UIViewController, CustomView {
             make.horizontalEdges.equalToSuperview()
             make.top.equalTo(view.safeAreaLayoutGuide)
             make.bottom.equalTo(refreshButton.snp.top).offset(-16)
+        }
+        
+        nodataView.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.centerY.equalToSuperview().multipliedBy(0.8)
+            make.height.width.equalTo(64)
+        }
+        
+        nodataImageView.snp.makeConstraints { make in
+            make.top.equalToSuperview()
+            make.centerX.equalToSuperview()
+        }
+        
+        nodataTitleLabel.snp.makeConstraints { make in
+            make.top.equalTo(nodataImageView.snp.bottom).offset(36)
+            make.centerX.equalToSuperview()
+        }
+        
+        nodataSubLabel.snp.makeConstraints { make in
+            make.top.equalTo(nodataTitleLabel.snp.bottom).offset(8)
+            make.centerX.equalToSuperview()
         }
     }
 }
