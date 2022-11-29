@@ -32,6 +32,7 @@ final class ManageMypageViewModel {
         let withdraw: Signal<Void>
         let changeStudy: Signal<Void>
         let changeSearchable: Signal<Void>
+        let changeGender: Signal<Int>
     }
     
     private let saveRelay = PublishRelay<Void>()
@@ -41,6 +42,7 @@ final class ManageMypageViewModel {
     private let withdrawRelay = PublishRelay<Void>()
     private let changeStudyRelay = PublishRelay<Void>()
     private let changeSearchableRelay = PublishRelay<Void>()
+    private let changeGenderRelay = PublishRelay<Int>()
     
     func transform(input: Input) -> Output {
         input.saveButton
@@ -59,13 +61,22 @@ final class ManageMypageViewModel {
             }
             .disposed(by: disposeBag)
         
-        input.studyTextField
+        input.manButton
             .withUnretained(self)
-            .emit { vm, study in
-                vm.info?.study = study
+            .emit { vm, _ in
+                vm.info?.gender = 1
+                vm.changeGenderRelay.accept(1)
             }
             .disposed(by: disposeBag)
         
+        input.womanButton
+            .withUnretained(self)
+            .emit { vm, _ in
+                vm.info?.gender = 0
+                vm.changeGenderRelay.accept(0)
+            }
+            .disposed(by: disposeBag)
+
         input.studyTextField
             .withUnretained(self)
             .emit { vm, study in
@@ -87,7 +98,8 @@ final class ManageMypageViewModel {
             switchIsOn: switchIsOnRelay.asSignal(),
             withdraw: withdrawRelay.asSignal(),
             changeStudy: changeStudyRelay.asSignal(),
-            changeSearchable: changeSearchableRelay.asSignal()
+            changeSearchable: changeSearchableRelay.asSignal(),
+            changeGender: changeGenderRelay.asSignal()
         )
     }
 }

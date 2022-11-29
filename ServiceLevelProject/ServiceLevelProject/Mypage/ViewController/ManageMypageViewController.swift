@@ -83,11 +83,18 @@ final class ManageMypageViewController: UIViewController, CustomView {
                 vc.backgroundImageView.image = SeSACBackground(rawValue: userInfo.background)?.image
                 vc.sesacImageView.image = SeSACFace(rawValue: userInfo.sesac)?.image
                 vc.nicknameLabel.text = userInfo.nick
-                // 성별
+                vc.setHighlightButton(gender: userInfo.gender)
                 // 연령대
                 vc.studyTextField.text = userInfo.study
                 vc.ageRangeLabel.text = "\(userInfo.ageMin)-\(userInfo.ageMax)"
             } 
+            .disposed(by: disposeBag)
+        
+        output.changeGender
+            .withUnretained(self)
+            .emit { vc, gender in
+                vc.setHighlightButton(gender: gender)
+            }
             .disposed(by: disposeBag)
         
         output.switchIsOn
@@ -120,6 +127,16 @@ final class ManageMypageViewController: UIViewController, CustomView {
         
         sceneDelegate?.window?.rootViewController = vc
         sceneDelegate?.window?.makeKeyAndVisible()
+    }
+    
+    private func setHighlightButton(gender: Int) {
+        let normalButton = (gender == 0) ? manButton : womanButton
+        let highlightButton = (gender == 0) ? womanButton : manButton
+        
+        normalButton.backgroundColor = .clear
+        normalButton.setTitleColor(.black, for: .normal)
+        highlightButton.backgroundColor = .setColor(.green)
+        highlightButton.setTitleColor(.white, for: .normal)
     }
 
     private func setProperties() {
