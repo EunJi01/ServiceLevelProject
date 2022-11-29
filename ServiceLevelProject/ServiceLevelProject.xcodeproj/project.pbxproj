@@ -21,7 +21,6 @@
 		B620CD1B291979F8002CE764 /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B620CD1A291979F8002CE764 /* AuthViewController.swift */; };
 		B620CD1D291979FF002CE764 /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B620CD1C291979FF002CE764 /* AuthViewModel.swift */; };
 		B620CD21291A8CFB002CE764 /* Toast in Frameworks */ = {isa = PBXBuildFile; productRef = B620CD20291A8CFB002CE764 /* Toast */; };
-		B62A8A7C292657DA00D84D79 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B62A8A7B292657DA00D84D79 /* HomeViewModel.swift */; };
 		B62A8A7E2926B7C300D84D79 /* CustomAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = B62A8A7D2926B7C300D84D79 /* CustomAnnotation.swift */; };
 		B62A8A802926C56500D84D79 /* SearchSesac.swift in Sources */ = {isa = PBXBuildFile; fileRef = B62A8A7F2926C56500D84D79 /* SearchSesac.swift */; };
 		B62A8A822926C72F00D84D79 /* StudySearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B62A8A812926C72F00D84D79 /* StudySearchViewController.swift */; };
@@ -80,6 +79,11 @@
 		B6B7DE4929339E7D007B2D29 /* SearchTabmanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6B7DE4829339E7D007B2D29 /* SearchTabmanViewController.swift */; };
 		B6B7DE4B2933A319007B2D29 /* NearbyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6B7DE4A2933A319007B2D29 /* NearbyViewController.swift */; };
 		B6B7DE4D2933A32E007B2D29 /* RequestReceivedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6B7DE4C2933A32E007B2D29 /* RequestReceivedViewController.swift */; };
+		B6B7DE5029342F42007B2D29 /* ChattingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6B7DE4F29342F42007B2D29 /* ChattingViewController.swift */; };
+		B6B7DE5229342F69007B2D29 /* ChattingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6B7DE5129342F69007B2D29 /* ChattingViewModel.swift */; };
+		B6B7DE76293506F3007B2D29 /* NearbyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6B7DE75293506F3007B2D29 /* NearbyViewModel.swift */; };
+		B6B7DE782935070B007B2D29 /* RequestReceivedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6B7DE772935070B007B2D29 /* RequestReceivedViewModel.swift */; };
+		B6B7DE7A293510A7007B2D29 /* State.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6B7DE79293510A7007B2D29 /* State.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -96,7 +100,6 @@
 		B620CD18291965F2002CE764 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		B620CD1A291979F8002CE764 /* AuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewController.swift; sourceTree = "<group>"; };
 		B620CD1C291979FF002CE764 /* AuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
-		B62A8A7B292657DA00D84D79 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		B62A8A7D2926B7C300D84D79 /* CustomAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAnnotation.swift; sourceTree = "<group>"; };
 		B62A8A7F2926C56500D84D79 /* SearchSesac.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchSesac.swift; sourceTree = "<group>"; };
 		B62A8A812926C72F00D84D79 /* StudySearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudySearchViewController.swift; sourceTree = "<group>"; };
@@ -150,6 +153,11 @@
 		B6B7DE4829339E7D007B2D29 /* SearchTabmanViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTabmanViewController.swift; sourceTree = "<group>"; };
 		B6B7DE4A2933A319007B2D29 /* NearbyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearbyViewController.swift; sourceTree = "<group>"; };
 		B6B7DE4C2933A32E007B2D29 /* RequestReceivedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestReceivedViewController.swift; sourceTree = "<group>"; };
+		B6B7DE4F29342F42007B2D29 /* ChattingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChattingViewController.swift; sourceTree = "<group>"; };
+		B6B7DE5129342F69007B2D29 /* ChattingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChattingViewModel.swift; sourceTree = "<group>"; };
+		B6B7DE75293506F3007B2D29 /* NearbyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearbyViewModel.swift; sourceTree = "<group>"; };
+		B6B7DE772935070B007B2D29 /* RequestReceivedViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestReceivedViewModel.swift; sourceTree = "<group>"; };
+		B6B7DE79293510A7007B2D29 /* State.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = State.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -294,9 +302,10 @@
 		B67BDE2729220FF10080EE89 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				B62A8A7B292657DA00D84D79 /* HomeViewModel.swift */,
 				B62A8A8F292E64DA00D84D79 /* StudySearchViewModel.swift */,
 				B62A8A95292FA0AA00D84D79 /* SearchResultViewModel.swift */,
+				B6B7DE75293506F3007B2D29 /* NearbyViewModel.swift */,
+				B6B7DE772935070B007B2D29 /* RequestReceivedViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -370,6 +379,7 @@
 				B620CD1729196595002CE764 /* Login */,
 				B691FD6D291BE1F600FC47F4 /* Signup */,
 				B67BDE2529220FD80080EE89 /* Home */,
+				B6B7DE4E29342F27007B2D29 /* Chat */,
 				B69B8809291FDEC0002ECA23 /* Mypage */,
 				B692E3DB2919132100BEAF22 /* AppDelegate.swift */,
 				B692E3DD2919132100BEAF22 /* SceneDelegate.swift */,
@@ -389,6 +399,7 @@
 				B69B8807291FD5EC002ECA23 /* UserInfo.swift */,
 				B67BDE3529245A2B0080EE89 /* UpdateUserInfo.swift */,
 				B62A8A7F2926C56500D84D79 /* SearchSesac.swift */,
+				B6B7DE79293510A7007B2D29 /* State.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -417,6 +428,31 @@
 			children = (
 				B69B880E291FFB48002ECA23 /* MypageViewController.swift */,
 				B67BDE2A29224AFF0080EE89 /* ManageMypageViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		B6B7DE4E29342F27007B2D29 /* Chat */ = {
+			isa = PBXGroup;
+			children = (
+				B6B7DE5329342F6E007B2D29 /* ViewModel */,
+				B6B7DE5429342F73007B2D29 /* ViewController */,
+			);
+			path = Chat;
+			sourceTree = "<group>";
+		};
+		B6B7DE5329342F6E007B2D29 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				B6B7DE5129342F69007B2D29 /* ChattingViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		B6B7DE5429342F73007B2D29 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				B6B7DE4F29342F42007B2D29 /* ChattingViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -521,6 +557,7 @@
 				B66DD179291FB78F0095BE9B /* Date+Extension.swift in Sources */,
 				B620CD0E2919532E002CE764 /* UILabel+Extension.swift in Sources */,
 				B620CD122919572E002CE764 /* UIColor+Extension.swift in Sources */,
+				B6B7DE5029342F42007B2D29 /* ChattingViewController.swift in Sources */,
 				B62A8A96292FA0AA00D84D79 /* SearchResultViewModel.swift in Sources */,
 				B620CD0829193540002CE764 /* UIImage+Extension.swift in Sources */,
 				B691FD77291BE24E00FC47F4 /* GenderViewController.swift in Sources */,
@@ -540,6 +577,7 @@
 				B67BDE2B29224AFF0080EE89 /* ManageMypageViewController.swift in Sources */,
 				B69B880F291FFB48002ECA23 /* MypageViewController.swift in Sources */,
 				B69B8808291FD5EC002ECA23 /* UserInfo.swift in Sources */,
+				B6B7DE76293506F3007B2D29 /* NearbyViewModel.swift in Sources */,
 				B67BDE31292269C60080EE89 /* ResusableView.swift in Sources */,
 				B69B88152920FBE2002ECA23 /* UIViewController+Extension.swift in Sources */,
 				B620CCFE291925D2002CE764 /* OnboardingViewController.swift in Sources */,
@@ -548,8 +586,8 @@
 				B691FD7F291C1A7800FC47F4 /* EmailViewModel.swift in Sources */,
 				B67BDE05292106A20080EE89 /* ManageMypageViewModel.swift in Sources */,
 				B692E3DE2919132100BEAF22 /* SceneDelegate.swift in Sources */,
-				B62A8A7C292657DA00D84D79 /* HomeViewModel.swift in Sources */,
 				B69B88112920E9D8002ECA23 /* LaunchViewController.swift in Sources */,
+				B6B7DE5229342F69007B2D29 /* ChattingViewModel.swift in Sources */,
 				B62A8A7E2926B7C300D84D79 /* CustomAnnotation.swift in Sources */,
 				B66DD16D291DEEFA0095BE9B /* APIManager.swift in Sources */,
 				B62A8A8C292D59EC00D84D79 /* StudySearchCollectionViewHeader.swift in Sources */,
@@ -557,6 +595,7 @@
 				B62A8A90292E64DA00D84D79 /* StudySearchViewModel.swift in Sources */,
 				B620CD0C29194F34002CE764 /* String+Extension.swift in Sources */,
 				B620CD1629195CBC002CE764 /* CustomView.swift in Sources */,
+				B6B7DE7A293510A7007B2D29 /* State.swift in Sources */,
 				B67BDE2929224A1E0080EE89 /* MypageTableViewCell.swift in Sources */,
 				B67BDE2F29224C480080EE89 /* Mypage.swift in Sources */,
 				B62A8A9D292FB97900D84D79 /* CardView.swift in Sources */,
@@ -566,6 +605,7 @@
 				B67BDE072921D4E00080EE89 /* HomeViewController.swift in Sources */,
 				B620CCFC29192559002CE764 /* OnboardingPageViewController.swift in Sources */,
 				B62A8A822926C72F00D84D79 /* StudySearchViewController.swift in Sources */,
+				B6B7DE782935070B007B2D29 /* RequestReceivedViewModel.swift in Sources */,
 				B67BDE03292102700080EE89 /* NetworkCheck.swift in Sources */,
 				B67BDE2D29224BB30080EE89 /* MypageNicknameTableViewCell.swift in Sources */,
 				B691FD75291BE24500FC47F4 /* EmailViewController.swift in Sources */,

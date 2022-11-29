@@ -188,6 +188,7 @@ extension HomeViewController: MKMapViewDelegate {
 |  | SearchResult | Layout | 2h |  |  |
 |  | SearchResult | API 통신/데이터 보여주기 | 2h |  |  |
 |  | TabMan | Layout | 2h |  |  |
+|  | SearchResult | 요청하기/수락하기 버튼 | 3h |  |  |
 |  |  |  |  |  |  |
 | **3주차** |  |  |  |  | **~2022.11.27** |
 |  |  |  |  |  |  |
@@ -288,3 +289,6 @@ extension HomeViewController: MKMapViewDelegate {
 - 데이터를 받아온 후의 셀 리로드 시점에 대해 조금 고민했었는데, 새로고침 버튼으로 사용하려고 만든 refreshRelay 를 API 통신 시의 completionHandler에서 accept 해주니 간단하게 해결할 수 있었다.
 - 새로고침 버튼을 누르면 셀 리로드 뿐만 아니라 네트워크 통신부터 다시 해야 한다는 사실을 깨달았다! 명세서를 잘 보자^ㅠ^... (+스터디 변경 버튼 클릭 시 VC의 pop 뿐만 아니라 매칭 대기상태를 바꾸는 API를 호출해야 한다.)
 - 탭맨 라이브러리를 활용해 상단의 세그먼트 컨트롤을 구현했으며, 그 과정에서 기존 SearchResultViewController를 부모클래스로 하는 각 탭 (NearbyViewController, RequestReceivedViewController)을 만들었다.
+- 요청하기/수락하기 버튼을 구현하려고 하는데, rx로 구현하기 전에 우선 기존에 사용했던 방법인 Delegate를 활용해 addTarget으로 버튼 인식이 제대로 되는지 확인하려고 했으나 아무리 해도 버튼이 인식되지 않는 문제가 있었다.
+- 알고보니 버튼을 imageView의 서브뷰로 만들었던 부분이 잘못되었던 것으로, contentView에 넣으니 정상적으로 동작되었다.
+- 그동안 contentView의 필요성을 실감하지 못했는데, 이번에 삽질하고 명심하게 되었다.

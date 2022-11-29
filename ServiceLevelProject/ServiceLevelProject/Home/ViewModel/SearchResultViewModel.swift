@@ -17,7 +17,6 @@ final class SearchResultViewModel {
     var result: SearchSesac = SearchSesac(fromQueueDB: [], fromQueueDBRequested: [], fromRecommend: [])
     
     struct Input {
-        //let requestButton: Signal<Int>
         let refreshButton: Signal<Void>
         let changeStudyButton: Signal<Void>
     }
@@ -29,20 +28,14 @@ final class SearchResultViewModel {
     }
     
     let refreshRelay = PublishRelay<Void>()
-    private let showToastRelay = PublishRelay<String?>()
+    let showToastRelay = PublishRelay<String?>()
     private let popRelay = PublishRelay<Void>()
     
     func transform(input: Input) -> Output {
-//        input.requestButton
-//            .withUnretained(self)
-//            .emit { vm, index in
-//                // 채팅 요청
-//            }
-//            .disposed(by: disposeBag)
-        
         input.refreshButton
             .withUnretained(self)
             .emit { vm, _ in
+                // MARK: 네트워크 통신 다시 하기
                 vm.refreshRelay.accept(())
             }
             .disposed(by: disposeBag)
@@ -50,7 +43,7 @@ final class SearchResultViewModel {
         input.changeStudyButton
             .withUnretained(self)
             .emit { vm, _ in
-                vm.popRelay.accept(())
+                vm.cancelMatching()
             }
             .disposed(by: disposeBag)
         
@@ -59,5 +52,18 @@ final class SearchResultViewModel {
             refresh: refreshRelay.asSignal(),
             pop: popRelay.asSignal()
         )
+    }
+}
+
+extension SearchResultViewModel {
+    private func cancelMatching() {
+        APIManager.shared.sesac(endpoint: .queueStop) { [weak self] response in
+            switch response {
+            case .success(_):
+                self?.popRelay.accept(())
+            case .failure(let statusCode):
+                self?.showToastRelay.accept(statusCode.errorDescription)
+            }
+        }
     }
 }

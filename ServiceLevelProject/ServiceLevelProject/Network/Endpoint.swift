@@ -19,6 +19,10 @@ enum Endpoint {
     case queueStop
     case queueSearch(lat: CLLocationDegrees, long: CLLocationDegrees)
     case myQueueState
+    
+    case studyrequest
+    case studyaccept
+    case dodge
 }
 
 extension Endpoint {
@@ -41,7 +45,13 @@ extension Endpoint {
         case .queueSearch:
             return URL(string: Endpoint.baseURL + "v1/queue/search")
         case .myQueueState:
-            return URL(string: Endpoint.baseURL + "v1/myQueueState")
+            return URL(string: Endpoint.baseURL + "v1/queue/myQueueState")
+        case .studyrequest:
+            return URL(string: Endpoint.baseURL + "v1/queue/studyrequest")
+        case .studyaccept:
+            return URL(string: Endpoint.baseURL + "v1/queue/studyaccept")
+        case .dodge:
+            return URL(string: Endpoint.baseURL + "v1/queue/dodge")
         }
     }
     
@@ -63,6 +73,12 @@ extension Endpoint {
             return .post
         case .myQueueState:
             return .get
+        case .studyrequest:
+            return .post
+        case .studyaccept:
+            return .post
+        case .dodge:
+            return .post
         }
     }
     
@@ -75,8 +91,8 @@ extension Endpoint {
         return header
     }
     
-    var parameters: [String: String] {
-        var parameters: [String: String] = [:]
+    var parameters: [String: Any] {
+        var parameters: [String: Any] = [:]
         
         switch self {
         case .signup:
@@ -101,13 +117,17 @@ extension Endpoint {
             parameters = [
                 "lat": "\(lat)",
                 "long": "\(long)",
-                "studylist": "\(studyList)"
+                "studylist": "\(studyList)" // MARK: 배열로 넘거야하는데... 인코딩...
             ]
         case .queueSearch(let lat, let long):
             parameters = [
                 "lat": "\(lat)",
                 "long": "\(long)"
             ]
+//        case .studyrequest, .studyaccept, .dodge:
+//            parameters = [
+//                "otheruid": "이게뭐시여...?"
+//            ]
         default:
             break
         }

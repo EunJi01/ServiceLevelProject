@@ -55,9 +55,11 @@ final class ManageMypageViewModel {
             withdraw: withdrawRelay.asSignal()
         )
     }
-    
+}
+ 
+extension ManageMypageViewModel {
     private func updateUserInfo() {
-        // 값에 접근하고 싶으면 어떡하지... 근데 임의로 초기값 넣어놨다가 데이터 받아와서 고치기 전에 사용자가 저장하면 어떡하지...
+        // 값에 접근하고 싶으면 어떡하지... 근데 임의로 초기값 넣어놨다가 데이터 받아와서 고치기 전에 사용자가 저장하면 어떡하지... -> 일반 변수로 하자 그냥!
 //        APIManager.shared.put(endpoint:.mypage(searchable: <#T##Int#>, ageMin: <#T##Int#>, ageMax: <#T##Int#>, gender: <#T##Int#>, study: <#T##String#>))
 //        { [weak self] statusCode in
 //            switch statusCode {

@@ -48,7 +48,7 @@ final class AuthViewModel {
             .emit { vm, number in
                 let verificationID = UserDefaults.authVerificationID
                 let credential = FirebaseAuth.shared.credential(verificationID: verificationID, number: number)
-
+                
                 FirebaseAuth.shared.login(credential: credential) { [weak self] authDataResult, error in
                     if error != nil {
                         self?.showToastRelay.accept(AuthToast.discrepancy.rawValue)
@@ -106,7 +106,9 @@ final class AuthViewModel {
             excessiveRequest: excessiveRequestRelay.asSignal()
         )
     }
-    
+}
+ 
+extension AuthViewModel {
     private func requestIdToken() {
         FirebaseAuth.shared.getIDToken { [weak self] error in
             if error != nil {

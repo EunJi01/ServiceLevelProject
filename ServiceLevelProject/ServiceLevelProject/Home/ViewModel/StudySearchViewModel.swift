@@ -53,8 +53,7 @@ final class StudySearchViewModel {
         input.searchSesacButton
             .withUnretained(self)
             .emit { vm, _ in
-                //vm.searchSesac()
-                vm.pushNextVCRelay.accept(())
+                vm.searchSesac()
             }
             .disposed(by: disposeBag)
         
@@ -65,7 +64,9 @@ final class StudySearchViewModel {
             pushNextVC: pushNextVCRelay.asSignal()
         )
     }
-    
+}
+
+extension StudySearchViewModel {
     func validate(text: String) {
         let studyList = text.components(separatedBy: " ")
 

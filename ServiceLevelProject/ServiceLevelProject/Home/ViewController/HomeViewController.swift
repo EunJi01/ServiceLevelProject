@@ -7,11 +7,8 @@
 
 import UIKit
 import MapKit
-import RxSwift
-import RxCocoa
 
 final class HomeViewController: UIViewController {
-    private let disposeBag = DisposeBag()
     private let mapView = MKMapView()
     private let locationManager = CLLocationManager()
     
@@ -24,7 +21,6 @@ final class HomeViewController: UIViewController {
         view.tintColor = .white
         view.backgroundColor = .black
         view.layer.cornerRadius = 32
-        view.setImage(IconSet.search, for: .normal)
         // MARK: 버튼 사이즈 키워야함
         return view
     }()
@@ -84,19 +80,45 @@ final class HomeViewController: UIViewController {
         
         let campus = CLLocationCoordinate2D(latitude: 37.517829, longitude: 126.886270)
         setRegion(center: campus)
-        
         locationManager.requestWhenInUseAuthorization() // 왜 직접 호출해야 하지?
         
-        bind()
         setConfigure()
         setConstraints()
-    }
-    
-    private func bind() {
+        
         statusButton.addTarget(self, action: #selector(statusButtonTapped), for: .touchUpInside)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        updateState()
+    }
+
+    private func updateState() {
+        APIManager.shared.sesac(type: State.self, endpoint: .myQueueState) { [weak self] response in
+            switch response {
+                
+            case .success(let state):
+                if state.matched == 0 {
+                    self?.statusButton.setImage(myState.matching.buttonImage, for: .normal)
+                } else {
+                    self?.statusButton.setImage(myState.matched.buttonImage, for: .normal)
+                }
+                
+                
+            case .failure(let statusCode):
+                switch statusCode {
+                case .alreadySigned:
+                    self?.statusButton.setImage(myState.normal.buttonImage, for: .normal)
+                default:
+                    self?.view.makeToast(statusCode.errorDescription, position: .top)
+                }
+            }
+        }
+    }
+    
     @objc func statusButtonTapped() {
+        // MARK: 상태에 따라 버튼 눌렀을때 화면 전환 다르게 해야함
         let vc = StudySearchViewController()
         vc.vm.center = center
         vc.vm.recommendedStudy = recommendedStudy
@@ -275,5 +297,24 @@ extension HomeViewController: MKMapViewDelegate {
         annotationView?.image = resizedImage
         
         return annotationView
+    }
+}
+
+extension HomeViewController {
+    enum myState {
+        case normal
+        case matching
+        case matched
+        
+        var buttonImage: UIImage? {
+            switch self {
+            case .normal:
+                return IconSet.search
+            case .matching:
+                return IconSet.explore
+            case .matched:
+                return IconSet.massage
+            }
+        }
     }
 }

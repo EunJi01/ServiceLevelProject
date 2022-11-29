@@ -77,7 +77,9 @@ final class GenderViewModel {
             popToNicknameVC: popToNicknameVCRelay.asSignal()
         )
     }
-    
+}
+ 
+extension GenderViewModel {
     private func validate() {
         if UserDefaults.userGender == 10 {
             showToastRelay.accept(GenderToast.notValid.rawValue)

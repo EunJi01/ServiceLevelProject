@@ -49,12 +49,11 @@ final class SearchResultTableViewCell: UITableViewCell, CustomView {
         requestButton.tintColor = .white
         requestButton.backgroundColor = .setColor(.error)
         
-        [backgroundImageView, nicknameView].forEach {
-            addSubview($0)
+        [backgroundImageView, nicknameView, requestButton].forEach {
+            contentView.addSubview($0)
         }
 
         backgroundImageView.addSubview(sesacImageView)
-        backgroundImageView.addSubview(requestButton)
         nicknameView.addSubview(nicknameLabel)
     }
     
@@ -83,7 +82,8 @@ final class SearchResultTableViewCell: UITableViewCell, CustomView {
         }
         
         requestButton.snp.makeConstraints { make in
-            make.top.trailing.equalToSuperview().inset(16)
+            make.top.equalTo(backgroundImageView.snp.top).inset(16)
+            make.trailing.equalTo(backgroundImageView.snp.trailing).inset(16)
             make.height.equalTo(40)
             make.width.equalTo(80)
         }

@@ -65,7 +65,9 @@ final class BirthViewModel {
             birth: birthRealy.asSignal()
         )
     }
-    
+}
+ 
+extension BirthViewModel {
     private func validate(date: Date) {
         guard let age = Calendar.current.dateComponents([.year], from: date, to: Date()).year else { return }
 

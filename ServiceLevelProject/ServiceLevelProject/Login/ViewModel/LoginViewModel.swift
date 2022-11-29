@@ -46,7 +46,7 @@ final class LoginViewModel {
     private let excessiveRequestRelay = PublishRelay<Void>()
     
     func transform(input: Input) -> Output {
-
+        
         input.getMessageButtonTap
             .withUnretained(self)
             .throttle(.seconds(4), latest: false)
@@ -55,7 +55,7 @@ final class LoginViewModel {
                 case true:
                     vm.keyboardDisappearRelay.accept(())
                     vm.showToastRelay.accept(ValidationToast.valid.rawValue)
-
+                    
                     FirebaseAuth.shared.requestVerificationID(number: number) { verificationID, error in
                         if let verificationID = verificationID {
                             let number = number.replacingOccurrences(of: "-", with: "")
@@ -116,7 +116,9 @@ final class LoginViewModel {
             excessiveRequest: excessiveRequestRelay.asSignal()
         )
     }
-    
+}
+ 
+extension LoginViewModel {
     private func validatePhone(number: String) -> Bool {
         let regex = "^01([0|1|6|7|8|9])-?([0-9]{3,4})-?([0-9]{4})$"
         return NSPredicate(format: "SELF MATCHES %@", regex)
@@ -127,9 +129,5 @@ final class LoginViewModel {
         guard number.count > 13 else { return number }
         let index = number.index(number.startIndex, offsetBy: 13)
         return String(number[..<index])
-    }
-    
-    deinit {
-        print(#function)
     }
 }

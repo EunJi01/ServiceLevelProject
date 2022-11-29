@@ -6,9 +6,11 @@
 //
 
 import UIKit
+import RxSwift
+
 
 class RequestReceivedViewController: SearchResultViewController {
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
