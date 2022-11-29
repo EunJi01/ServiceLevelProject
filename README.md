@@ -291,4 +291,5 @@ extension HomeViewController: MKMapViewDelegate {
 - 탭맨 라이브러리를 활용해 상단의 세그먼트 컨트롤을 구현했으며, 그 과정에서 기존 SearchResultViewController를 부모클래스로 하는 각 탭 (NearbyViewController, RequestReceivedViewController)을 만들었다.
 - 요청하기/수락하기 버튼을 구현하려고 하는데, rx로 구현하기 전에 우선 기존에 사용했던 방법인 Delegate를 활용해 addTarget으로 버튼 인식이 제대로 되는지 확인하려고 했으나 아무리 해도 버튼이 인식되지 않는 문제가 있었다.
 - 알고보니 버튼을 imageView의 서브뷰로 만들었던 부분이 잘못되었던 것으로, contentView에 넣으니 정상적으로 동작되었다.
-- 그동안 contentView의 필요성을 실감하지 못했는데, 이번에 삽질하고 명심하게 되었다.
+- 혹은 contentView.isUserInteractionEnabled = true 로 contentView를 비활성화 시켜도 된다고 한다.
+

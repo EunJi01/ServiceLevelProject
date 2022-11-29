@@ -9,41 +9,31 @@ import Foundation
 import RxSwift
 import RxCocoa
 
-final class NearbyViewModel {
-    let disposeBag = DisposeBag()
-    
-    struct Input {
-        let requestButton: Signal<Int>
-    }
+final class NearbyViewModel: SearchResultViewModel {
+    struct Input { }
     
     struct Output {
-
+        let showToast: Signal<String?>
     }
     
     private let showToastRelay = PublishRelay<String?>()
     
     func transform(input: Input) -> Output {
-        input.requestButton
-            .withUnretained(self)
-            .emit { vm, index in
-                // 채팅 요청
-            }
-            .disposed(by: disposeBag)
         
-        return Output()
+        return Output(
+            showToast: showToastRelay.asSignal()
+        )
     }
 }
 
 extension NearbyViewModel {
-    func requestStudy() {
-        APIManager.shared.sesac(endpoint: .studyrequest) { response in
+    func requestStudy(user: FromQueueDB) {
+        APIManager.shared.sesac(endpoint: .studyrequest(otheruid: user.uid)) { [weak self] response in
             switch response {
             case .success(_):
-                print("성공이란다")
+                self?.showToastRelay.accept("스터디 요청을 보냈습니다.")
             case .failure(let statusCode):
-                print("실패란다")
-                // MARK: 머야 왜 토스트 안떠 귀찮게 ㅡ아아
-                //showToastRelay.accept(statusCode.errorDescription)
+                self?.showToastRelay.accept(statusCode.errorDescription)
             }
         }
     }

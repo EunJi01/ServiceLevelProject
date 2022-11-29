@@ -20,9 +20,9 @@ enum Endpoint {
     case queueSearch(lat: CLLocationDegrees, long: CLLocationDegrees)
     case myQueueState
     
-    case studyrequest
-    case studyaccept
-    case dodge
+    case studyrequest(otheruid: String)
+    case studyaccept(otheruid: String)
+    case dodge(otheruid: String)
 }
 
 extension Endpoint {
@@ -124,10 +124,10 @@ extension Endpoint {
                 "lat": "\(lat)",
                 "long": "\(long)"
             ]
-//        case .studyrequest, .studyaccept, .dodge:
-//            parameters = [
-//                "otheruid": "이게뭐시여...?"
-//            ]
+        case .studyrequest(let otheruid), .studyaccept(let otheruid), .dodge(let otheruid):
+            parameters = [
+                "otheruid": otheruid
+            ]
         default:
             break
         }

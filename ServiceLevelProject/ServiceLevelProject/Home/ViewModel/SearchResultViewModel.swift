@@ -10,7 +10,7 @@ import RxSwift
 import RxCocoa
 import CoreLocation
 
-final class SearchResultViewModel {
+class SearchResultViewModel {
     let disposeBag = DisposeBag()
     
     var center: CLLocationCoordinate2D?
@@ -28,7 +28,7 @@ final class SearchResultViewModel {
     }
     
     let refreshRelay = PublishRelay<Void>()
-    let showToastRelay = PublishRelay<String?>()
+    private let showToastRelay = PublishRelay<String?>()
     private let popRelay = PublishRelay<Void>()
     
     func transform(input: Input) -> Output {

@@ -105,7 +105,6 @@ final class HomeViewController: UIViewController {
                     self?.statusButton.setImage(myState.matched.buttonImage, for: .normal)
                 }
                 
-                
             case .failure(let statusCode):
                 switch statusCode {
                 case .alreadySigned:
@@ -118,11 +117,43 @@ final class HomeViewController: UIViewController {
     }
     
     @objc func statusButtonTapped() {
-        // MARK: 상태에 따라 버튼 눌렀을때 화면 전환 다르게 해야함
+        APIManager.shared.sesac(type: State.self, endpoint: .myQueueState) { [weak self] response in
+            switch response {
+                
+            case .success(let state):
+                if state.matched == 0 {
+                    self?.pushSearchResultView()
+                } else {
+                    self?.pushChattingView()
+                }
+                
+            case .failure(let statusCode):
+                switch statusCode {
+                case .alreadySigned:
+                    self?.pushStudySearchView()
+                default:
+                    self?.view.makeToast(statusCode.errorDescription, position: .top)
+                }
+            }
+        }
+    }
+    
+    private func pushStudySearchView() {
         let vc = StudySearchViewController()
         vc.vm.center = center
         vc.vm.recommendedStudy = recommendedStudy
         vc.vm.nearbyStudy = nearbyStudy.uniqued()
+        transition(vc, transitionStyle: .push)
+    }
+    
+    private func pushSearchResultView() {
+        let vc = SearchTabmanViewController()
+        vc.center = center
+        transition(vc, transitionStyle: .push)
+    }
+    
+    private func pushChattingView() {
+        let vc = ChattingViewController()
         transition(vc, transitionStyle: .push)
     }
 

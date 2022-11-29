@@ -7,15 +7,30 @@
 
 import UIKit
 import RxSwift
-
+import RxCocoa
 
 class RequestReceivedViewController: SearchResultViewController {
+    let requestVM = RequestReceivedViewModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         super.tableView.delegate = self
         super.tableView.dataSource = self
+        
+        bind()
+    }
+    
+    private func bind() {
+        let input = RequestReceivedViewModel.Input()
+        let output = requestVM.transform(input: input)
+        
+        output.showToast
+            .withUnretained(self)
+            .emit { vc, text in
+                vc.view.makeToast(text, position: .top)
+            }
+            .disposed(by: super.disposeBag)
     }
 }
 
@@ -35,6 +50,15 @@ extension RequestReceivedViewController: UITableViewDataSource, UITableViewDeleg
         cell.nicknameLabel.text = sesac.nick
         cell.requestButton.setTitle("수락하기", for: .normal)
         cell.requestButton.backgroundColor = .setColor(.success)
+        
+        cell.requestButton.rx.tap
+            .withUnretained(self)
+            .bind { vc, _ in
+                vc.showAlert(title: "스터디를 수락할까요?", message: "요청을 수락하면 채팅방에서 대화를 나눌 수 있어요") { _ in
+                    vc.requestVM.requestStudy(user: sesac)
+                }
+            }
+            .disposed(by: super.disposeBag)
         
         return cell
     }

@@ -55,6 +55,8 @@ final class SearchResultTableViewCell: UITableViewCell, CustomView {
 
         backgroundImageView.addSubview(sesacImageView)
         nicknameView.addSubview(nicknameLabel)
+        
+        // contentView.isUserInteractionEnabled = true
     }
     
     private func setConstraints() {

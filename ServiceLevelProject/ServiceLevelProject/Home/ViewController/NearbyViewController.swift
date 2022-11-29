@@ -17,6 +17,20 @@ class NearbyViewController: SearchResultViewController {
 
         super.tableView.delegate = self
         super.tableView.dataSource = self
+        
+        bind()
+    }
+    
+    private func bind() {
+        let input = NearbyViewModel.Input()
+        let output = nearbyVM.transform(input: input)
+        
+        output.showToast
+            .withUnretained(self)
+            .emit { vc, text in
+                vc.view.makeToast(text, position: .top)
+            }
+            .disposed(by: super.disposeBag)
     }
 }
 
@@ -39,7 +53,7 @@ extension NearbyViewController: UITableViewDataSource, UITableViewDelegate {
             .withUnretained(self)
             .bind { vc, _ in
                 vc.showAlert(title: "스터디를 요청할게요", message: "상대방이 요청을 수락하면 채팅방에서 대화를 나눌 수 있어요") { _ in
-                    vc.nearbyVM.requestStudy()
+                    vc.nearbyVM.requestStudy(user: sesac)
                 }
             }
             .disposed(by: super.disposeBag)
