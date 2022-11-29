@@ -18,7 +18,7 @@ final class ManageMypageViewModel {
         let manButton: Signal<Void>
         let womanButton: Signal<Void>
         let studyTextField: Signal<String>
-        let searchForNumbersSwitch: Signal<Bool>
+        let searchableSwitch: Signal<Bool>
         //let ageGroupSlider: Signal<(Int, Int)>
         let saveButton: Signal<Void>
         let withdrawButton: Signal<Void>
@@ -30,6 +30,8 @@ final class ManageMypageViewModel {
         let getUserInfo: Signal<UpdateUserInfo>
         let switchIsOn: Signal<Bool>
         let withdraw: Signal<Void>
+        let changeStudy: Signal<Void>
+        let changeSearchable: Signal<Void>
     }
     
     private let saveRelay = PublishRelay<Void>()
@@ -37,6 +39,8 @@ final class ManageMypageViewModel {
     private let getUserInfoRelay = PublishRelay<UpdateUserInfo>()
     private let switchIsOnRelay = PublishRelay<Bool>()
     private let withdrawRelay = PublishRelay<Void>()
+    private let changeStudyRelay = PublishRelay<Void>()
+    private let changeSearchableRelay = PublishRelay<Void>()
     
     func transform(input: Input) -> Output {
         input.saveButton
@@ -55,12 +59,35 @@ final class ManageMypageViewModel {
             }
             .disposed(by: disposeBag)
         
+        input.studyTextField
+            .withUnretained(self)
+            .emit { vm, study in
+                vm.info?.study = study
+            }
+            .disposed(by: disposeBag)
+        
+        input.studyTextField
+            .withUnretained(self)
+            .emit { vm, study in
+                vm.info?.study = study
+            }
+            .disposed(by: disposeBag)
+        
+        input.searchableSwitch
+            .withUnretained(self)
+            .emit { vm, isOn in
+                vm.info?.searchable = (isOn == false) ? 0 : 1
+            }
+            .disposed(by: disposeBag)
+        
         return Output(
             save: saveRelay.asSignal(),
             showToast: showToastRelay.asSignal(),
             getUserInfo: getUserInfoRelay.asSignal(),
             switchIsOn: switchIsOnRelay.asSignal(),
-            withdraw: withdrawRelay.asSignal()
+            withdraw: withdrawRelay.asSignal(),
+            changeStudy: changeStudyRelay.asSignal(),
+            changeSearchable: changeSearchableRelay.asSignal()
         )
     }
 }
@@ -86,17 +113,18 @@ extension ManageMypageViewModel {
     }
     
     private func updateUserInfo() {
-        guard let info = info else { return }
-        // MARK: 수정 로직 아직 하나도 구현 안함!!!
-        
-        APIManager.shared.sesac(endpoint: .mypage(searchable: info.searchable, ageMin: info.ageMin, ageMax: info.ageMax, gender: info.gender, study: info.study)) { [weak self] response in
-            switch response {
-            case .success(_):
-                print("업데이트 성공!")
-            case .failure(let statusCode):
-                self?.showToastRelay.accept(statusCode.errorDescription)
-            }
-        }
+//        guard let info = info else { return }
+//        // MARK: 성별, 연령대 업데이트 구현필요
+//
+//        APIManager.shared.sesac(endpoint: .mypage(searchable: info.searchable, ageMin: info.ageMin, ageMax: info.ageMax, gender: info.gender, study: info.study)) { [weak self] response in
+//            switch response {
+//            case .success(_):
+//                print("업데이트 성공!")
+//                self?.saveRelay.accept(())
+//            case .failure(let statusCode):
+//                self?.showToastRelay.accept(statusCode.errorDescription)
+//            }
+//        }
     }
                 
     

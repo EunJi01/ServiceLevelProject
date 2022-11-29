@@ -27,7 +27,7 @@ final class ManageMypageViewController: UIViewController, CustomView {
     private lazy var womanButton: UIButton = customButton(title: "여자")
     private lazy var studyTextField: UITextField = customTextField(placeholder: "스터디를 입력해 주세요")
     private lazy var underline: UIView = customUnderlineView()
-    private let searchForNumbersSwitch = UISwitch(frame: .zero)
+    private let searchableSwitch = UISwitch(frame: .zero)
     private let ageGroupSlider = UISlider()
     private lazy var ageRangeLabel = customTitleLabel(size: 14, text: "임시")
 
@@ -70,7 +70,7 @@ final class ManageMypageViewController: UIViewController, CustomView {
             manButton: manButton.rx.tap.asSignal(),
             womanButton: womanButton.rx.tap.asSignal(),
             studyTextField: studyTextField.rx.text.orEmpty.asSignal(onErrorJustReturn: ""),
-            searchForNumbersSwitch: searchForNumbersSwitch.rx.isOn.asSignal(onErrorJustReturn: false),
+            searchableSwitch: searchableSwitch.rx.isOn.asSignal(onErrorJustReturn: false),
             saveButton: saveButton.rx.tap.asSignal(),
             withdrawButton: withdrawButton.rx.tap.asSignal()
         )
@@ -93,7 +93,7 @@ final class ManageMypageViewController: UIViewController, CustomView {
         output.switchIsOn
             .withUnretained(self)
             .emit { vc, isOn in
-                vc.searchForNumbersSwitch.setOn(isOn, animated: false)
+                vc.searchableSwitch.setOn(isOn, animated: false)
             }
             .disposed(by: disposeBag)
 
@@ -135,7 +135,7 @@ final class ManageMypageViewController: UIViewController, CustomView {
         nicknameLabel.font = .boldSystemFont(ofSize: 16)
         
         ageRangeLabel.textColor = .setColor(.green)
-        searchForNumbersSwitch.tintColor = .setColor(.green)
+        searchableSwitch.tintColor = .setColor(.green)
         ageGroupSlider.tintColor = .setColor(.green)
         
         womanButton.backgroundColor = .white
@@ -167,7 +167,7 @@ final class ManageMypageViewController: UIViewController, CustomView {
             studyView.addSubview($0)
         }
         
-        [searchForNumbersLabel, searchForNumbersSwitch].forEach {
+        [searchForNumbersLabel, searchableSwitch].forEach {
             searchForNumbersView.addSubview($0)
         }
         
@@ -252,7 +252,7 @@ final class ManageMypageViewController: UIViewController, CustomView {
             make.height.equalTo(1)
         }
         
-        searchForNumbersSwitch.snp.makeConstraints { make in
+        searchableSwitch.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
             make.trailing.equalToSuperview().inset(16)
             make.height.equalTo(44)
