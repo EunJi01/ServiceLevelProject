@@ -117,7 +117,7 @@ extension Endpoint {
             parameters = [
                 "lat": "\(lat)",
                 "long": "\(long)",
-                "studylist": "\(studyList)" // MARK: 배열로 넘거야하는데... 인코딩...
+                "studylist": studyList
             ]
         case .queueSearch(let lat, let long):
             parameters = [
