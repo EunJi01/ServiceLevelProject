@@ -90,10 +90,18 @@ extension GenderViewModel {
                     self?.presentMainVCRelay.accept(())
                 case .failure(let statusCode):
                     switch statusCode {
-                    case .nicknameError:
-                        self?.popToNicknameVCRelay.accept(statusCode.errorDescription ?? "")
+                    case .error201:
+                        self?.showToastRelay.accept("이미 가입된 회원입니다")
+                    case .error202:
+                        self?.popToNicknameVCRelay.accept("사용할 수 없는 닉네임입니다")
                     case .firebaseTokenError:
-                        self?.getIdToken()
+                        FirebaseAuth.shared.getIDToken { error in
+                            if error == nil {
+                                self?.validate()
+                            } else {
+                                self?.showToastRelay.accept(statusCode.errorDescription)
+                            }
+                        }
                     default:
                         self?.showToastRelay.accept(statusCode.errorDescription)
                         print(
@@ -107,12 +115,6 @@ extension GenderViewModel {
                     }
                 }
             }
-        }
-    }
-    
-    private func getIdToken() {
-        FirebaseAuth.shared.getIDToken { [weak self] error in
-            self?.showToastRelay.accept(AuthToast.tokenError.rawValue)
         }
     }
 }

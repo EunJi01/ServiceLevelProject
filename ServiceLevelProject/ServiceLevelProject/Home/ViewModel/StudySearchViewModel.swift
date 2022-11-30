@@ -38,7 +38,7 @@ final class StudySearchViewModel {
     }
     
     private let addStudyRelay = PublishRelay<Void>()
-    private let showToastRealy = PublishRelay<String?>()
+    private let showToastRelay = PublishRelay<String?>()
     private let searchSesacRealy = PublishRelay<Void>()
     private let pushNextVCRelay = PublishRelay<Void>()
     
@@ -59,7 +59,7 @@ final class StudySearchViewModel {
         
         return Output(
             addStudy: addStudyRelay.asSignal(),
-            showToast: showToastRealy.asSignal(),
+            showToast: showToastRelay.asSignal(),
             searchSesac: searchSesacRealy.asSignal(),
             pushNextVC: pushNextVCRelay.asSignal()
         )
@@ -72,11 +72,11 @@ extension StudySearchViewModel {
 
         for study in studyList {
             if wishStudy.contains(study) {
-                showToastRealy.accept(StudySearchToast.alreadyAdded.rawValue)
+                showToastRelay.accept(StudySearchToast.alreadyAdded.rawValue)
             } else if !((1...8).contains(study.count)) {
-                showToastRealy.accept(StudySearchToast.studyCount.rawValue)
+                showToastRelay.accept(StudySearchToast.studyCount.rawValue)
             } else if wishStudy.count > 7 {
-                showToastRealy.accept(StudySearchToast.studyListCount.rawValue)
+                showToastRelay.accept(StudySearchToast.studyListCount.rawValue)
             } else {
                 wishStudy.append(study)
                 addStudyRelay.accept(())
@@ -86,7 +86,7 @@ extension StudySearchViewModel {
     
     private func searchSesac() {
         guard let center = center else {
-            showToastRealy.accept(StudySearchToast.unknownError.rawValue)
+            showToastRelay.accept(StudySearchToast.unknownError.rawValue)
             return
         }
         
@@ -99,7 +99,18 @@ extension StudySearchViewModel {
             case .success(_):
                 self?.pushNextVCRelay.accept(())
             case .failure(let statusCode):
-                self?.showToastRealy.accept(statusCode.errorDescription)
+                switch statusCode {
+                case .firebaseTokenError:
+                    FirebaseAuth.shared.getIDToken { error in
+                        if error == nil {
+                            self?.searchSesac()
+                        } else {
+                            self?.showToastRelay.accept(statusCode.errorDescription)
+                        }
+                    }
+                default:
+                    self?.showToastRelay.accept(statusCode.errorDescription)
+                }
             }
         }
     }

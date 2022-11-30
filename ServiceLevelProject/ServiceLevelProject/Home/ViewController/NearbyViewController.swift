@@ -31,6 +31,13 @@ class NearbyViewController: SearchResultViewController {
                 vc.view.makeToast(text, position: .top)
             }
             .disposed(by: super.disposeBag)
+        
+        output.pushNextVC
+            .withUnretained(self)
+            .emit { vc, _ in
+                vc.transition(ChattingViewController(), transitionStyle: .push)
+            }
+            .disposed(by: disposeBag)
     }
 }
 

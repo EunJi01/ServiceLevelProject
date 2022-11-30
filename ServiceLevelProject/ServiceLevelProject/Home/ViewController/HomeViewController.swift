@@ -107,8 +107,16 @@ final class HomeViewController: UIViewController {
                 
             case .failure(let statusCode):
                 switch statusCode {
-                case .alreadySigned:
+                case .error201:
                     self?.statusButton.setImage(myState.normal.buttonImage, for: .normal)
+                case .firebaseTokenError:
+                    FirebaseAuth.shared.getIDToken { error in
+                        if error == nil {
+                            self?.updateState()
+                        } else {
+                            self?.view.makeToast(statusCode.errorDescription, position: .top)
+                        }
+                    }
                 default:
                     self?.view.makeToast(statusCode.errorDescription, position: .top)
                 }
@@ -129,8 +137,16 @@ final class HomeViewController: UIViewController {
                 
             case .failure(let statusCode):
                 switch statusCode {
-                case .alreadySigned:
+                case .error201:
                     self?.pushStudySearchView()
+                case .firebaseTokenError:
+                    FirebaseAuth.shared.getIDToken { error in
+                        if error == nil {
+                            self?.statusButtonTapped()
+                        } else {
+                            self?.view.makeToast(statusCode.errorDescription, position: .top)
+                        }
+                    }
                 default:
                     self?.view.makeToast(statusCode.errorDescription, position: .top)
                 }
@@ -223,7 +239,19 @@ final class HomeViewController: UIViewController {
                 }
                 
             case .failure(let statusCode):
-                self?.view.makeToast(statusCode.errorDescription, position: .center)
+                switch statusCode {
+                case .firebaseTokenError:
+                    FirebaseAuth.shared.getIDToken { error in
+                        if error == nil {
+                            self?.searchSesac(center: center)
+                        } else {
+                            self?.view.makeToast(statusCode.errorDescription, position: .center)
+                        }
+                    }
+                default:
+                    self?.view.makeToast(statusCode.errorDescription, position: .center)
+                }
+                
             }
         }
     }

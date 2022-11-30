@@ -182,6 +182,8 @@ extension HomeViewController: MKMapViewDelegate {
 |  | Home | API 통신/어노테이션 띄우기 | 2h |  |  |
 |  | StudySearch | Layout | 2h |  |  |
 |  | StudySearch | searchBar | 2h |  |  |
+|  |  |  |  |  |  |
+| **3주차** |  |  |  |  | **~2022.11.27** |
 |  | StudySearch | 추천 스터디/주변 스터디 | 2h |  |  |
 |  | StudySearch | 셀을 클릭했을 때 기능(추가/삭제) | 2h |  |  |
 |  | StudySearch | HeaderView | 4h | 삽질 |  |
@@ -190,9 +192,7 @@ extension HomeViewController: MKMapViewDelegate {
 |  | TabMan | Layout | 2h |  |  |
 |  | SearchResult | 요청하기/수락하기 버튼 | 3h |  |  |
 |  | SearchResult | nodataView | 1h |  |  |
-|  |  |  |  |  |  |
-| **3주차** |  |  |  |  | **~2022.11.27** |
-|  |  |  |  |  |  |
+|  | SearchResult | 에러 핸들링 | 2h |  |  |
 |  |  |  |  |  |  |
 | **4주차** |  |  |  |  | **~2022.12.04** |
 |  |  |  |  |  |  |
@@ -293,4 +293,7 @@ extension HomeViewController: MKMapViewDelegate {
 - 요청하기/수락하기 버튼을 구현하려고 하는데, rx로 구현하기 전에 우선 기존에 사용했던 방법인 Delegate를 활용해 addTarget으로 버튼 인식이 제대로 되는지 확인하려고 했으나 아무리 해도 버튼이 인식되지 않는 문제가 있었다.
 - 알고보니 버튼을 imageView의 서브뷰로 만들었던 부분이 잘못되었던 것으로, contentView에 넣으니 정상적으로 동작되었다.
 - 혹은 contentView.isUserInteractionEnabled = true 로 contentView를 비활성화 시켜도 된다고 한다.
+- 스터디 요청/수락 API 통신 시 발생할 수 있는 여러 경우에 대해 statusCode 별로 대응했다.
 
+#### 12/01 - 12/04
+- 

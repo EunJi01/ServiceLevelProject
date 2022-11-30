@@ -126,9 +126,17 @@ extension AuthViewModel {
                 self?.presentMainVCRelay.accept(())
             case.failure(let statusCode):
                 switch statusCode {
-                case .mustSignup:
+                case .notRegistered:
                     UserDefaults.authenticationCompleted = true
                     self?.pushSignupVCRelay.accept(())
+                case .firebaseTokenError:
+                    FirebaseAuth.shared.getIDToken { error in
+                        if error == nil {
+                            self?.requestLogin()
+                        } else {
+                            self?.showToastRelay.accept(statusCode.errorDescription)
+                        }
+                    }
                 default:
                     self?.showToastRelay.accept(statusCode.errorDescription)
                 }

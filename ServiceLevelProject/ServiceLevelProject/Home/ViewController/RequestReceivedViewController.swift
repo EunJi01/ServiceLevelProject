@@ -33,6 +33,13 @@ class RequestReceivedViewController: SearchResultViewController {
                 vc.view.makeToast(text, position: .top)
             }
             .disposed(by: super.disposeBag)
+        
+        output.pushNextVC
+            .withUnretained(self)
+            .emit { vc, _ in
+                vc.transition(ChattingViewController(), transitionStyle: .push)
+            }
+            .disposed(by: disposeBag)
     }
 }
 
@@ -58,7 +65,7 @@ extension RequestReceivedViewController: UITableViewDataSource, UITableViewDeleg
             .withUnretained(self)
             .bind { vc, _ in
                 vc.showAlert(title: "스터디를 수락할까요?", message: "요청을 수락하면 채팅방에서 대화를 나눌 수 있어요") { _ in
-                    vc.requestVM.requestStudy(user: sesac)
+                    vc.requestVM.acceptStudy(user: sesac)
                 }
             }
             .disposed(by: super.disposeBag)

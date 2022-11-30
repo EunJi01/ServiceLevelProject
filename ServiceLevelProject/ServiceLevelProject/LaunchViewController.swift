@@ -22,20 +22,7 @@ class LaunchViewController: UIViewController {
         networkCheck { [weak self] isConnected in
             // MARK: 분명 전에는 됐는데ㅠㅠㅠ 네트워크 연결 실패했을 때 얼럿이 안뜬다...
             guard isConnected == true else { return }
-            self?.getIdToken()
-        }
-    }
-
-    private func getIdToken() {
-        FirebaseAuth.shared.getIDToken { [weak self] error in
-            if error != nil {
-                print("여기서 실패?")
-                print(error!)
-                self?.view.makeToast(APIStatusCode.firebaseTokenError.errorDescription, position: .center)
-            } else {
-                print("====idToken====" + UserDefaults.idToken)
-                self?.viewTransition()
-            }
+            self?.viewTransition()
         }
     }
     
@@ -43,30 +30,38 @@ class LaunchViewController: UIViewController {
         APIManager.shared.sesac(type: UserInfo.self, endpoint: .login) { [weak self] response in
             switch response {
             case .success(let userInfo):
+                print("==id token== \(UserDefaults.idToken)")
                 UserDefaults.userNickname = userInfo.nick
                 UserDefaults.sesacNumber = userInfo.sesac
                 self?.transition(MainTabBarController(), transitionStyle: .presentFull)
+                
             case .failure(let statusCode):
-                if UserDefaults.showOnboarding {
-                    self?.transition(OnboardingPageViewController(), transitionStyle: .presentFull)
-                } else {
-                    switch statusCode {
-                    case .mustSignup:
-                        if UserDefaults.authenticationCompleted {
-                            self?.transition(NicknameViewController(), transitionStyle: .presentFullNavigation)
+                switch statusCode {
+                case .firebaseTokenError:
+                    FirebaseAuth.shared.getIDToken { error in
+                        if error == nil {
+                            self?.viewTransition()
                         } else {
-                            self?.transition(LoginViewController(), transitionStyle: .presentFullNavigation)
+                            self?.view.makeToast(statusCode.errorDescription, position: .top)
                         }
-                    case.firebaseTokenError:
-                        self?.getIdToken()
-                    default:
+                    }
+                case .notRegistered:
+                    if UserDefaults.authenticationCompleted {
+                        self?.transition(NicknameViewController(), transitionStyle: .presentFullNavigation)
+                    } else {
                         self?.transition(LoginViewController(), transitionStyle: .presentFullNavigation)
+                    }
+                default:
+                    if UserDefaults.showOnboarding {
+                        self?.transition(OnboardingPageViewController(), transitionStyle: .presentFull)
+                    } else {
+                        self?.view.makeToast(statusCode.errorDescription, position: .top)
                     }
                 }
             }
         }
     }
-    
+
     private func setConfigure() {
         logoImageView.image = .setImage(.splashLogo)
         titleImageView.image = .setImage(.splashTitle)

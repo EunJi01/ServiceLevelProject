@@ -44,6 +44,7 @@ final class FirebaseAuth {
     func getIDToken(completion: @escaping (Error?) -> Void) {
         Auth.auth().currentUser?.getIDTokenForcingRefresh(true) { idToken, error in
             if let idToken = idToken {
+                print("====idToken====" + UserDefaults.idToken)
                 UserDefaults.idToken = idToken
                 completion(error)
             } else {

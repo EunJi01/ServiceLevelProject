@@ -117,7 +117,18 @@ extension ManageMypageViewModel {
                 self?.getUserInfoRelay.accept(userInfo)
                 self?.switchIsOn()
             case .failure(let statusCode):
-                self?.showToastRelay.accept(statusCode.errorDescription)
+                switch statusCode {
+                case .firebaseTokenError:
+                    FirebaseAuth.shared.getIDToken { error in
+                        if error == nil {
+                            self?.getUserInfo()
+                        } else {
+                            self?.showToastRelay.accept(statusCode.errorDescription)
+                        }
+                    }
+                default:
+                    self?.showToastRelay.accept(statusCode.errorDescription)
+                }
             }
         }
     }
@@ -131,7 +142,18 @@ extension ManageMypageViewModel {
             case .success(_):
                 self?.popVCRelay.accept(())
             case .failure(let statusCode):
-                self?.showToastRelay.accept(statusCode.errorDescription)
+                switch statusCode {
+                case .firebaseTokenError:
+                    FirebaseAuth.shared.getIDToken { error in
+                        if error == nil {
+                            self?.updateUserInfo()
+                        } else {
+                            self?.showToastRelay.accept(statusCode.errorDescription)
+                        }
+                    }
+                default:
+                    self?.showToastRelay.accept(statusCode.errorDescription)
+                }
             }
         }
     }
@@ -145,7 +167,18 @@ extension ManageMypageViewModel {
                     UserDefaults.standard.removeObject(forKey: key.description)
                 }
             case .failure(let statusCode):
-                self?.showToastRelay.accept(statusCode.errorDescription)
+                switch statusCode {
+                case .firebaseTokenError:
+                    FirebaseAuth.shared.getIDToken { error in
+                        if error == nil {
+                            self?.withdraw()
+                        } else {
+                            self?.showToastRelay.accept(statusCode.errorDescription)
+                        }
+                    }
+                default:
+                    self?.showToastRelay.accept(statusCode.errorDescription)
+                }
             }
         }
     }

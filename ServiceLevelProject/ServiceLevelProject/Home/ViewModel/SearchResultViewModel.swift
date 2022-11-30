@@ -56,13 +56,29 @@ class SearchResultViewModel {
 }
 
 extension SearchResultViewModel {
-    private func cancelMatching() {
+    func cancelMatching() {
         APIManager.shared.sesac(endpoint: .queueStop) { [weak self] response in
             switch response {
             case .success(_):
                 self?.popRelay.accept(())
             case .failure(let statusCode):
-                self?.showToastRelay.accept(statusCode.errorDescription)
+                switch statusCode {
+                case .error201:
+                    self?.showToastRelay.accept("새싹 찾기 중이 아닙니다")
+                    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1.5) {
+                        self?.popRelay.accept(())
+                    }
+                case .firebaseTokenError:
+                    FirebaseAuth.shared.getIDToken { error in
+                        if error == nil {
+                            self?.cancelMatching()
+                        } else {
+                            self?.showToastRelay.accept(statusCode.errorDescription)
+                        }
+                    }
+                default:
+                    self?.showToastRelay.accept(statusCode.errorDescription)
+                }
             }
         }
     }
