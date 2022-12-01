@@ -11,7 +11,7 @@ protocol CustomView {
     func customButton(title: String) -> UIButton
     func customTitleLabel(size: CGFloat,text: String, aligment: NSTextAlignment) -> UILabel
     func customUnderlineView() -> UIView
-    func customCardView() -> UIView
+    //func customCardView() -> UIView
 }
 
 extension CustomView {
@@ -48,9 +48,9 @@ extension CustomView {
         return view
     }
     
-    func customCardView() -> UIView {
-        let view = UIView()
-        
-        return view
-    }
+//    func customCardView() -> UIView {
+//        let view = UIView()
+//
+//        return view
+//    }
 }

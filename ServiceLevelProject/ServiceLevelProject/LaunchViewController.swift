@@ -30,6 +30,8 @@ class LaunchViewController: UIViewController {
         APIManager.shared.sesac(type: UserInfo.self, endpoint: .login) { [weak self] response in
             switch response {
             case .success(let userInfo):
+                // MARK: FCM 토큰 서버와 비교하고 업데이트하는 로직 필요!
+                UserDefaults.uid = "uYK05HR3jzctuiQBAnaH5eicgkv1" // MARK: 임시!!!! 로그인 시/회원가입 시 저장하면 될듯?
                 print("==id token== \(UserDefaults.idToken)")
                 UserDefaults.userNickname = userInfo.nick
                 UserDefaults.sesacNumber = userInfo.sesac

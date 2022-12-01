@@ -21,6 +21,8 @@ enum ImageSet: String {
     case man
     case woman
     case gps
+    case send
+    case sendFill = "send.fill"
     
     // 그 외
     case mapMarker = "map_marker"

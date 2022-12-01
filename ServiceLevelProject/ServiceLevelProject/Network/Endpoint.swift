@@ -23,6 +23,9 @@ enum Endpoint {
     case studyrequest(otheruid: String)
     case studyaccept(otheruid: String)
     case dodge(otheruid: String)
+    
+    case postChat(to: String, chat: String)
+    case fetchChat(from: String, lastChatDate: String)
 }
 
 extension Endpoint {
@@ -52,6 +55,10 @@ extension Endpoint {
             return URL(string: Endpoint.baseURL + "v1/queue/studyaccept")
         case .dodge:
             return URL(string: Endpoint.baseURL + "v1/queue/dodge")
+        case .postChat(let to, _):
+            return URL(string: Endpoint.baseURL + "v1/chat/\(to)")
+        case .fetchChat(let from, let lastChatDate):
+            return URL(string: Endpoint.baseURL + "v1/chat/\(from)?lastchatDate=\(lastChatDate)")
         }
     }
     
@@ -79,6 +86,10 @@ extension Endpoint {
             return .post
         case .dodge:
             return .post
+        case .postChat:
+            return .post
+        case .fetchChat:
+            return .get
         }
     }
     
@@ -127,6 +138,10 @@ extension Endpoint {
         case .studyrequest(let otheruid), .studyaccept(let otheruid), .dodge(let otheruid):
             parameters = [
                 "otheruid": otheruid
+            ]
+        case .postChat(_, let chat):
+            parameters = [
+                "chat": chat
             ]
         default:
             break
