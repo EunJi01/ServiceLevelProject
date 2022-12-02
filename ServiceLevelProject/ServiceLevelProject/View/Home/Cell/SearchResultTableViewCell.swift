@@ -9,7 +9,6 @@ import UIKit
 
 final class SearchResultTableViewCell: UITableViewCell, CustomView {
     let cardView = CardView()
-    lazy var requestButton: UIButton = customButton(title: "요청하기")
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -24,13 +23,12 @@ final class SearchResultTableViewCell: UITableViewCell, CustomView {
     }
     
     private func setConfigure() {
-        requestButton.tintColor = .white
-        requestButton.backgroundColor = .setColor(.error)
+        cardView.button.isHidden = false
+        cardView.button.setTitle("요청하기", for: .normal)
+        cardView.button.backgroundColor = .setColor(.error)
         
-        [cardView, requestButton].forEach {
+        [cardView].forEach {
             contentView.addSubview($0)
-            
-            // contentView.isUserInteractionEnabled = true
         }
     }
     
@@ -39,13 +37,6 @@ final class SearchResultTableViewCell: UITableViewCell, CustomView {
             make.top.horizontalEdges.equalToSuperview().inset(12)
             make.height.equalTo(cardView.height)
             make.bottom.equalToSuperview().inset(12)
-        }
-        
-        requestButton.snp.makeConstraints { make in
-            make.top.equalTo(cardView.snp.top).inset(16)
-            make.trailing.equalTo(cardView.snp.trailing).inset(16)
-            make.height.equalTo(40)
-            make.width.equalTo(80)
         }
     }
 }

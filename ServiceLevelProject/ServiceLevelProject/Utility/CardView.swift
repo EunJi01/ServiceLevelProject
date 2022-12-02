@@ -7,9 +7,9 @@
 
 import UIKit
 
-final class CardView: UIView {
+final class CardView: UIView, CustomView {
     let width = UIScreen.main.bounds.width - (16 * 2)
-    lazy var height = width * 0.565 + 58
+    lazy var height = width * 0.5 + 58
     
     let backgroundImageView: UIImageView = {
         let view = UIImageView()
@@ -34,9 +34,11 @@ final class CardView: UIView {
     }()
     
     let sesacImageView = UIImageView()
+    lazy var button = customButton(title: "")
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        button.isHidden = true
         
         setConfigure()
         setConstraints()
@@ -47,7 +49,7 @@ final class CardView: UIView {
     }
     
     private func setConfigure() {
-        [backgroundImageView, nicknameView].forEach {
+        [backgroundImageView, nicknameView, button].forEach {
             addSubview($0)
         }
         
@@ -63,7 +65,7 @@ final class CardView: UIView {
 
         sesacImageView.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
-            make.centerY.equalToSuperview().multipliedBy(1.2)
+            make.centerY.equalToSuperview().multipliedBy(1.3)
             make.height.width.equalTo(backgroundImageView.snp.height).multipliedBy(0.9)
         }
 
@@ -76,6 +78,13 @@ final class CardView: UIView {
         nicknameLabel.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
             make.leading.equalToSuperview().inset(16)
+        }
+        
+        button.snp.makeConstraints { make in
+            make.top.equalTo(backgroundImageView.snp.top).inset(16)
+            make.trailing.equalTo(backgroundImageView.snp.trailing).inset(16)
+            make.height.equalTo(40)
+            make.width.equalTo(80)
         }
     }
 }

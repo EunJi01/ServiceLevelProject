@@ -195,7 +195,7 @@ extension HomeViewController: MKMapViewDelegate {
 |  | SearchResult | 에러 핸들링 | 2h |  |  |
 |  | Chatting | Layout | 3h |  |  |
 |  | SearchResult | API 로직 개선/보완 | 2h |  |  |
-|  | Shop | Layout | 2h |  |  |
+|  | Shop | Layout | 3h |  |  |
 |  |  |  |  |  |  |
 | **4주차** |  |  |  |  | **~2022.12.04** |
 |  |  |  |  |  |  |
@@ -305,3 +305,5 @@ extension HomeViewController: MKMapViewDelegate {
 - SearchResultView API 통신 구조를 변경하고, 서버와 통신하는 모든 부분에서 firebaseTokenError(401)에 대해 대응하도록 개선했다.
 - 새싹이미지/배경이미지/닉네임이 표시되는 UIView가 여러 곳에서 쓰이기 떄문에, 재사용이 용이하도록 cardView라는 이름의 subClass를 만들었다. 
 - Shop에서도 마찬가지로 TabMan 라이브러리를 활용해서 만들었으나, navigationBar와 Tab 사이에 카드뷰를 어떻게 끼워넣을지는 고민해봐야 할 것 같다.
+- navigationBar와 Tab 사이에 카드뷰를 보여주기 위해, ShopVC에서 addChild를 통해 ShopTabVC의 인스턴스를 추가하고 containerView에 넣어서 레이아웃을 잡아줬다.
+- 추후 로직 구성이 용이하도록, 기존에는 ShopTabVC에서 초기화했던 SesacShopVC와 BackgroundShopVC를 ShopVC에서 초기화시키고 ShopTabVC에 넣어주는 형태로 변경했다.

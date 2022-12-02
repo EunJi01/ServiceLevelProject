@@ -57,7 +57,7 @@ extension NearbyViewController: UITableViewDataSource, UITableViewDelegate {
         cell.cardView.sesacImageView.image = SeSACFace(rawValue: sesac.sesac)?.image
         cell.cardView.nicknameLabel.text = sesac.nick
         
-        cell.requestButton.rx.tap
+        cell.cardView.button.rx.tap
             .withUnretained(self)
             .bind { vc, _ in
                 vc.showAlert(title: "스터디를 요청할게요", message: "상대방이 요청을 수락하면 채팅방에서 대화를 나눌 수 있어요") { _ in

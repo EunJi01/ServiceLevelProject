@@ -32,7 +32,7 @@ final class StudySearchViewController: UIViewController, CustomView {
         return view
     }()
     
-    private lazy var searchSesacButton: UIButton = customButton(title: "새싹 찾기")
+    private lazy var searchSesacButton: UIButton = customButton(title: "새싹 찾기", backgroundColor: .green)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -83,8 +83,6 @@ final class StudySearchViewController: UIViewController, CustomView {
     }
     
     private func setConfigure() {
-        searchSesacButton.backgroundColor = .setColor(.green)
-        
         [collectionView, searchSesacButton].forEach {
             view.addSubview($0)
         }

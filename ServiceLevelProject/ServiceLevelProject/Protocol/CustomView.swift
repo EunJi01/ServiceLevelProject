@@ -8,16 +8,16 @@
 import UIKit
 
 protocol CustomView {
-    func customButton(title: String) -> UIButton
+    func customButton(title: String, backgroundColor: ColorSet, titleColor: UIColor) -> UIButton
     func customTitleLabel(size: CGFloat,text: String, aligment: NSTextAlignment, lineBreakMode: NSLineBreakMode) -> UILabel
     func customUnderlineView() -> UIView
 }
 
 extension CustomView {
-    func customButton(title: String) -> UIButton {
+    func customButton(title: String, backgroundColor: ColorSet = .gray6, titleColor: UIColor = .white) -> UIButton {
         let view = UIButton()
-        view.backgroundColor = .setColor(.gray6)
-        view.setTitleColor(.white, for: .normal)
+        view.backgroundColor = .setColor(backgroundColor)
+        view.setTitleColor(titleColor, for: .normal)
         view.layer.cornerRadius = 10
         view.setTitle(title, for: .normal)
         view.titleLabel?.font = .systemFont(ofSize: 14)

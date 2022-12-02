@@ -87,6 +87,7 @@
 		B6A0BA8B293A22C600775CAF /* BackgroundShopViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6A0BA8A293A22C600775CAF /* BackgroundShopViewController.swift */; };
 		B6A0BA8D293A2C7000775CAF /* ShopTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6A0BA8C293A2C7000775CAF /* ShopTabViewController.swift */; };
 		B6A0BA91293A2D6F00775CAF /* TabmanViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6A0BA90293A2D6F00775CAF /* TabmanViewController+Extension.swift */; };
+		B6A0BA94293AA3B600775CAF /* ShopViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6A0BA93293AA3B600775CAF /* ShopViewController.swift */; };
 		B6B7DE4929339E7D007B2D29 /* SearchTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6B7DE4829339E7D007B2D29 /* SearchTabViewController.swift */; };
 		B6B7DE4B2933A319007B2D29 /* NearbyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6B7DE4A2933A319007B2D29 /* NearbyViewController.swift */; };
 		B6B7DE4D2933A32E007B2D29 /* RequestReceivedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6B7DE4C2933A32E007B2D29 /* RequestReceivedViewController.swift */; };
@@ -171,6 +172,7 @@
 		B6A0BA8A293A22C600775CAF /* BackgroundShopViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundShopViewController.swift; sourceTree = "<group>"; };
 		B6A0BA8C293A2C7000775CAF /* ShopTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopTabViewController.swift; sourceTree = "<group>"; };
 		B6A0BA90293A2D6F00775CAF /* TabmanViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TabmanViewController+Extension.swift"; sourceTree = "<group>"; };
+		B6A0BA93293AA3B600775CAF /* ShopViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopViewController.swift; sourceTree = "<group>"; };
 		B6B7DE4829339E7D007B2D29 /* SearchTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTabViewController.swift; sourceTree = "<group>"; };
 		B6B7DE4A2933A319007B2D29 /* NearbyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearbyViewController.swift; sourceTree = "<group>"; };
 		B6B7DE4C2933A32E007B2D29 /* RequestReceivedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestReceivedViewController.swift; sourceTree = "<group>"; };
@@ -315,7 +317,6 @@
 		B67BDE2629220FE70080EE89 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
-				B69B880A291FDF10002ECA23 /* MainTabBarController.swift */,
 				B67BDE062921D4E00080EE89 /* HomeViewController.swift */,
 				B62A8A812926C72F00D84D79 /* StudySearchViewController.swift */,
 				B6A0BA92293A9B9900775CAF /* SearchResult */,
@@ -402,6 +403,7 @@
 				B66DD167291DB4140095BE9B /* Network */,
 				B69B8806291FD5C9002ECA23 /* Model */,
 				B6A0BA7F2939C00600775CAF /* View */,
+				B69B880A291FDF10002ECA23 /* MainTabBarController.swift */,
 				B69B88102920E9D8002ECA23 /* LaunchViewController.swift */,
 				B692E3F7291913DF00BEAF22 /* LaunchScreen.storyboard */,
 				B692E3E42919132300BEAF22 /* Assets.xcassets */,
@@ -478,6 +480,7 @@
 		B6A0BA832939C07200775CAF /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				B6A0BA93293AA3B600775CAF /* ShopViewController.swift */,
 				B6A0BA8C293A2C7000775CAF /* ShopTabViewController.swift */,
 				B6A0BA812939C06D00775CAF /* SesacShopViewController.swift */,
 				B6A0BA8A293A22C600775CAF /* BackgroundShopViewController.swift */,
@@ -702,6 +705,7 @@
 				B69B88112920E9D8002ECA23 /* LaunchViewController.swift in Sources */,
 				B6B7DE5229342F69007B2D29 /* ChattingViewModel.swift in Sources */,
 				B62A8A7E2926B7C300D84D79 /* CustomAnnotation.swift in Sources */,
+				B6A0BA94293AA3B600775CAF /* ShopViewController.swift in Sources */,
 				B66DD16D291DEEFA0095BE9B /* APIManager.swift in Sources */,
 				B62A8A8C292D59EC00D84D79 /* StudySearchCollectionViewHeader.swift in Sources */,
 				B62A8A802926C56500D84D79 /* SearchSesac.swift in Sources */,

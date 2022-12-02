@@ -39,7 +39,7 @@ enum mainTabBar: CaseIterable {
         case .home:
             return HomeViewController()
         case .shop:
-            return ShopTabViewController()
+            return ShopViewController()
         case .mypage:
             return MypageViewController()
         }

@@ -58,10 +58,10 @@ extension RequestReceivedViewController: UITableViewDataSource, UITableViewDeleg
         cell.cardView.backgroundImageView.image = SeSACBackground(rawValue: sesac.background)?.image
         cell.cardView.sesacImageView.image = SeSACFace(rawValue: sesac.sesac)?.image
         cell.cardView.nicknameLabel.text = sesac.nick
-        cell.requestButton.setTitle("수락하기", for: .normal)
-        cell.requestButton.backgroundColor = .setColor(.success)
+        cell.cardView.button.setTitle("수락하기", for: .normal)
+        cell.cardView.button.backgroundColor = .setColor(.success)
         
-        cell.requestButton.rx.tap
+        cell.cardView.button.rx.tap
             .withUnretained(self)
             .bind { vc, _ in
                 vc.showAlert(title: "스터디를 수락할까요?", message: "요청을 수락하면 채팅방에서 대화를 나눌 수 있어요") { _ in

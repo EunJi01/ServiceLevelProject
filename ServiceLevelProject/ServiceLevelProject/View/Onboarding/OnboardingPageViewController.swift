@@ -11,7 +11,7 @@ import RxCocoa
 
 final class OnboardingPageViewController: UIViewController, CustomView {
     
-    private lazy var startButton: UIButton = customButton(title: "시작하기")
+    private lazy var startButton: UIButton = customButton(title: "시작하기", backgroundColor: .green)
     
     private let pageViewController = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal)
     private var pageViewControllerList: [UIViewController] = []
@@ -39,8 +39,6 @@ final class OnboardingPageViewController: UIViewController, CustomView {
     }
     
     private func setConfigure() {
-        startButton.backgroundColor = .setColor(.green)
-        
         [startButton, pageViewController.view].forEach {
             view.addSubview($0)
         }

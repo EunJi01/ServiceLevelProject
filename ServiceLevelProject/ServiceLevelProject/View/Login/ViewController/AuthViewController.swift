@@ -17,7 +17,7 @@ final class AuthViewController: UIViewController, CustomView {
     private lazy var startButton: UIButton = customButton(title: "인증하고 시작하기")
     private lazy var underlineView: UIView = customUnderlineView()
     private lazy var numbertextField: UITextField = customTextField(placeholder: "인증번호 입력", keyboard: .numberPad)
-    private lazy var resendButton: UIButton = customButton(title: "재전송")
+    private lazy var resendButton: UIButton = customButton(title: "재전송", backgroundColor: .green)
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -86,7 +86,6 @@ final class AuthViewController: UIViewController, CustomView {
     }
     
     private func setConfigure() {
-        resendButton.backgroundColor = .setColor(.green)
         numbertextField.textContentType = .oneTimeCode
         
         [titleLabel, numbertextField, resendButton, startButton, underlineView].forEach {

@@ -13,7 +13,7 @@ class SearchResultViewController: UIViewController, CustomView {
     let disposeBag = DisposeBag()
     let vm = SearchResultViewModel()
 
-    private lazy var changeStudyButton: UIButton = customButton(title: "스터디 변경하기")
+    private lazy var changeStudyButton: UIButton = customButton(title: "스터디 변경하기", backgroundColor: .green)
     
     let nodataView = UIView()
     lazy var nodataTitleLabel: UILabel = customTitleLabel(size: 20, text: "아쉽게도 주변에 새싹이 없어요ㅠ")
@@ -85,8 +85,6 @@ class SearchResultViewController: UIViewController, CustomView {
     }
     
     private func setConfigure() {
-        changeStudyButton.backgroundColor = .setColor(.green)
-        
         [tableView, changeStudyButton, refreshButton, nodataView].forEach {
             view.addSubview($0)
         }
@@ -116,7 +114,7 @@ class SearchResultViewController: UIViewController, CustomView {
         
         nodataView.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
-            make.centerY.equalToSuperview().multipliedBy(0.8)
+            make.centerY.equalToSuperview().multipliedBy(0.85)
             make.height.width.equalTo(64)
         }
         
