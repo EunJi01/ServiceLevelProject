@@ -38,7 +38,7 @@ struct IconSet {
     static let refresh = UIImage(systemName: "arrow.clockwise")
 }
 
-enum SeSACFace: Int {
+enum SeSACFace: Int, CaseIterable {
     case sesacFace1
     case sesacFace2
     case sesacFace3
@@ -50,7 +50,7 @@ enum SeSACFace: Int {
     }
 }
 
-enum SeSACBackground: Int {
+enum SeSACBackground: Int, CaseIterable {
     case sesacBackground1
     case sesacBackground2
     case sesacBackground3

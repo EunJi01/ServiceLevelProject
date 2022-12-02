@@ -75,7 +75,7 @@ final class StudySearchViewController: UIViewController, CustomView {
         output.pushNextVC
             .withUnretained(self)
             .emit { vc, _ in
-                let nextVC = SearchTabmanViewController()
+                let nextVC = SearchTabViewController()
                 nextVC.center = vc.vm.center
                 vc.transition(nextVC, transitionStyle: .push)
             }

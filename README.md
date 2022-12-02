@@ -194,6 +194,7 @@ extension HomeViewController: MKMapViewDelegate {
 |  | SearchResult | nodataView | 1h |  |  |
 |  | SearchResult | 에러 핸들링 | 2h |  |  |
 |  | Chatting | Layout | 3h |  |  |
+|  | SearchResult | API 로직 개선/보완 | 2h |  |  |
 |  |  |  |  |  |  |
 | **4주차** |  |  |  |  | **~2022.12.04** |
 |  |  |  |  |  |  |
@@ -300,3 +301,5 @@ extension HomeViewController: MKMapViewDelegate {
 - study를 [String] 형태로 서버에 전달하기 위해, Alamofire에서 encoding: URLEncoding(arrayEncoding: .noBrackets) 를 설정했다.
 - cell 2개로 ChattingView의 레이아웃을 대강 잡고, 소켓통신을 위한 준비를 했다.
 - 현재 텍스트뷰 높이가 고정적으로 설정되어 있지만, 3줄까지 늘어날 수 있게 변경하고 키보드 높이에 따라 올라가도록 수정이 필요하다. (+ 키보드는 StudySearchView 쪽도 아직...)
+- SearchResultView API 통신 구조를 변경하고, 서버와 통신하는 모든 부분에서 firebaseTokenError(401)에 대해 대응하도록 개선했다.
+-  

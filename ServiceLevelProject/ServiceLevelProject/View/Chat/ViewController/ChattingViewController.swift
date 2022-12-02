@@ -140,18 +140,19 @@ final class ChattingViewController: UIViewController, CustomView {
 
 extension ChattingViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        //if data.userID == UserDefaults.uid {
-        if indexPath.row.isMultiple(of: 2) {
+        let data = vm.chatList[indexPath.row]
+        
+        if data.from == UserDefaults.uid {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: MyChatTableViewCell.reuseIdentifier) as? MyChatTableViewCell else { return UITableViewCell() }
             
-            cell.myChatViewLabel.text = "내거임"
+            cell.myChatViewLabel.text = data.chat
             
             return cell
             
         } else {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: OtherUserChatTableViewCell.reuseIdentifier) as? OtherUserChatTableViewCell else { return UITableViewCell() }
             
-            cell.otherUserChatLabel.text = "남거임"
+            cell.otherUserChatLabel.text = data.chat
             
             return cell
         }
@@ -159,6 +160,6 @@ extension ChattingViewController: UITableViewDataSource, UITableViewDelegate {
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 4
+        return vm.chatList.count
     }
 }

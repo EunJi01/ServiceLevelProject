@@ -10,7 +10,7 @@ import Tabman
 import Pageboy
 import CoreLocation
 
-class SearchTabmanViewController: TabmanViewController {
+final class SearchTabViewController: TabmanViewController {
     var center: CLLocationCoordinate2D?
     
     private let nearbyVC = NearbyViewController()
@@ -21,7 +21,7 @@ class SearchTabmanViewController: TabmanViewController {
         super.viewDidLoad()
         
         dataSource = self
-        setTabMan()
+        addBar(setTabMan, dataSource: self, at: .top)
         
         let backButton = UIBarButtonItem(image: IconSet.backButton, style: .plain, target: self, action: #selector(backButtonTapped))
         let stopButton = UIBarButtonItem(title: "찾기중단", style: .plain, target: self, action: #selector(stopButtonTapped))
@@ -33,26 +33,6 @@ class SearchTabmanViewController: TabmanViewController {
         requestReceivedVC.vm.center = center
         nearbyVC.vm.searchSesac(center: center)
         requestReceivedVC.vm.result = nearbyVC.vm.result
-    }
-    
-    private func setTabMan() {
-        let bar = TMBar.ButtonBar()
-        
-        bar.layout.transitionStyle = .snap
-        bar.layout.alignment = .centerDistributed
-        bar.layout.contentMode = .fit
-        
-        bar.indicator.weight = .light
-        bar.indicator.overscrollBehavior = .bounce
-        bar.indicator.tintColor = .setColor(.green)
-        
-        bar.backgroundView.style = .clear
-        bar.buttons.customize{ button in
-            button.selectedTintColor = .setColor(.green)
-            button.font = .systemFont(ofSize: 14)
-        }
-        
-        addBar(bar, dataSource: self, at: .top)
     }
     
     @objc private func backButtonTapped() {
@@ -67,7 +47,7 @@ class SearchTabmanViewController: TabmanViewController {
     }
 }
 
-extension SearchTabmanViewController: PageboyViewControllerDataSource, TMBarDataSource {
+extension SearchTabViewController: PageboyViewControllerDataSource, TMBarDataSource {
     func numberOfViewControllers(in pageboyViewController: PageboyViewController) -> Int {
         return viewControllers.count
     }

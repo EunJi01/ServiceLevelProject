@@ -9,7 +9,7 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-class RequestReceivedViewController: SearchResultViewController {
+final class RequestReceivedViewController: SearchResultViewController {
     let requestVM = RequestReceivedViewModel()
     
     override func viewDidLoad() {

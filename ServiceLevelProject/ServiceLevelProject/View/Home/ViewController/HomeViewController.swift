@@ -168,7 +168,7 @@ final class HomeViewController: UIViewController {
     }
     
     private func pushSearchResultView() {
-        let vc = SearchTabmanViewController()
+        let vc = SearchTabViewController()
         vc.center = center
         transition(vc, transitionStyle: .push)
     }

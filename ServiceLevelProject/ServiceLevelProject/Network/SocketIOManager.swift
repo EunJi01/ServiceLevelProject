@@ -16,14 +16,7 @@ class SocketIOManager {
     var socket: SocketIOClient!
 
     private init() {
-        manager = SocketManager(socketURL: URL(string: Endpoint.baseURL)!, config: [
-            .log(true),
-            .extraHeaders([
-                "Content-Type": "application/x-www-form-urlencoded",
-                "idtoken": UserDefaults.idToken
-            ])
-        ])
-
+        manager = SocketManager(socketURL: URL(string: Endpoint.baseURL)!, config: [.log(true)])
         socket = manager.defaultSocket
 
         // 연결
@@ -37,7 +30,7 @@ class SocketIOManager {
         }
 
         // 이벤트 수신
-        socket.on("sesac") { dataArray, ack in
+        socket.on("chat") { dataArray, ack in
             // MARK: array가 아니라 dictionary 아닌가... payload 는 언제... 부르지...
             let data = dataArray[0] as! NSDictionary
             let to = data["to"] as! String

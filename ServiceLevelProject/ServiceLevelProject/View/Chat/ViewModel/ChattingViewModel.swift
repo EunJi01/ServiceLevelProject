@@ -67,7 +67,6 @@ extension ChattingViewModel {
                     self?.otherUserUID = state.matchedUid
                     self?.changeTitleRelay.accept(state.matchedNick)
                     self?.fetchChat()
-                    SocketIOManager.shared.establishConnection()
                 } else {
                     self?.showToastRelay.accept("현재 매칭된 새싹이 없습니다")
                 }
@@ -96,6 +95,7 @@ extension ChattingViewModel {
             switch response {
             case .success(_):
                 print("fetchChat success")
+                SocketIOManager.shared.establishConnection()
             case .failure(let statusCode):
                 switch statusCode {
                 case .firebaseTokenError:
@@ -122,6 +122,8 @@ extension ChattingViewModel {
                 print("postChat success")
             case .failure(let statusCode):
                 switch statusCode {
+                case .error201:
+                    self?.showToastRelay.accept("스터디가 종료되어 채팅을 전송할 수 없습니다")
                 case .firebaseTokenError:
                     FirebaseAuth.shared.getIDToken { error in
                         if error == nil {

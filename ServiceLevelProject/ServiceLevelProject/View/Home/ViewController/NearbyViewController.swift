@@ -9,7 +9,7 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-class NearbyViewController: SearchResultViewController {
+final class NearbyViewController: SearchResultViewController {
     let nearbyVM = NearbyViewModel()
     
     override func viewDidLoad() {

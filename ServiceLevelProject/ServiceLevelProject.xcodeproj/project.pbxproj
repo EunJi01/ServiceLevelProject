@@ -81,7 +81,13 @@
 		B69B88132920F76B002ECA23 /* UINavigationController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B69B88122920F76B002ECA23 /* UINavigationController+Extension.swift */; };
 		B69B88152920FBE2002ECA23 /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B69B88142920FBE2002ECA23 /* UIViewController+Extension.swift */; };
 		B6A0BA7E2938C51100775CAF /* Chat.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6A0BA7D2938C51100775CAF /* Chat.swift */; };
-		B6B7DE4929339E7D007B2D29 /* SearchTabmanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6B7DE4829339E7D007B2D29 /* SearchTabmanViewController.swift */; };
+		B6A0BA822939C06D00775CAF /* SesacShopViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6A0BA812939C06D00775CAF /* SesacShopViewController.swift */; };
+		B6A0BA872939C65B00775CAF /* SesacShopCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6A0BA862939C65B00775CAF /* SesacShopCollectionViewCell.swift */; };
+		B6A0BA89293A227C00775CAF /* BackgroundShopCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6A0BA88293A227C00775CAF /* BackgroundShopCollectionViewCell.swift */; };
+		B6A0BA8B293A22C600775CAF /* BackgroundShopViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6A0BA8A293A22C600775CAF /* BackgroundShopViewController.swift */; };
+		B6A0BA8D293A2C7000775CAF /* ShopTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6A0BA8C293A2C7000775CAF /* ShopTabViewController.swift */; };
+		B6A0BA91293A2D6F00775CAF /* TabmanViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6A0BA90293A2D6F00775CAF /* TabmanViewController+Extension.swift */; };
+		B6B7DE4929339E7D007B2D29 /* SearchTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6B7DE4829339E7D007B2D29 /* SearchTabViewController.swift */; };
 		B6B7DE4B2933A319007B2D29 /* NearbyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6B7DE4A2933A319007B2D29 /* NearbyViewController.swift */; };
 		B6B7DE4D2933A32E007B2D29 /* RequestReceivedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6B7DE4C2933A32E007B2D29 /* RequestReceivedViewController.swift */; };
 		B6B7DE5029342F42007B2D29 /* ChattingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6B7DE4F29342F42007B2D29 /* ChattingViewController.swift */; };
@@ -159,7 +165,13 @@
 		B69B88122920F76B002ECA23 /* UINavigationController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+Extension.swift"; sourceTree = "<group>"; };
 		B69B88142920FBE2002ECA23 /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
 		B6A0BA7D2938C51100775CAF /* Chat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chat.swift; sourceTree = "<group>"; };
-		B6B7DE4829339E7D007B2D29 /* SearchTabmanViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTabmanViewController.swift; sourceTree = "<group>"; };
+		B6A0BA812939C06D00775CAF /* SesacShopViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SesacShopViewController.swift; sourceTree = "<group>"; };
+		B6A0BA862939C65B00775CAF /* SesacShopCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SesacShopCollectionViewCell.swift; sourceTree = "<group>"; };
+		B6A0BA88293A227C00775CAF /* BackgroundShopCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundShopCollectionViewCell.swift; sourceTree = "<group>"; };
+		B6A0BA8A293A22C600775CAF /* BackgroundShopViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundShopViewController.swift; sourceTree = "<group>"; };
+		B6A0BA8C293A2C7000775CAF /* ShopTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopTabViewController.swift; sourceTree = "<group>"; };
+		B6A0BA90293A2D6F00775CAF /* TabmanViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TabmanViewController+Extension.swift"; sourceTree = "<group>"; };
+		B6B7DE4829339E7D007B2D29 /* SearchTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTabViewController.swift; sourceTree = "<group>"; };
 		B6B7DE4A2933A319007B2D29 /* NearbyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearbyViewController.swift; sourceTree = "<group>"; };
 		B6B7DE4C2933A32E007B2D29 /* RequestReceivedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestReceivedViewController.swift; sourceTree = "<group>"; };
 		B6B7DE4F29342F42007B2D29 /* ChattingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChattingViewController.swift; sourceTree = "<group>"; };
@@ -215,15 +227,9 @@
 		B620CD0629193522002CE764 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
-				B620CD0B29194F34002CE764 /* String+Extension.swift */,
-				B66DD178291FB78F0095BE9B /* Date+Extension.swift */,
-				B620CD0729193540002CE764 /* UIImage+Extension.swift */,
-				B620CD0D2919532E002CE764 /* UILabel+Extension.swift */,
-				B620CD112919572E002CE764 /* UIColor+Extension.swift */,
-				B62A8A91292F128500D84D79 /* Sequence+Extension.swift */,
-				B66DD165291DAD910095BE9B /* UserDefaults+Extension.swift */,
-				B69B88142920FBE2002ECA23 /* UIViewController+Extension.swift */,
-				B69B88122920F76B002ECA23 /* UINavigationController+Extension.swift */,
+				B6A0BA90293A2D6F00775CAF /* TabmanViewController+Extension.swift */,
+				B6A0BA8E293A2CBE00775CAF /* UIKit */,
+				B6A0BA8F293A2CCF00775CAF /* Foundation */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -311,7 +317,7 @@
 			children = (
 				B67BDE062921D4E00080EE89 /* HomeViewController.swift */,
 				B62A8A812926C72F00D84D79 /* StudySearchViewController.swift */,
-				B6B7DE4829339E7D007B2D29 /* SearchTabmanViewController.swift */,
+				B6B7DE4829339E7D007B2D29 /* SearchTabViewController.swift */,
 				B62A8A93292FA09E00D84D79 /* SearchResultViewController.swift */,
 				B6B7DE4A2933A319007B2D29 /* NearbyViewController.swift */,
 				B6B7DE4C2933A32E007B2D29 /* RequestReceivedViewController.swift */,
@@ -395,12 +401,7 @@
 				B620CD0329192BA9002CE764 /* Utility */,
 				B66DD167291DB4140095BE9B /* Network */,
 				B69B8806291FD5C9002ECA23 /* Model */,
-				B620CCFA29191D5D002CE764 /* Onboarding */,
-				B620CD1729196595002CE764 /* Login */,
-				B691FD6D291BE1F600FC47F4 /* Signup */,
-				B67BDE2529220FD80080EE89 /* Home */,
-				B6B7DE4E29342F27007B2D29 /* Chat */,
-				B69B8809291FDEC0002ECA23 /* Mypage */,
+				B6A0BA7F2939C00600775CAF /* View */,
 				B692E3DB2919132100BEAF22 /* AppDelegate.swift */,
 				B692E3DD2919132100BEAF22 /* SceneDelegate.swift */,
 				B69B880A291FDF10002ECA23 /* MainTabBarController.swift */,
@@ -451,6 +452,79 @@
 				B67BDE2A29224AFF0080EE89 /* ManageMypageViewController.swift */,
 			);
 			path = ViewController;
+			sourceTree = "<group>";
+		};
+		B6A0BA7F2939C00600775CAF /* View */ = {
+			isa = PBXGroup;
+			children = (
+				B620CCFA29191D5D002CE764 /* Onboarding */,
+				B620CD1729196595002CE764 /* Login */,
+				B691FD6D291BE1F600FC47F4 /* Signup */,
+				B67BDE2529220FD80080EE89 /* Home */,
+				B6B7DE4E29342F27007B2D29 /* Chat */,
+				B6A0BA802939C02000775CAF /* Shop */,
+				B69B8809291FDEC0002ECA23 /* Mypage */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		B6A0BA802939C02000775CAF /* Shop */ = {
+			isa = PBXGroup;
+			children = (
+				B6A0BA842939C07A00775CAF /* ViewModel */,
+				B6A0BA832939C07200775CAF /* ViewController */,
+				B6A0BA852939C08300775CAF /* Cell */,
+			);
+			path = Shop;
+			sourceTree = "<group>";
+		};
+		B6A0BA832939C07200775CAF /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				B6A0BA8C293A2C7000775CAF /* ShopTabViewController.swift */,
+				B6A0BA812939C06D00775CAF /* SesacShopViewController.swift */,
+				B6A0BA8A293A22C600775CAF /* BackgroundShopViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		B6A0BA842939C07A00775CAF /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		B6A0BA852939C08300775CAF /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				B6A0BA862939C65B00775CAF /* SesacShopCollectionViewCell.swift */,
+				B6A0BA88293A227C00775CAF /* BackgroundShopCollectionViewCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		B6A0BA8E293A2CBE00775CAF /* UIKit */ = {
+			isa = PBXGroup;
+			children = (
+				B620CD0729193540002CE764 /* UIImage+Extension.swift */,
+				B620CD0D2919532E002CE764 /* UILabel+Extension.swift */,
+				B620CD112919572E002CE764 /* UIColor+Extension.swift */,
+				B69B88142920FBE2002ECA23 /* UIViewController+Extension.swift */,
+				B69B88122920F76B002ECA23 /* UINavigationController+Extension.swift */,
+			);
+			path = UIKit;
+			sourceTree = "<group>";
+		};
+		B6A0BA8F293A2CCF00775CAF /* Foundation */ = {
+			isa = PBXGroup;
+			children = (
+				B620CD0B29194F34002CE764 /* String+Extension.swift */,
+				B66DD178291FB78F0095BE9B /* Date+Extension.swift */,
+				B62A8A91292F128500D84D79 /* Sequence+Extension.swift */,
+				B66DD165291DAD910095BE9B /* UserDefaults+Extension.swift */,
+			);
+			path = Foundation;
 			sourceTree = "<group>";
 		};
 		B6B7DE4E29342F27007B2D29 /* Chat */ = {
@@ -572,18 +646,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B6B7DE4929339E7D007B2D29 /* SearchTabmanViewController.swift in Sources */,
+				B6B7DE4929339E7D007B2D29 /* SearchTabViewController.swift in Sources */,
 				B6B7DE4D2933A32E007B2D29 /* RequestReceivedViewController.swift in Sources */,
 				B691FD79291BF40200FC47F4 /* NicknameViewModel.swift in Sources */,
 				B66DD177291F876A0095BE9B /* Endpoint.swift in Sources */,
 				B620CD0529192BFE002CE764 /* ImageSet.swift in Sources */,
 				B692E3E02919132100BEAF22 /* LoginViewController.swift in Sources */,
 				B66DD179291FB78F0095BE9B /* Date+Extension.swift in Sources */,
+				B6A0BA8B293A22C600775CAF /* BackgroundShopViewController.swift in Sources */,
 				B620CD0E2919532E002CE764 /* UILabel+Extension.swift in Sources */,
 				B620CD122919572E002CE764 /* UIColor+Extension.swift in Sources */,
 				B6B7DE5029342F42007B2D29 /* ChattingViewController.swift in Sources */,
 				B62A8A96292FA0AA00D84D79 /* SearchResultViewModel.swift in Sources */,
 				B620CD0829193540002CE764 /* UIImage+Extension.swift in Sources */,
+				B6A0BA822939C06D00775CAF /* SesacShopViewController.swift in Sources */,
 				B691FD77291BE24E00FC47F4 /* GenderViewController.swift in Sources */,
 				B6A0BA7E2938C51100775CAF /* Chat.swift in Sources */,
 				B69B8805291FCD8A002ECA23 /* APIStatusCode.swift in Sources */,
@@ -610,6 +686,7 @@
 				B66514AB29388E7B00B634C9 /* MyChatTableViewCell.swift in Sources */,
 				B69B880B291FDF10002ECA23 /* MainTabBarController.swift in Sources */,
 				B66514A32938346A00B634C9 /* OtherUserChatTableViewCell.swift in Sources */,
+				B6A0BA8D293A2C7000775CAF /* ShopTabViewController.swift in Sources */,
 				B62A8A9B292FB7AD00D84D79 /* SearchResultTableViewCell.swift in Sources */,
 				B691FD7F291C1A7800FC47F4 /* EmailViewModel.swift in Sources */,
 				B67BDE05292106A20080EE89 /* ManageMypageViewModel.swift in Sources */,
@@ -621,6 +698,7 @@
 				B62A8A8C292D59EC00D84D79 /* StudySearchCollectionViewHeader.swift in Sources */,
 				B62A8A802926C56500D84D79 /* SearchSesac.swift in Sources */,
 				B62A8A90292E64DA00D84D79 /* StudySearchViewModel.swift in Sources */,
+				B6A0BA91293A2D6F00775CAF /* TabmanViewController+Extension.swift in Sources */,
 				B620CD0C29194F34002CE764 /* String+Extension.swift in Sources */,
 				B620CD1629195CBC002CE764 /* CustomView.swift in Sources */,
 				B6B7DE7A293510A7007B2D29 /* State.swift in Sources */,
@@ -629,6 +707,7 @@
 				B62A8A9D292FB97900D84D79 /* CardView.swift in Sources */,
 				B691FD71291BE22C00FC47F4 /* NicknameViewController.swift in Sources */,
 				B66DD166291DAD910095BE9B /* UserDefaults+Extension.swift in Sources */,
+				B6A0BA89293A227C00775CAF /* BackgroundShopCollectionViewCell.swift in Sources */,
 				B691FD73291BE23B00FC47F4 /* BirthViewController.swift in Sources */,
 				B67BDE072921D4E00080EE89 /* HomeViewController.swift in Sources */,
 				B620CCFC29192559002CE764 /* OnboardingPageViewController.swift in Sources */,
@@ -641,6 +720,7 @@
 				B62A8A94292FA09E00D84D79 /* SearchResultViewController.swift in Sources */,
 				B62A8A92292F128500D84D79 /* Sequence+Extension.swift in Sources */,
 				B67BDE3629245A2B0080EE89 /* UpdateUserInfo.swift in Sources */,
+				B6A0BA872939C65B00775CAF /* SesacShopCollectionViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -772,6 +852,7 @@
 				DEVELOPMENT_TEAM = 2RFRSG9M26;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ServiceLevelProject/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "새싹 스터디";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -784,9 +865,12 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.memolease.sesacslp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -801,6 +885,7 @@
 				DEVELOPMENT_TEAM = 2RFRSG9M26;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ServiceLevelProject/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "새싹 스터디";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -813,9 +898,12 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.memolease.sesacslp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
