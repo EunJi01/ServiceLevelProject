@@ -35,7 +35,8 @@ class SearchResultViewModel {
         input.refreshButton
             .withUnretained(self)
             .emit { vm, _ in
-                // MARK: 네트워크 통신 다시 하기
+                guard let center = vm.center else { return }
+                vm.searchSesac(center: center)
                 vm.refreshRelay.accept(())
             }
             .disposed(by: disposeBag)
@@ -56,6 +57,30 @@ class SearchResultViewModel {
 }
 
 extension SearchResultViewModel {
+    func searchSesac(center: CLLocationCoordinate2D) {
+        APIManager.shared.sesac(type: SearchSesac.self, endpoint: .queueSearch(lat: center.latitude, long: center.longitude)) { [weak self] response in
+            switch response {
+            case .success(let sesac):
+                self?.result = sesac
+                self?.refreshRelay.accept(())
+            
+            case .failure(let statusCode):
+                switch statusCode {
+                case .firebaseTokenError:
+                    FirebaseAuth.shared.getIDToken { error in
+                        if error == nil {
+                            self?.searchSesac(center: center)
+                        } else {
+                            self?.showToastRelay.accept(statusCode.errorDescription)
+                        }
+                    }
+                default:
+                    self?.showToastRelay.accept(statusCode.errorDescription)
+                }
+            }
+        }
+    }
+    
     func cancelMatching() {
         APIManager.shared.sesac(endpoint: .queueStop) { [weak self] response in
             switch response {
@@ -64,8 +89,8 @@ extension SearchResultViewModel {
             case .failure(let statusCode):
                 switch statusCode {
                 case .error201:
-                    self?.showToastRelay.accept("새싹 찾기 중이 아닙니다")
-                    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1.5) {
+                    self?.showToastRelay.accept("현재 새싹 찾기 중이 아닙니다")
+                    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1) {
                         self?.popRelay.accept(())
                     }
                 case .firebaseTokenError:

@@ -9,4 +9,5 @@ import Foundation
 
 struct State: Codable {
     let dodged, matched, reviewed: Int
+    let matchedNick, matchedUid: String?
 }

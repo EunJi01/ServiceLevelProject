@@ -51,6 +51,14 @@ final class ChattingViewController: UIViewController, CustomView {
         bind()
         setConfigure()
         setConstraints()
+        
+        vm.myState()
+        NotificationCenter.default.addObserver(self, selector: #selector(vm.getMessage(notification:)), name: NSNotification.Name("getMessage"), object: nil)
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        SocketIOManager.shared.closeConnection()
     }
     
     private func bind() {
@@ -75,6 +83,21 @@ final class ChattingViewController: UIViewController, CustomView {
             .withUnretained(self)
             .emit { vc, text in
                 vc.view.makeToast(text, position: .top)
+            }
+            .disposed(by: disposeBag)
+        
+        output.changeTitle
+            .withUnretained(self)
+            .emit { vc, nick in
+                // MARK: 네비게이션 타이틀 닉네임으로 변경하기...
+            }
+            .disposed(by: disposeBag)
+        
+        output.getMessage
+            .withUnretained(self)
+            .emit { vc, _ in
+                vc.tableView.reloadData()
+                vc.tableView.scrollToRow(at: IndexPath(row: vc.vm.chatList.count - 1, section: 0), at: .bottom, animated: false)
             }
             .disposed(by: disposeBag)
     }

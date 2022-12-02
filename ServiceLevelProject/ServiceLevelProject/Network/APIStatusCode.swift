@@ -9,9 +9,12 @@ import Foundation
 
 enum APIStatusCode: Int, Error {
     case success = 200
-    case error201 = 201
-    case error202 = 202
-    case error203 = 203
+    case error201
+    case error202
+    case error203
+    case error204
+    case error205
+    
     case firebaseTokenError = 401
     case notRegistered = 406
     case serverError = 500

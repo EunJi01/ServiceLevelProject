@@ -8,6 +8,7 @@
 import Foundation
 import RxSwift
 import RxCocoa
+import CoreLocation
 
 final class RequestReceivedViewModel: SearchResultViewModel {
     struct Input { }
@@ -27,12 +28,17 @@ final class RequestReceivedViewModel: SearchResultViewModel {
             pushNextVC: pushNextVCRelay.asSignal()
         )
     }
-    
+}
+
+extension RequestReceivedViewModel {
     func acceptStudy(user: FromQueueDB) {
         APIManager.shared.sesac(endpoint: .studyaccept(otheruid: user.uid)) { [weak self] response in
             switch response {
             case .success(_):
-                self?.pushNextVCRelay.accept(())
+                self?.showToastRelay.accept("\(user.nick)님과 매칭되셨습니다. 잠시 후 채팅방으로 이동합니다.")
+                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1) {
+                    self?.pushNextVCRelay.accept(())
+                }
             case .failure(let statusCode):
                 switch statusCode {
                 case .error201:

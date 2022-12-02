@@ -92,6 +92,7 @@ final class HomeViewController: UIViewController {
         super.viewWillAppear(animated)
         
         updateState()
+        checkUserDeviceLocationServiceAuthorization()
     }
 
     private func updateState() {
@@ -285,7 +286,8 @@ extension HomeViewController: CLLocationManagerDelegate {
         } else {
             authorizationStatus = CLLocationManager.authorizationStatus()
         }
-        
+         
+        // MARK: Thread 22: "Modifications to the layout engine must not be performed from a background thread after it has been accessed from the main thread." 에러 뜨는데, main으로 하면 또 보라에러 뜨고 나보고 어쩌라는거야~!~!
         DispatchQueue.global().async { [weak self] in
             guard let self = self else { return }
               if CLLocationManager.locationServicesEnabled() {

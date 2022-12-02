@@ -17,21 +17,22 @@ class SearchTabmanViewController: TabmanViewController {
     private let requestReceivedVC = RequestReceivedViewController()
     private lazy var viewControllers = [nearbyVC, requestReceivedVC]
     
-    // MARK: 바버튼아이템 unrecognized selector sent to class 에러
-//    private let backButton = UIBarButtonItem(image: IconSet.backButton, style: .plain, target: SearchTabmanViewController.self, action: #selector(backButtonTapped))
-//    private let stopButton = UIBarButtonItem(title: "찾기중단", style: .plain, target: SearchTabmanViewController.self, action: #selector(stopButtonTapped))
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         dataSource = self
-//        navigationItem.leftBarButtonItem = backButton
-//        navigationItem.rightBarButtonItem = stopButton
-        
         setTabMan()
         
+        let backButton = UIBarButtonItem(image: IconSet.backButton, style: .plain, target: self, action: #selector(backButtonTapped))
+        let stopButton = UIBarButtonItem(title: "찾기중단", style: .plain, target: self, action: #selector(stopButtonTapped))
+        navigationItem.leftBarButtonItem = backButton
+        navigationItem.rightBarButtonItem = stopButton
+        
         guard let center = center else { return }
-        searchSesac(center:center)
+        nearbyVC.vm.center = center
+        requestReceivedVC.vm.center = center
+        nearbyVC.vm.searchSesac(center: center)
+        requestReceivedVC.vm.result = nearbyVC.vm.result
     }
     
     private func setTabMan() {
@@ -54,42 +55,16 @@ class SearchTabmanViewController: TabmanViewController {
         addBar(bar, dataSource: self, at: .top)
     }
     
-    private func searchSesac(center: CLLocationCoordinate2D) {
-        APIManager.shared.sesac(type: SearchSesac.self, endpoint: .queueSearch(lat: center.latitude, long: center.longitude)) { [weak self] response in
-            switch response {
-            case .success(let sesac):
-                self?.nearbyVC.vm.result = sesac
-                self?.requestReceivedVC.vm.result = sesac
-                self?.nearbyVC.vm.refreshRelay.accept(())
-                self?.requestReceivedVC.vm.refreshRelay.accept(())
-                
-            case .failure(let statusCode):
-                switch statusCode {
-                case .firebaseTokenError:
-                    FirebaseAuth.shared.getIDToken { error in
-                        if error == nil {
-                            self?.searchSesac(center: center)
-                        } else {
-                            self?.view.makeToast(statusCode.errorDescription, position: .top)
-                        }
-                    }
-                default:
-                    self?.view.makeToast(statusCode.errorDescription, position: .top)
-                }
-            }
-        }
+    @objc private func backButtonTapped() {
+        print("backButtonTapped")
+        navigationController?.popToRootViewController(animated: true)
     }
-    
-//    @objc private func backButtonTapped() {
-//        print("backButtonTapped")
-////        let controller = self.navigationController?.viewControllers[(self.navigationController?.viewControllers.count)! - 4]
-////        self.navigationController?.popToViewController(controller!, animated: true)
-//    }
-//
-//    @objc private func stopButtonTapped() {
-//        print("stopButtonTapped")
-////        nearbyVC.vm.cancelMatching()
-//    }
+
+    @objc private func stopButtonTapped() {
+        print("stopButtonTapped")
+        nearbyVC.vm.cancelMatching()
+        navigationController?.popToRootViewController(animated: true)
+    }
 }
 
 extension SearchTabmanViewController: PageboyViewControllerDataSource, TMBarDataSource {
