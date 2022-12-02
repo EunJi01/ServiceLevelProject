@@ -11,7 +11,6 @@ protocol CustomView {
     func customButton(title: String) -> UIButton
     func customTitleLabel(size: CGFloat,text: String, aligment: NSTextAlignment, lineBreakMode: NSLineBreakMode) -> UILabel
     func customUnderlineView() -> UIView
-    //func customCardView() -> UIView
 }
 
 extension CustomView {
@@ -48,10 +47,4 @@ extension CustomView {
         view.attributedPlaceholder = NSAttributedString(string: placeholder, attributes: attributes)
         return view
     }
-    
-//    func customCardView() -> UIView {
-//        let view = UIView()
-//
-//        return view
-//    }
 }

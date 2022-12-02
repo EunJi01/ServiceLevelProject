@@ -195,6 +195,7 @@ extension HomeViewController: MKMapViewDelegate {
 |  | SearchResult | 에러 핸들링 | 2h |  |  |
 |  | Chatting | Layout | 3h |  |  |
 |  | SearchResult | API 로직 개선/보완 | 2h |  |  |
+|  | Shop | Layout | 2h |  |  |
 |  |  |  |  |  |  |
 | **4주차** |  |  |  |  | **~2022.12.04** |
 |  |  |  |  |  |  |
@@ -302,4 +303,5 @@ extension HomeViewController: MKMapViewDelegate {
 - cell 2개로 ChattingView의 레이아웃을 대강 잡고, 소켓통신을 위한 준비를 했다.
 - 현재 텍스트뷰 높이가 고정적으로 설정되어 있지만, 3줄까지 늘어날 수 있게 변경하고 키보드 높이에 따라 올라가도록 수정이 필요하다. (+ 키보드는 StudySearchView 쪽도 아직...)
 - SearchResultView API 통신 구조를 변경하고, 서버와 통신하는 모든 부분에서 firebaseTokenError(401)에 대해 대응하도록 개선했다.
--  
+- 새싹이미지/배경이미지/닉네임이 표시되는 UIView가 여러 곳에서 쓰이기 떄문에, 재사용이 용이하도록 cardView라는 이름의 subClass를 만들었다. 
+- Shop에서도 마찬가지로 TabMan 라이브러리를 활용해서 만들었으나, navigationBar와 Tab 사이에 카드뷰를 어떻게 끼워넣을지는 고민해봐야 할 것 같다.

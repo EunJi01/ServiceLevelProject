@@ -20,6 +20,8 @@ final class MypageViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .white
         
+        navigationItem.title = "내정보"
+        
         setConfigure()
         setConstraints()
     }

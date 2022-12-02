@@ -40,6 +40,8 @@ final class ChattingViewController: UIViewController, CustomView {
         view.font = .systemFont(ofSize: 14)
         return view
     }()
+    
+    private let backButton = UIBarButtonItem(image: IconSet.backButton, style: .done, target: nil, action: nil)
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -66,7 +68,11 @@ final class ChattingViewController: UIViewController, CustomView {
             sendButton: sendButton.rx.tap
                 .withLatestFrom(chatTextView.rx.text.orEmpty)
                 .asSignal(onErrorJustReturn: ""),
-            chatTextView: chatTextView.rx.text.orEmpty.asSignal(onErrorJustReturn: "")
+//            returnKey: chatTextView.rx.didEndEditing
+//                .withUnretained(chatTextView.rx.text.orEmpty)
+//                .asSignal(onErrorJustReturn: ""),
+            chatTextView: chatTextView.rx.text.orEmpty.asSignal(onErrorJustReturn: ""),
+            backButton: backButton.rx.tap.asSignal()
         )
         
         let output = vm.transform(input: input)
@@ -89,15 +95,23 @@ final class ChattingViewController: UIViewController, CustomView {
         output.changeTitle
             .withUnretained(self)
             .emit { vc, nick in
-                // MARK: 네비게이션 타이틀 닉네임으로 변경하기...
+                vc.navigationItem.title = nick
             }
             .disposed(by: disposeBag)
         
         output.getMessage
             .withUnretained(self)
             .emit { vc, _ in
+                print("tableView reloadData")
                 vc.tableView.reloadData()
                 vc.tableView.scrollToRow(at: IndexPath(row: vc.vm.chatList.count - 1, section: 0), at: .bottom, animated: false)
+            }
+            .disposed(by: disposeBag)
+        
+        output.popVC
+            .withUnretained(self)
+            .emit { vc, _ in
+                vc.navigationController?.popToRootViewController(animated: true)
             }
             .disposed(by: disposeBag)
     }

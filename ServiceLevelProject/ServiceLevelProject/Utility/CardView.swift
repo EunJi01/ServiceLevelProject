@@ -8,7 +8,8 @@
 import UIKit
 
 final class CardView: UIView {
-    // 안씀!!!! 나중에 고쳐쓸거임!!!
+    let width = UIScreen.main.bounds.width - (16 * 2)
+    lazy var height = width * 0.565 + 58
     
     let backgroundImageView: UIImageView = {
         let view = UIImageView()
@@ -34,32 +35,47 @@ final class CardView: UIView {
     
     let sesacImageView = UIImageView()
     
-//    [backgroundImageView, nicknameView].forEach {
-//        addSubview($0)
-//    }
-//
-//    backgroundImageView.addSubview(sesacImageView)
-//    nicknameView.addSubview(nicknameLabel)
-//
-//    backgroundImageView.snp.makeConstraints { make in
-//        make.top.horizontalEdges.equalTo(view.safeAreaLayoutGuide).inset(16)
-//        make.height.equalTo(scrollView.snp.width).multipliedBy(0.525)
-//    }
-//
-//    sesacImageView.snp.makeConstraints { make in
-//        make.centerX.equalToSuperview()
-//        make.centerY.equalToSuperview().multipliedBy(1.2)
-//        make.height.width.equalTo(backgroundImageView.snp.height).multipliedBy(0.9)
-//    }
-//
-//    nicknameView.snp.makeConstraints { make in
-//        make.top.equalTo(backgroundImageView.snp.bottom)
-//        make.horizontalEdges.equalToSuperview().inset(16)
-//        make.height.equalTo(58)
-//    }
-//
-//    nicknameLabel.snp.makeConstraints { make in
-//        make.centerY.equalToSuperview()
-//        make.leading.equalTo(16)
-//    }
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        
+        setConfigure()
+        setConstraints()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func setConfigure() {
+        [backgroundImageView, nicknameView].forEach {
+            addSubview($0)
+        }
+        
+        backgroundImageView.addSubview(sesacImageView)
+        nicknameView.addSubview(nicknameLabel)
+    }
+    
+    private func setConstraints() {
+        backgroundImageView.snp.makeConstraints { make in
+            make.top.horizontalEdges.equalToSuperview()
+            make.height.equalTo(width).multipliedBy(0.5)
+        }
+
+        sesacImageView.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.centerY.equalToSuperview().multipliedBy(1.2)
+            make.height.width.equalTo(backgroundImageView.snp.height).multipliedBy(0.9)
+        }
+
+        nicknameView.snp.makeConstraints { make in
+            make.top.equalTo(backgroundImageView.snp.bottom)
+            make.bottom.horizontalEdges.equalToSuperview()
+            make.height.equalTo(58)
+        }
+
+        nicknameLabel.snp.makeConstraints { make in
+            make.centerY.equalToSuperview()
+            make.leading.equalToSuperview().inset(16)
+        }
+    }
 }

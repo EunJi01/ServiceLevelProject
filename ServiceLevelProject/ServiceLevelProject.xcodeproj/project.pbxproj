@@ -315,12 +315,10 @@
 		B67BDE2629220FE70080EE89 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				B69B880A291FDF10002ECA23 /* MainTabBarController.swift */,
 				B67BDE062921D4E00080EE89 /* HomeViewController.swift */,
 				B62A8A812926C72F00D84D79 /* StudySearchViewController.swift */,
-				B6B7DE4829339E7D007B2D29 /* SearchTabViewController.swift */,
-				B62A8A93292FA09E00D84D79 /* SearchResultViewController.swift */,
-				B6B7DE4A2933A319007B2D29 /* NearbyViewController.swift */,
-				B6B7DE4C2933A32E007B2D29 /* RequestReceivedViewController.swift */,
+				B6A0BA92293A9B9900775CAF /* SearchResult */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -396,15 +394,14 @@
 			isa = PBXGroup;
 			children = (
 				B691FD6B291ACDB700FC47F4 /* ServiceLevelProject.entitlements */,
+				B692E3DB2919132100BEAF22 /* AppDelegate.swift */,
+				B692E3DD2919132100BEAF22 /* SceneDelegate.swift */,
 				B620CD1429195C80002CE764 /* Protocol */,
 				B620CD0629193522002CE764 /* Extension */,
 				B620CD0329192BA9002CE764 /* Utility */,
 				B66DD167291DB4140095BE9B /* Network */,
 				B69B8806291FD5C9002ECA23 /* Model */,
 				B6A0BA7F2939C00600775CAF /* View */,
-				B692E3DB2919132100BEAF22 /* AppDelegate.swift */,
-				B692E3DD2919132100BEAF22 /* SceneDelegate.swift */,
-				B69B880A291FDF10002ECA23 /* MainTabBarController.swift */,
 				B69B88102920E9D8002ECA23 /* LaunchViewController.swift */,
 				B692E3F7291913DF00BEAF22 /* LaunchScreen.storyboard */,
 				B692E3E42919132300BEAF22 /* Assets.xcassets */,
@@ -525,6 +522,17 @@
 				B66DD165291DAD910095BE9B /* UserDefaults+Extension.swift */,
 			);
 			path = Foundation;
+			sourceTree = "<group>";
+		};
+		B6A0BA92293A9B9900775CAF /* SearchResult */ = {
+			isa = PBXGroup;
+			children = (
+				B6B7DE4829339E7D007B2D29 /* SearchTabViewController.swift */,
+				B62A8A93292FA09E00D84D79 /* SearchResultViewController.swift */,
+				B6B7DE4A2933A319007B2D29 /* NearbyViewController.swift */,
+				B6B7DE4C2933A32E007B2D29 /* RequestReceivedViewController.swift */,
+			);
+			path = SearchResult;
 			sourceTree = "<group>";
 		};
 		B6B7DE4E29342F27007B2D29 /* Chat */ = {

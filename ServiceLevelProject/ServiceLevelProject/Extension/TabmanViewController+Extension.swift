@@ -20,6 +20,7 @@ extension TabmanViewController {
         bar.indicator.tintColor = .setColor(.green)
         
         bar.backgroundView.style = .clear
+        bar.backgroundColor = .white
         bar.buttons.customize{ button in
             button.selectedTintColor = .setColor(.green)
             button.font = .systemFont(ofSize: 14)

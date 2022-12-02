@@ -24,12 +24,12 @@ class SearchResultViewModel {
     struct Output {
         let showToast: Signal<String?>
         let refresh: Signal<Void>
-        let pop: Signal<Void>
+        let popVC: Signal<Void>
     }
     
     let refreshRelay = PublishRelay<Void>()
     private let showToastRelay = PublishRelay<String?>()
-    private let popRelay = PublishRelay<Void>()
+    private let popVCRelay = PublishRelay<Void>()
     
     func transform(input: Input) -> Output {
         input.refreshButton
@@ -51,7 +51,7 @@ class SearchResultViewModel {
         return Output(
             showToast: showToastRelay.asSignal(),
             refresh: refreshRelay.asSignal(),
-            pop: popRelay.asSignal()
+            popVC: popVCRelay.asSignal()
         )
     }
 }
@@ -85,13 +85,13 @@ extension SearchResultViewModel {
         APIManager.shared.sesac(endpoint: .queueStop) { [weak self] response in
             switch response {
             case .success(_):
-                self?.popRelay.accept(())
+                self?.popVCRelay.accept(())
             case .failure(let statusCode):
                 switch statusCode {
                 case .error201:
                     self?.showToastRelay.accept("현재 새싹 찾기 중이 아닙니다")
                     DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1) {
-                        self?.popRelay.accept(())
+                        self?.popVCRelay.accept(())
                     }
                 case .firebaseTokenError:
                     FirebaseAuth.shared.getIDToken { error in

@@ -8,30 +8,8 @@
 import UIKit
 
 final class SearchResultTableViewCell: UITableViewCell, CustomView {
-    let backgroundImageView: UIImageView = {
-        let view = UIImageView()
-        view.contentMode = .scaleAspectFill
-        view.clipsToBounds = true
-        view.layer.cornerRadius = 10
-        return view
-    }()
-    
-    let nicknameView: UIView = {
-        let view = UIView()
-        view.layer.borderColor = UIColor.setColor(.gray2).cgColor
-        view.layer.borderWidth = 1
-        view.layer.cornerRadius = 10
-        return view
-    }()
-    
-    let nicknameLabel: UILabel = {
-        let view = UILabel()
-        view.font = .boldSystemFont(ofSize: 16)
-        return view
-    }()
-    
+    let cardView = CardView()
     lazy var requestButton: UIButton = customButton(title: "요청하기")
-    let sesacImageView = UIImageView()
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -49,43 +27,23 @@ final class SearchResultTableViewCell: UITableViewCell, CustomView {
         requestButton.tintColor = .white
         requestButton.backgroundColor = .setColor(.error)
         
-        [backgroundImageView, nicknameView, requestButton].forEach {
+        [cardView, requestButton].forEach {
             contentView.addSubview($0)
+            
+            // contentView.isUserInteractionEnabled = true
         }
-
-        backgroundImageView.addSubview(sesacImageView)
-        nicknameView.addSubview(nicknameLabel)
-        
-        // contentView.isUserInteractionEnabled = true
     }
     
     private func setConstraints() {
-        backgroundImageView.snp.makeConstraints { make in
-            make.top.horizontalEdges.equalToSuperview().inset(16)
-            make.height.equalTo(self.snp.width).multipliedBy(0.525)
-        }
-
-        sesacImageView.snp.makeConstraints { make in
-            make.centerX.equalToSuperview()
-            make.centerY.equalToSuperview().multipliedBy(1.2)
-            make.height.width.equalTo(backgroundImageView.snp.height).multipliedBy(0.9)
-        }
-
-        nicknameView.snp.makeConstraints { make in
-            make.top.equalTo(backgroundImageView.snp.bottom)
-            make.horizontalEdges.equalToSuperview().inset(16)
-            make.bottom.equalToSuperview().inset(16)
-            make.height.equalTo(58)
-        }
-
-        nicknameLabel.snp.makeConstraints { make in
-            make.centerY.equalToSuperview()
-            make.leading.equalTo(16)
+        cardView.snp.makeConstraints { make in
+            make.top.horizontalEdges.equalToSuperview().inset(12)
+            make.height.equalTo(cardView.height)
+            make.bottom.equalToSuperview().inset(12)
         }
         
         requestButton.snp.makeConstraints { make in
-            make.top.equalTo(backgroundImageView.snp.top).inset(16)
-            make.trailing.equalTo(backgroundImageView.snp.trailing).inset(16)
+            make.top.equalTo(cardView.snp.top).inset(16)
+            make.trailing.equalTo(cardView.snp.trailing).inset(16)
             make.height.equalTo(40)
             make.width.equalTo(80)
         }

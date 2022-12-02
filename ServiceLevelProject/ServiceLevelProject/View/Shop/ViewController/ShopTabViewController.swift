@@ -11,15 +11,28 @@ import Pageboy
 
 final class ShopTabViewController: TabmanViewController {
 
+    private var cardView = CardView()
+    
     private let sesacVC = SesacShopViewController()
     private let backgroundVC = BackgroundShopViewController()
     private lazy var viewControllers = [sesacVC, backgroundVC]
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        // MARK: 네비게이션 바가 투명하다...! 다른곳도 확인해보고 수정하기
+        navigationItem.title = "새싹샵"
         
         dataSource = self
+        
+        cardView.nicknameView.isHidden = true
         addBar(setTabMan, dataSource: self, at: .top)
+//        addBar(setTabMan, dataSource: self, at: .custom(view: cardView) { [weak self] view in
+//            view.snp.makeConstraints { [weak self] make in
+//                guard let self = self else { return }
+//                make.edges.equalTo(view.safeAreaLayoutGuide).inset(16)
+//                make.height.equalTo(self.cardView.width).multipliedBy(0.5)
+//            }
+//        })
     }
 }
 
@@ -28,8 +41,7 @@ extension ShopTabViewController: PageboyViewControllerDataSource, TMBarDataSourc
         return viewControllers.count
     }
 
-    func viewController(for pageboyViewController: PageboyViewController,
-                        at index: PageboyViewController.PageIndex) -> UIViewController? {
+    func viewController(for pageboyViewController: PageboyViewController, at index: PageboyViewController.PageIndex) -> UIViewController? {
         return viewControllers[index]
     }
 

@@ -16,12 +16,13 @@ class SocketIOManager {
     var socket: SocketIOClient!
 
     private init() {
-        manager = SocketManager(socketURL: URL(string: Endpoint.baseURL)!, config: [.log(true)])
+        manager = SocketManager(socketURL: URL(string: "baseURL")!, config: [.forceWebsockets(true)])
         socket = manager.defaultSocket
 
         // 연결
         socket.on(clientEvent: .connect) { data, ack in
             print("SOCKET IS CONNECTED", data, ack)
+            self.socket.emit("changesocketid", UserDefaults.uid)
         }
 
         // 연결 해제
@@ -31,7 +32,8 @@ class SocketIOManager {
 
         // 이벤트 수신
         socket.on("chat") { dataArray, ack in
-            // MARK: array가 아니라 dictionary 아닌가... payload 는 언제... 부르지...
+            print("=============")
+            dump(dataArray)
             let data = dataArray[0] as! NSDictionary
             let to = data["to"] as! String
             let from = data["from"] as! String

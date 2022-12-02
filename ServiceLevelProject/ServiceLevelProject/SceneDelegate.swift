@@ -26,6 +26,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         UIImageView.appearance().contentMode = .scaleAspectFit
         // UINavigationBar 기본 백버튼 변경하기, 네비게이션/탭바 선(?) 추가하기
         UINavigationBar.appearance().backIndicatorImage = IconSet.backButton
+        UINavigationBar.appearance().backgroundColor = .clear //.white
         UINavigationBar.appearance().tintColor = .black
     }
 

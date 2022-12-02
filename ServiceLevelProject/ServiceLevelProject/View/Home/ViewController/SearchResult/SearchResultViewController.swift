@@ -76,7 +76,7 @@ class SearchResultViewController: UIViewController, CustomView {
             }
             .disposed(by: disposeBag)
         
-        output.pop
+        output.popVC
             .withUnretained(self)
             .emit { vc, _ in
                 vc.navigationController?.popViewController(animated: true)

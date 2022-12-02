@@ -42,7 +42,7 @@ extension UIViewController {
     
     func showAlert(title: String, message: String?, button: String = "확인", buttonAction: @escaping (UIAlertAction) -> Void) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        let cancel = UIAlertAction(title: button, style: .cancel)
+        let cancel = UIAlertAction(title: "취소", style: .cancel)
         let ok = UIAlertAction(title: button, style: .default, handler: buttonAction)
         alert.addAction(ok)
         alert.addAction(cancel)

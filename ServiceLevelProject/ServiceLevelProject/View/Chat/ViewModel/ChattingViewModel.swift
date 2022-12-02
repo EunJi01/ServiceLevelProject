@@ -18,7 +18,9 @@ final class ChattingViewModel {
     
     struct Input {
         let sendButton: Signal<String>
+        //let returnKey: Signal<String>
         let chatTextView: Signal<String>
+        let backButton: Signal<Void>
     }
     
     struct Output {
@@ -26,12 +28,14 @@ final class ChattingViewModel {
         let showToast: Signal<String?>
         let changeTitle: Signal<String?>
         let getMessage: Signal<Void>
+        let popVC: Signal<Void>
     }
     
     private let highlightRelay = PublishRelay<Bool>()
     private let showToastRelay = PublishRelay<String?>()
     private let changeTitleRelay = PublishRelay<String?>()
     private let getMessageRelay = PublishRelay<Void>()
+    private let popVCRelay = PublishRelay<Void>()
     
     func transform(input: Input) -> Output {
         input.chatTextView
@@ -48,11 +52,19 @@ final class ChattingViewModel {
             }
             .disposed(by: disposeBag)
         
+        input.backButton
+            .withUnretained(self)
+            .emit { vm, _ in
+                vm.popVCRelay.accept(())
+            }
+            .disposed(by: disposeBag)
+        
         return Output(
             highlight: highlightRelay.asSignal(),
             showToast: showToastRelay.asSignal(),
             changeTitle: changeTitleRelay.asSignal(),
-            getMessage: getMessageRelay.asSignal()
+            getMessage: getMessageRelay.asSignal(),
+            popVC: popVCRelay.asSignal()
             )
     }
 }
@@ -90,7 +102,7 @@ extension ChattingViewModel {
     
     private func fetchChat() {
         guard let uid = otherUserUID else { return }
-        
+
         APIManager.shared.sesac(type: ChatList.self, endpoint: .fetchChat(from: uid, lastChatDate: lastChatDate)) { [weak self] response in
             switch response {
             case .success(_):
