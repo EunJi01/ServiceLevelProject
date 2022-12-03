@@ -85,7 +85,7 @@ final class ManageMypageViewController: UIViewController, CustomView {
                 // 연령대
                 vc.studyTextField.text = userInfo.study
                 vc.ageRangeLabel.text = "\(userInfo.ageMin)-\(userInfo.ageMax)"
-            } 
+            }
             .disposed(by: disposeBag)
         
         output.changeGender
@@ -101,12 +101,12 @@ final class ManageMypageViewController: UIViewController, CustomView {
                 vc.searchableSwitch.setOn(isOn, animated: false)
             }
             .disposed(by: disposeBag)
-
+        
         output.withdraw
             .withUnretained(self)
             .emit { vc, _ in
                 vc.showAlert(title: "회원탈퇴", message: "탈퇴하시면 모든 정보가 사라집니다!", button: "탈퇴",
-                             buttonAction: { [weak self] _ in self?.resetOnboarding() })
+                             buttonAction: { [weak self] _ in self?.vm.withdraw() })
             }
             .disposed(by: disposeBag)
         
@@ -123,12 +123,19 @@ final class ManageMypageViewController: UIViewController, CustomView {
                 vc.navigationController?.popViewController(animated: true)
             }
             .disposed(by: disposeBag)
+        
+        output.resetOnboarding
+            .withUnretained(self)
+            .emit { vc, _ in
+                vc.resetOnboarding()
+            }
+            .disposed(by: disposeBag)
     }
     
     private func resetOnboarding() {
         let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene
         let sceneDelegate = windowScene?.delegate as? SceneDelegate
-        let vc = OnboardingViewController()
+        let vc = LaunchViewController()
         
         sceneDelegate?.window?.rootViewController = vc
         sceneDelegate?.window?.makeKeyAndVisible()

@@ -33,6 +33,7 @@ final class ManageMypageViewModel {
         let changeStudy: Signal<Void>
         let changeSearchable: Signal<Void>
         let changeGender: Signal<Int>
+        let resetOnboarding: Signal<Void>
     }
     
     private let popVCRelay = PublishRelay<Void>()
@@ -43,6 +44,7 @@ final class ManageMypageViewModel {
     private let changeStudyRelay = PublishRelay<Void>()
     private let changeSearchableRelay = PublishRelay<Void>()
     private let changeGenderRelay = PublishRelay<Int>()
+    private let resetOnboardingRelay = PublishRelay<Void>()
     
     func transform(input: Input) -> Output {
         input.saveButton
@@ -55,7 +57,7 @@ final class ManageMypageViewModel {
         input.withdrawButton
             .withUnretained(self)
             .emit { vm, _ in
-                vm.withdraw()
+                vm.withdrawRelay.accept(())
             }
             .disposed(by: disposeBag)
         
@@ -89,6 +91,8 @@ final class ManageMypageViewModel {
             }
             .disposed(by: disposeBag)
         
+        
+        
         return Output(
             popVC: popVCRelay.asSignal(),
             showToast: showToastRelay.asSignal(),
@@ -97,7 +101,8 @@ final class ManageMypageViewModel {
             withdraw: withdrawRelay.asSignal(),
             changeStudy: changeStudyRelay.asSignal(),
             changeSearchable: changeSearchableRelay.asSignal(),
-            changeGender: changeGenderRelay.asSignal()
+            changeGender: changeGenderRelay.asSignal(),
+            resetOnboarding: resetOnboardingRelay.asSignal()
         )
     }
 }
@@ -136,7 +141,7 @@ extension ManageMypageViewModel {
     private func updateUserInfo() {
         guard let info = info else { return }
         // MARK: 연령대 업데이트 구현 필요
-
+        
         APIManager.shared.sesac(endpoint: .mypage(searchable: info.searchable, ageMin: info.ageMin, ageMax: info.ageMax, gender: info.gender, study: info.study)) { [weak self] response in
             switch response {
             case .success(_):
@@ -158,14 +163,14 @@ extension ManageMypageViewModel {
         }
     }
                 
-    
-    private func withdraw() {
+    func withdraw() {
         APIManager.shared.sesac(endpoint: .withdraw) { [weak self] response in
             switch response {
             case .success(_):
                 for key in UserDefaults.standard.dictionaryRepresentation().keys {
                     UserDefaults.standard.removeObject(forKey: key.description)
                 }
+                self?.resetOnboardingRelay.accept(())
             case .failure(let statusCode):
                 switch statusCode {
                 case .firebaseTokenError:

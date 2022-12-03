@@ -18,6 +18,10 @@ class LaunchViewController: UIViewController {
         
         setConfigure()
         setConstraints()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         
         networkCheck { [weak self] isConnected in
             // MARK: 분명 전에는 됐는데ㅠㅠㅠ 네트워크 연결 실패했을 때 얼럿이 안뜬다...
@@ -31,7 +35,6 @@ class LaunchViewController: UIViewController {
             switch response {
             case .success(let userInfo):
                 // MARK: FCM 토큰 서버와 비교하고 업데이트하는 로직 필요!
-                UserDefaults.uid = "uYK05HR3jzctuiQBAnaH5eicgkv1" // MARK: 임시!!!! 로그인 시/회원가입 시 저장하면 될듯?
                 print("==id token== \(UserDefaults.idToken)")
                 UserDefaults.userNickname = userInfo.nick
                 UserDefaults.sesacNumber = userInfo.sesac

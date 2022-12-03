@@ -120,9 +120,10 @@ extension AuthViewModel {
     }
     
     private func requestLogin() {
-        APIManager.shared.sesac(type: UpdateUserInfo.self, endpoint: .login) { [weak self] response in
+        APIManager.shared.sesac(type: UserInfo.self, endpoint: .login) { [weak self] response in
             switch response {
-            case .success(_):
+            case .success(let userInfo):
+                UserDefaults.uid = userInfo.uid
                 self?.presentMainVCRelay.accept(())
             case.failure(let statusCode):
                 switch statusCode {

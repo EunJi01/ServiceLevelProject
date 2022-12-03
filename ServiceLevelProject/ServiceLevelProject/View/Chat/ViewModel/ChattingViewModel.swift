@@ -27,15 +27,17 @@ final class ChattingViewModel {
         let highlight: Signal<Bool>
         let showToast: Signal<String?>
         let changeTitle: Signal<String?>
-        let getMessage: Signal<Void>
         let popVC: Signal<Void>
+        let reloadData: Signal<Void>
+        let clearTextView: Signal<Void>
     }
     
     private let highlightRelay = PublishRelay<Bool>()
     private let showToastRelay = PublishRelay<String?>()
     private let changeTitleRelay = PublishRelay<String?>()
-    private let getMessageRelay = PublishRelay<Void>()
     private let popVCRelay = PublishRelay<Void>()
+    private let reloadDataRelay = PublishRelay<Void>()
+    private let clearTextViewRelay = PublishRelay<Void>()
     
     func transform(input: Input) -> Output {
         input.chatTextView
@@ -48,7 +50,7 @@ final class ChattingViewModel {
         input.sendButton
             .withUnretained(self)
             .emit { vm, text in
-                vm.postChat(caht: text)
+                vm.postChat(chat: text)
             }
             .disposed(by: disposeBag)
         
@@ -63,8 +65,9 @@ final class ChattingViewModel {
             highlight: highlightRelay.asSignal(),
             showToast: showToastRelay.asSignal(),
             changeTitle: changeTitleRelay.asSignal(),
-            getMessage: getMessageRelay.asSignal(),
-            popVC: popVCRelay.asSignal()
+            popVC: popVCRelay.asSignal(),
+            reloadData: reloadDataRelay.asSignal(),
+            clearTextView: clearTextViewRelay.asSignal()
             )
     }
 }
@@ -105,8 +108,9 @@ extension ChattingViewModel {
 
         APIManager.shared.sesac(type: ChatList.self, endpoint: .fetchChat(from: uid, lastChatDate: lastChatDate)) { [weak self] response in
             switch response {
-            case .success(_):
-                print("fetchChat success")
+            case .success(let chatList):
+                self?.chatList = chatList.payload
+                self?.reloadDataRelay.accept(())
                 SocketIOManager.shared.establishConnection()
             case .failure(let statusCode):
                 switch statusCode {
@@ -125,13 +129,16 @@ extension ChattingViewModel {
         }
     }
     
-    private func postChat(caht: String) {
+    private func postChat(chat: String) {
         guard let uid = otherUserUID else { return }
         
-        APIManager.shared.sesac(endpoint: .postChat(to: uid, chat: caht)) { [weak self] response in
+        APIManager.shared.sesac(endpoint: .postChat(to: uid, chat: chat)) { [weak self] response in
             switch response {
             case .success(_):
-                print("postChat success")
+                let myChat = Chat(to: uid, from: UserDefaults.uid, chat: chat, createdAt: Date().dateFormat)
+                self?.chatList.append(myChat)
+                self?.reloadDataRelay.accept(())
+                self?.clearTextViewRelay.accept(())
             case .failure(let statusCode):
                 switch statusCode {
                 case .error201:
@@ -151,16 +158,16 @@ extension ChattingViewModel {
         }
     }
     
-    @objc func getMessage(notification: NSNotification) {
+    func getMessage(notification: NSNotification) {
         let to = notification.userInfo!["to"] as! String
         let from = notification.userInfo!["from"] as! String
         let chat = notification.userInfo!["chat"] as! String
         let createdAt = notification.userInfo!["createdAt"] as! String
-        
+
         let value = Chat(to: to, from: from, chat: chat, createdAt: createdAt)
-    
+
         chatList.append(value)
-        getMessageRelay.accept(())
+        reloadDataRelay.accept(())
     }
     
     private func highlight(text: String) {

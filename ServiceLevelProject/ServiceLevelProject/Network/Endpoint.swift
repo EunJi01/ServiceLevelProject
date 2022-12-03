@@ -59,7 +59,7 @@ extension Endpoint {
             return URL(string: Endpoint.baseURL + "v1/chat/\(to)")
         case .fetchChat(let from, let lastChatDate):
             guard !(lastChatDate.isEmpty) else {
-                return URL(string: Endpoint.baseURL + "v1/chat/\(from)?lastchatDate=2022-12-01T06:55:54.784Z")
+                return URL(string: Endpoint.baseURL + "v1/chat/\(from)?lastchatDate=2000-01-01T00:00:00.000Z")
             }
             return URL(string: Endpoint.baseURL + "v1/chat/\(from)?lastchatDate=\(lastChatDate)")
         }

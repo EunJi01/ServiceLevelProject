@@ -49,13 +49,14 @@ final class ChattingViewController: UIViewController, CustomView {
         
         tableView.delegate = self
         tableView.dataSource = self
+        chatTextView.delegate = self
         
         bind()
         setConfigure()
         setConstraints()
         
         vm.myState()
-        NotificationCenter.default.addObserver(self, selector: #selector(vm.getMessage(notification:)), name: NSNotification.Name("getMessage"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(getMessage(notification:)), name: NSNotification.Name("getMessage"), object: nil)
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -99,54 +100,60 @@ final class ChattingViewController: UIViewController, CustomView {
             }
             .disposed(by: disposeBag)
         
-        output.getMessage
-            .withUnretained(self)
-            .emit { vc, _ in
-                print("tableView reloadData")
-                vc.tableView.reloadData()
-                vc.tableView.scrollToRow(at: IndexPath(row: vc.vm.chatList.count - 1, section: 0), at: .bottom, animated: false)
-            }
-            .disposed(by: disposeBag)
-        
         output.popVC
             .withUnretained(self)
             .emit { vc, _ in
                 vc.navigationController?.popToRootViewController(animated: true)
             }
             .disposed(by: disposeBag)
+        
+        output.reloadData
+            .withUnretained(self)
+            .emit { vc, _ in
+                vc.tableView.reloadData()
+                vc.tableView.scrollToRow(at: IndexPath(row: vc.vm.chatList.count - 1, section: 0), at: .bottom, animated: false)
+            }
+            .disposed(by: disposeBag)
+        
+        output.clearTextView
+            .withUnretained(self)
+            .emit { vc, _ in
+                vc.chatTextView.text = ""
+            }
+            .disposed(by: disposeBag)
+    }
+    
+    @objc func getMessage(notification: NSNotification) {
+        vm.getMessage(notification: notification)
     }
     
     private func setConfigure() {
-        [tableView, chatView].forEach {
+        [tableView, chatView, chatTextView, sendButton].forEach {
             view.addSubview($0)
-        }
-        
-        [chatTextView, sendButton].forEach {
-            chatView.addSubview($0)
         }
     }
     
     private func setConstraints() {
         chatView.snp.makeConstraints { make in
             make.bottom.horizontalEdges.equalTo(view.safeAreaLayoutGuide).inset(16)
-            make.height.equalTo(52)
         }
         
         tableView.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide)
-            make.bottom.equalTo(chatView.snp.top).offset(-16)
+            make.bottom.equalTo(chatTextView.snp.top).offset(-30)
             make.horizontalEdges.equalToSuperview()
         }
         
         chatTextView.snp.makeConstraints { make in
-            make.horizontalEdges.equalToSuperview().inset(16)
-            make.verticalEdges.equalToSuperview().inset(14)
+            make.horizontalEdges.equalTo(chatView.snp.horizontalEdges).inset(16)
+            make.verticalEdges.equalTo(chatView.snp.verticalEdges).inset(14)
+            make.height.equalTo(24)
         }
         
         sendButton.snp.makeConstraints { make in
-            make.centerY.equalToSuperview()
+            make.centerY.equalTo(chatView.snp.centerY)
             make.leading.equalTo(chatTextView.snp.trailing).offset(10)
-            make.trailing.equalToSuperview().inset(14)
+            make.trailing.equalTo(chatView.snp.trailing).inset(14)
             make.height.width.equalTo(20)
         }
     }
@@ -160,6 +167,7 @@ extension ChattingViewController: UITableViewDataSource, UITableViewDelegate {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: MyChatTableViewCell.reuseIdentifier) as? MyChatTableViewCell else { return UITableViewCell() }
             
             cell.myChatViewLabel.text = data.chat
+            cell.myChatTimeLabel.text = data.createdAt.toDate.dateFormat
             
             return cell
             
@@ -167,6 +175,7 @@ extension ChattingViewController: UITableViewDataSource, UITableViewDelegate {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: OtherUserChatTableViewCell.reuseIdentifier) as? OtherUserChatTableViewCell else { return UITableViewCell() }
             
             cell.otherUserChatLabel.text = data.chat
+            cell.otherUserChatTimeLabel.text = data.createdAt.toDate.dateFormat
             
             return cell
         }
@@ -175,5 +184,23 @@ extension ChattingViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return vm.chatList.count
+    }
+}
+
+extension ChattingViewController: UITextViewDelegate {
+    func textViewDidChange(_ textView: UITextView) {
+        let size = CGSize(width: view.frame.width, height: .infinity)
+        let estimatedSize = textView.sizeThatFits(size)
+
+        guard estimatedSize.height > 33 else { return }
+        guard estimatedSize.height < 73 else { return }
+        
+        // MARK: 텍스트필드는 잘 늘어나고 줄어드는데, 변경된 높이에 따라 테이블뷰가 올라가진 않음ㅜㅜ
+        
+        textView.constraints.forEach { constraint in
+            if constraint.firstAttribute == .height {
+                constraint.constant = estimatedSize.height
+            }
+        }
     }
 }

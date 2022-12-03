@@ -196,6 +196,7 @@ extension HomeViewController: MKMapViewDelegate {
 |  | Chatting | Layout | 3h |  |  |
 |  | SearchResult | API 로직 개선/보완 | 2h |  |  |
 |  | Shop | Layout | 3h |  |  |
+|  | Chatting | Socket 통신 | 4h |  |  |
 |  |  |  |  |  |  |
 | **4주차** |  |  |  |  | **~2022.12.04** |
 |  |  |  |  |  |  |
@@ -307,3 +308,4 @@ extension HomeViewController: MKMapViewDelegate {
 - Shop에서도 마찬가지로 TabMan 라이브러리를 활용해서 만들었으나, navigationBar와 Tab 사이에 카드뷰를 어떻게 끼워넣을지는 고민해봐야 할 것 같다.
 - navigationBar와 Tab 사이에 카드뷰를 보여주기 위해, ShopVC에서 addChild를 통해 ShopTabVC의 인스턴스를 추가하고 containerView에 넣어서 레이아웃을 잡아줬다.
 - 추후 로직 구성이 용이하도록, 기존에는 ShopTabVC에서 초기화했던 SesacShopVC와 BackgroundShopVC를 ShopVC에서 초기화시키고 ShopTabVC에 넣어주는 형태로 변경했다.
+- SocketIO를 통해 실시간 채팅을 구현했고, DB를 통해 지난 채팅에 대한 서버 요청을 최소화하도록 개선할 생각이다.

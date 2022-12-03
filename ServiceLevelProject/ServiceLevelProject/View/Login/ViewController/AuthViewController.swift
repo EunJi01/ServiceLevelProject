@@ -56,10 +56,7 @@ final class AuthViewController: UIViewController, CustomView {
         output.presentMainVC
             .withUnretained(self)
             .emit { vc, _ in
-                let mainVC = MainTabBarController()
-                let mainNav = UINavigationController(rootViewController: mainVC)
-                mainNav.modalPresentationStyle = .fullScreen
-                vc.present(mainNav, animated: true)
+                vc.transition(MainTabBarController(), transitionStyle: .presentFull)
             }
             .disposed(by: disposeBag)
             

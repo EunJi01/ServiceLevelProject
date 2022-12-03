@@ -84,35 +84,62 @@ extension GenderViewModel {
         if UserDefaults.userGender == 10 {
             showToastRelay.accept(GenderToast.notValid.rawValue)
         } else {
-            APIManager.shared.sesac(endpoint: .signup) { [weak self] response in
-                switch response {
-                case .success(_):
-                    self?.presentMainVCRelay.accept(())
-                case .failure(let statusCode):
-                    switch statusCode {
-                    case .error201:
-                        self?.showToastRelay.accept("이미 가입된 회원입니다")
-                    case .error202:
-                        self?.popToNicknameVCRelay.accept("사용할 수 없는 닉네임입니다")
-                    case .firebaseTokenError:
-                        FirebaseAuth.shared.getIDToken { error in
-                            if error == nil {
-                                self?.validate()
-                            } else {
-                                self?.showToastRelay.accept(statusCode.errorDescription)
-                            }
+            requestSignup()
+        }
+    }
+    
+    private func requestSignup() {
+        APIManager.shared.sesac(endpoint: .signup) { [weak self] response in
+            switch response {
+            case .success(_):
+                self?.requestLogin()
+            case .failure(let statusCode):
+                switch statusCode {
+                case .error201:
+                    self?.showToastRelay.accept("이미 가입된 회원입니다")
+                case .error202:
+                    self?.popToNicknameVCRelay.accept("사용할 수 없는 닉네임입니다")
+                case .firebaseTokenError:
+                    FirebaseAuth.shared.getIDToken { error in
+                        if error == nil {
+                            self?.requestSignup()
+                        } else {
+                            self?.showToastRelay.accept(statusCode.errorDescription)
                         }
-                    default:
-                        self?.showToastRelay.accept(statusCode.errorDescription)
-                        print(
-                            "phoneNumber: +82\(UserDefaults.userPhoneNumber.dropFirst())",
-                            "FCMtoken: \(UserDefaults.fcmToken)",
-                            "nick: \(UserDefaults.userNickname)",
-                            "birth: \(UserDefaults.userBirth!)",
-                            "email: \(UserDefaults.userEmail)",
-                            "gender: \(UserDefaults.userGender)"
-                        )
                     }
+                default:
+                    self?.showToastRelay.accept(statusCode.errorDescription)
+                    print(
+                        "phoneNumber: +82\(UserDefaults.userPhoneNumber.dropFirst())",
+                        "FCMtoken: \(UserDefaults.fcmToken)",
+                        "nick: \(UserDefaults.userNickname)",
+                        "birth: \(UserDefaults.userBirth!)",
+                        "email: \(UserDefaults.userEmail)",
+                        "gender: \(UserDefaults.userGender)"
+                    )
+                }
+            }
+        }
+    }
+    
+    private func requestLogin() {
+        APIManager.shared.sesac(type: UserInfo.self, endpoint: .login) { [weak self] response in
+            switch response {
+            case .success(let userInfo):
+                UserDefaults.uid = userInfo.uid
+                self?.presentMainVCRelay.accept(())
+            case.failure(let statusCode):
+                switch statusCode {
+                case .firebaseTokenError:
+                    FirebaseAuth.shared.getIDToken { error in
+                        if error == nil {
+                            self?.requestLogin()
+                        } else {
+                            self?.showToastRelay.accept(statusCode.errorDescription)
+                        }
+                    }
+                default:
+                    self?.showToastRelay.accept(statusCode.errorDescription)
                 }
             }
         }

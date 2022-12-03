@@ -16,7 +16,7 @@ class SocketIOManager {
     var socket: SocketIOClient!
 
     private init() {
-        manager = SocketManager(socketURL: URL(string: "baseURL")!, config: [.forceWebsockets(true)])
+        manager = SocketManager(socketURL: URL(string: Endpoint.baseURL)!, config: [.forceWebsockets(true)])
         socket = manager.defaultSocket
 
         // 연결
@@ -32,8 +32,6 @@ class SocketIOManager {
 
         // 이벤트 수신
         socket.on("chat") { dataArray, ack in
-            print("=============")
-            dump(dataArray)
             let data = dataArray[0] as! NSDictionary
             let to = data["to"] as! String
             let from = data["from"] as! String
