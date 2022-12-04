@@ -18,23 +18,32 @@
 - StudySearchView (셀 길이에 맞게 왼쪽 정렬)
 ```
 // 커스텀 클래스
-class CollectionViewLeftAlignFlowLayout: UICollectionViewFlowLayout {
-    let cellSpacing: CGFloat = 10
- 
+final class StudyListLayout: UICollectionViewFlowLayout {
+    override init() {
+        super.init()
+        self.sectionInset = UIEdgeInsets(top: 8, left: .zero, bottom: .zero, right: .zero)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError()
+    }
+    
+    let cellSpacing: CGFloat = 8
+    
     override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
-        self.minimumLineSpacing = 10.0
-        self.sectionInset = UIEdgeInsets(top: 12.0, left: 16.0, bottom: 0.0, right: 16.0)
         let attributes = super.layoutAttributesForElements(in: rect)
- 
+        
         var leftMargin = sectionInset.left
         var maxY: CGFloat = -1.0
+        
         attributes?.forEach { layoutAttribute in
+            guard layoutAttribute.representedElementCategory == .cell else {return }
             if layoutAttribute.frame.origin.y >= maxY {
                 leftMargin = sectionInset.left
             }
             layoutAttribute.frame.origin.x = leftMargin
-            leftMargin += layoutAttribute.frame.width + cellSpacing
-            maxY = max(layoutAttribute.frame.maxY, maxY)
+            leftMargin += layoutAttribute.frame.width + minimumInteritemSpacing
+            maxY = max(layoutAttribute.frame.maxY , maxY)
         }
         return attributes
     }
@@ -42,12 +51,13 @@ class CollectionViewLeftAlignFlowLayout: UICollectionViewFlowLayout {
 
 // 사용 예시
     private let collectionView: UICollectionView = {
-        let layout = CollectionViewLeftAlignFlowLayout()
+        let layout = StudyListLayout()
         let view = UICollectionView(frame: .zero, collectionViewLayout: layout)
         view.register(StudySearchCollectionViewCell.self, forCellWithReuseIdentifier: StudySearchCollectionViewCell.reuseIdentifier)
         if let flowLayout = view.collectionViewLayout as? UICollectionViewFlowLayout {
             flowLayout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
           }
+        view.register(StudySearchCollectionViewHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: StudySearchCollectionViewHeader.reuseIdentifier)
         return view
     }()
 ```
@@ -163,8 +173,8 @@ extension HomeViewController: MKMapViewDelegate {
 |  | 모듈화 | 네트워트 관련 코드 분리 | 30m |  |  |
 |  | SceneDelegate | rootView 조건 구현 | 30m |  |  |
 |  | Auth | 인증번호 재전송 구현 | 1h |  |  |
-|  | Birth | DatePicker 구현 | 4h | 기존 입력값 불러오는 코드 삽질 |  |
-|  | 회원가입 | 회원가입 API 통신 | 6h | 삽질 끝판왕 |  |
+|  | Birth | DatePicker 구현 | 4h | 기존값 불러오기 삽질 |  |
+|  | 회원가입 | 회원가입 API 통신 | 6h | 삽질 끝판왕... |  |
 |  | Login/Auth | 중복 클릭 방지 | 1h |  |  |
 |  | Signup | 부적절한 닉네임 분기처리 | 1h |  |  |
 |  | Launch | 네트워크 체크/rootView 분기처리 | 2h |  |  |
@@ -197,6 +207,7 @@ extension HomeViewController: MKMapViewDelegate {
 |  | SearchResult | API 로직 개선/보완 | 2h |  |  |
 |  | Shop | Layout | 3h |  |  |
 |  | Chatting | Socket 통신 | 4h |  |  |
+|  | Chatting | 채팅 DB에 저장 | 4h | 빈값삽질 |  |
 |  |  |  |  |  |  |
 | **4주차** |  |  |  |  | **~2022.12.04** |
 |  |  |  |  |  |  |
@@ -308,4 +319,9 @@ extension HomeViewController: MKMapViewDelegate {
 - Shop에서도 마찬가지로 TabMan 라이브러리를 활용해서 만들었으나, navigationBar와 Tab 사이에 카드뷰를 어떻게 끼워넣을지는 고민해봐야 할 것 같다.
 - navigationBar와 Tab 사이에 카드뷰를 보여주기 위해, ShopVC에서 addChild를 통해 ShopTabVC의 인스턴스를 추가하고 containerView에 넣어서 레이아웃을 잡아줬다.
 - 추후 로직 구성이 용이하도록, 기존에는 ShopTabVC에서 초기화했던 SesacShopVC와 BackgroundShopVC를 ShopVC에서 초기화시키고 ShopTabVC에 넣어주는 형태로 변경했다.
+- 전화번호로 로그인 시/런치스크린 진입 시 서버의 FCM 토큰과 기기의 FCM 토큰을 비교하여, 값이 다를 경우 서버에 업데이트하는 로직을 추가했다.
+- 해당 로직을 구현하지 않았을 경우, 사용자가 기기를 바꾸거나 여러 기기에 로그인했을 경우 푸시 등의 알림이 제대로 전달되지 않는 문제가 발생할 수 있을 것 같다.
 - SocketIO를 통해 실시간 채팅을 구현했고, DB를 통해 지난 채팅에 대한 서버 요청을 최소화하도록 개선할 생각이다.
+- 불러올 채팅이 없을 경우, 즉 서버에서 받을 값이 없는 경우에 500번 에러(ServerError)가 발생하는 문제가 있어서 고생했다.
+- 해당 문제는 init(from decoder: Decoder) 를 호출해 값이 없을 경우 빈 배열을 기본값으로 넣어주는 형태로 처리했다.
+- 이미 확인한 채팅 내역은 DB에 저장하고, 저장된 채팅중 가장 마지막 채팅의 시간(Date)을 Query에 넣어 그 이후의 채팅만 받아올 수 있도록 개선했다.

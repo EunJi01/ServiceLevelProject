@@ -125,11 +125,8 @@ extension ManageMypageViewModel {
                 switch statusCode {
                 case .firebaseTokenError:
                     FirebaseAuth.shared.getIDToken { error in
-                        if error == nil {
-                            self?.getUserInfo()
-                        } else {
-                            self?.showToastRelay.accept(statusCode.errorDescription)
-                        }
+                        guard error == nil else { return }
+                        self?.getUserInfo()
                     }
                 default:
                     self?.showToastRelay.accept(statusCode.errorDescription)
@@ -150,11 +147,8 @@ extension ManageMypageViewModel {
                 switch statusCode {
                 case .firebaseTokenError:
                     FirebaseAuth.shared.getIDToken { error in
-                        if error == nil {
-                            self?.updateUserInfo()
-                        } else {
-                            self?.showToastRelay.accept(statusCode.errorDescription)
-                        }
+                        guard error == nil else { return }
+                        self?.updateUserInfo()
                     }
                 default:
                     self?.showToastRelay.accept(statusCode.errorDescription)
@@ -175,11 +169,8 @@ extension ManageMypageViewModel {
                 switch statusCode {
                 case .firebaseTokenError:
                     FirebaseAuth.shared.getIDToken { error in
-                        if error == nil {
-                            self?.withdraw()
-                        } else {
-                            self?.showToastRelay.accept(statusCode.errorDescription)
-                        }
+                        guard error == nil else { return }
+                        self?.withdraw()
                     }
                 default:
                     self?.showToastRelay.accept(statusCode.errorDescription)

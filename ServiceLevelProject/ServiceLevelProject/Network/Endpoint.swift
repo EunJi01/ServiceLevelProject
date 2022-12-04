@@ -10,20 +10,23 @@ import Alamofire
 import MapKit
 
 enum Endpoint {
+    // user
     case login
     case signup
+    case updateFCM
     case mypage(searchable: Int, ageMin: Int, ageMax: Int, gender: Int, study: String)
     case withdraw
     
+    // queue
     case queueRequest(lat: CLLocationDegrees, long: CLLocationDegrees, studyList: [String])
     case queueStop
     case queueSearch(lat: CLLocationDegrees, long: CLLocationDegrees)
     case myQueueState
-    
     case studyrequest(otheruid: String)
     case studyaccept(otheruid: String)
     case dodge(otheruid: String)
     
+    // chat
     case postChat(to: String, chat: String)
     case fetchChat(from: String, lastChatDate: String)
 }
@@ -37,10 +40,13 @@ extension Endpoint {
             return URL(string: Endpoint.baseURL + "v1/user")
         case .signup:
             return URL(string: Endpoint.baseURL + "v1/user")
+        case .updateFCM:
+            return URL(string: Endpoint.baseURL + "v1/user/update_fcm_token")
         case .mypage:
             return URL(string: Endpoint.baseURL + "v1/user/mypage")
         case .withdraw:
             return URL(string: Endpoint.baseURL + "v1/user/withdraw")
+            
         case .queueRequest:
             return URL(string: Endpoint.baseURL + "v1/queue")
         case .queueStop:
@@ -55,12 +61,14 @@ extension Endpoint {
             return URL(string: Endpoint.baseURL + "v1/queue/studyaccept")
         case .dodge:
             return URL(string: Endpoint.baseURL + "v1/queue/dodge")
+            
         case .postChat(let to, _):
             return URL(string: Endpoint.baseURL + "v1/chat/\(to)")
         case .fetchChat(let from, let lastChatDate):
             guard !(lastChatDate.isEmpty) else {
                 return URL(string: Endpoint.baseURL + "v1/chat/\(from)?lastchatDate=2000-01-01T00:00:00.000Z")
             }
+            print(Endpoint.baseURL + "v1/chat/\(from)?lastchatDate=\(lastChatDate)")
             return URL(string: Endpoint.baseURL + "v1/chat/\(from)?lastchatDate=\(lastChatDate)")
         }
     }
@@ -71,10 +79,13 @@ extension Endpoint {
             return .get
         case .signup:
             return .post
+        case .updateFCM:
+            return .put
         case .mypage:
             return .put
         case .withdraw:
             return .post
+            
         case .queueRequest:
             return .post
         case .queueStop:
@@ -89,6 +100,7 @@ extension Endpoint {
             return .post
         case .dodge:
             return .post
+            
         case .postChat:
             return .post
         case .fetchChat:
@@ -118,7 +130,10 @@ extension Endpoint {
                 "email": UserDefaults.userEmail,
                 "gender": "\(UserDefaults.userGender)"
             ]
-
+        case .updateFCM:
+            parameters = [
+                "FCMtoken": UserDefaults.fcmToken
+            ]
         case .mypage(let searchable, let ageMin, let ageMax, let gender, let study):
             parameters = [
                 "searchable": "\(searchable)",

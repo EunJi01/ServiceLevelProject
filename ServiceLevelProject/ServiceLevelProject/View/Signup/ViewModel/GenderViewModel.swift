@@ -101,11 +101,8 @@ extension GenderViewModel {
                     self?.popToNicknameVCRelay.accept("사용할 수 없는 닉네임입니다")
                 case .firebaseTokenError:
                     FirebaseAuth.shared.getIDToken { error in
-                        if error == nil {
-                            self?.requestSignup()
-                        } else {
-                            self?.showToastRelay.accept(statusCode.errorDescription)
-                        }
+                        guard error == nil else { return }
+                        self?.requestSignup()
                     }
                 default:
                     self?.showToastRelay.accept(statusCode.errorDescription)
@@ -132,11 +129,8 @@ extension GenderViewModel {
                 switch statusCode {
                 case .firebaseTokenError:
                     FirebaseAuth.shared.getIDToken { error in
-                        if error == nil {
-                            self?.requestLogin()
-                        } else {
-                            self?.showToastRelay.accept(statusCode.errorDescription)
-                        }
+                        guard error == nil else { return }
+                        self?.requestLogin()
                     }
                 default:
                     self?.showToastRelay.accept(statusCode.errorDescription)

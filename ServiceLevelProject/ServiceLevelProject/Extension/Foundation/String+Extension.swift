@@ -36,7 +36,7 @@ extension String {
         let dateStr: String = self
         let formatter = Date.dateformatter
 
-        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.sssZ"
         guard let date = formatter.date(from: dateStr) else { return Date() }
         
         return date

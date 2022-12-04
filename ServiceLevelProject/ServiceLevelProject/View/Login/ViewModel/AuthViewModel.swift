@@ -132,16 +132,13 @@ extension AuthViewModel {
                     self?.pushSignupVCRelay.accept(())
                 case .firebaseTokenError:
                     FirebaseAuth.shared.getIDToken { error in
-                        if error == nil {
-                            self?.requestLogin()
-                        } else {
-                            self?.showToastRelay.accept(statusCode.errorDescription)
-                        }
+                        guard error == nil else { return }
+                        self?.requestLogin()
                     }
-                default:
-                    self?.showToastRelay.accept(statusCode.errorDescription)
+                    default:
+                        self?.showToastRelay.accept(statusCode.errorDescription)
+                    }
                 }
             }
         }
     }
-}

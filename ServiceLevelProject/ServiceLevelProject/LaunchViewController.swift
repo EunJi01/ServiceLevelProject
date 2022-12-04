@@ -34,27 +34,51 @@ class LaunchViewController: UIViewController {
         APIManager.shared.sesac(type: UserInfo.self, endpoint: .login) { [weak self] response in
             switch response {
             case .success(let userInfo):
-                // MARK: FCM 토큰 서버와 비교하고 업데이트하는 로직 필요!
                 print("==id token== \(UserDefaults.idToken)")
-                UserDefaults.userNickname = userInfo.nick
-                UserDefaults.sesacNumber = userInfo.sesac
-                self?.transition(MainTabBarController(), transitionStyle: .presentFull)
+                
+                if userInfo.fcmToken != UserDefaults.fcmToken {
+                    self?.updateFCMToken()
+                } else {
+                    UserDefaults.userNickname = userInfo.nick
+                    UserDefaults.sesacNumber = userInfo.sesac
+                    self?.transition(MainTabBarController(), transitionStyle: .presentFull)
+                }
                 
             case .failure(let statusCode):
                 switch statusCode {
                 case .firebaseTokenError:
                     FirebaseAuth.shared.getIDToken { error in
-                        if error == nil {
-                            self?.viewTransition()
-                        } else {
-                            self?.view.makeToast(statusCode.errorDescription, position: .top)
-                        }
+                        guard error == nil else { return }
+                        self?.viewTransition()
                     }
                 case .notRegistered:
                     if UserDefaults.authenticationCompleted {
                         self?.transition(NicknameViewController(), transitionStyle: .presentFullNavigation)
                     } else {
                         self?.transition(LoginViewController(), transitionStyle: .presentFullNavigation)
+                    }
+                default:
+                    if UserDefaults.showOnboarding {
+                        self?.transition(OnboardingPageViewController(), transitionStyle: .presentFull)
+                    } else {
+                        self?.view.makeToast(statusCode.errorDescription, position: .top)
+                    }
+                }
+            }
+        }
+    }
+    
+    private func updateFCMToken() {
+        APIManager.shared.sesac(endpoint: .updateFCM) { [weak self] response in
+            switch response {
+            case .success(_):
+                self?.viewTransition()
+            case .failure(let statusCode):
+                switch statusCode {
+                case .firebaseTokenError:
+                    FirebaseAuth.shared.getIDToken { error in
+                        guard error == nil else { return }
+                        self?.updateFCMToken()
                     }
                 default:
                     if UserDefaults.showOnboarding {

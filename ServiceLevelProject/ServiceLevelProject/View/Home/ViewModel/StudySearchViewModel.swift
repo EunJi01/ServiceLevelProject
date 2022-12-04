@@ -35,12 +35,14 @@ final class StudySearchViewModel {
         let showToast: Signal<String?>
         let searchSesac: Signal<Void>
         let pushNextVC: Signal<Void>
+        let endEditting: Signal<Void>
     }
     
     private let addStudyRelay = PublishRelay<Void>()
     private let showToastRelay = PublishRelay<String?>()
     private let searchSesacRealy = PublishRelay<Void>()
     private let pushNextVCRelay = PublishRelay<Void>()
+    private let endEdittingRelay = PublishRelay<Void>()
     
     func transform(input: Input) -> Output {
         input.returnKey
@@ -61,7 +63,8 @@ final class StudySearchViewModel {
             addStudy: addStudyRelay.asSignal(),
             showToast: showToastRelay.asSignal(),
             searchSesac: searchSesacRealy.asSignal(),
-            pushNextVC: pushNextVCRelay.asSignal()
+            pushNextVC: pushNextVCRelay.asSignal(),
+            endEditting: endEdittingRelay.asSignal()
         )
     }
 }
@@ -80,6 +83,7 @@ extension StudySearchViewModel {
             } else {
                 wishStudy.append(study)
                 addStudyRelay.accept(())
+                endEdittingRelay.accept(())
             }
         }
     }
@@ -102,11 +106,8 @@ extension StudySearchViewModel {
                 switch statusCode {
                 case .firebaseTokenError:
                     FirebaseAuth.shared.getIDToken { error in
-                        if error == nil {
-                            self?.searchSesac()
-                        } else {
-                            self?.showToastRelay.accept(statusCode.errorDescription)
-                        }
+                        guard error == nil else { return }
+                        self?.searchSesac()
                     }
                 default:
                     self?.showToastRelay.accept(statusCode.errorDescription)

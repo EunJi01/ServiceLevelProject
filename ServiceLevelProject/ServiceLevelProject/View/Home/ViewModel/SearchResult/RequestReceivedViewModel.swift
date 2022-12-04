@@ -1,5 +1,5 @@
 //
-//  NearbyViewModel.swift
+//  RequestReceivedViewModel.swift
 //  ServiceLevelProject
 //
 //  Created by 황은지 on 2022/11/29.
@@ -10,9 +10,9 @@ import RxSwift
 import RxCocoa
 import CoreLocation
 
-final class NearbyViewModel: SearchResultViewModel {
+final class RequestReceivedViewModel: SearchResultViewModel {
     struct Input { }
-
+    
     struct Output {
         let showToast: Signal<String?>
         let pushNextVC: Signal<Void>
@@ -30,34 +30,8 @@ final class NearbyViewModel: SearchResultViewModel {
     }
 }
 
-extension NearbyViewModel {
-    func requestStudy(user: FromQueueDB) {
-        APIManager.shared.sesac(endpoint: .studyrequest(otheruid: user.uid)) { [weak self] response in
-            switch response {
-            case .success(_):
-                self?.showToastRelay.accept("스터디 요청을 보냈습니다.")
-            case .failure(let statusCode):
-                switch statusCode {
-                case .error201:
-                    self?.accepttStudy(user: user)
-                case .error202:
-                    self?.showToastRelay.accept("상대방이 스터디 찾기를 그만두었습니다")
-                case .firebaseTokenError:
-                    FirebaseAuth.shared.getIDToken { error in
-                        if error == nil {
-                            self?.requestStudy(user: user)
-                        } else {
-                            self?.showToastRelay.accept(statusCode.errorDescription)
-                        }
-                    }
-                default:
-                    self?.showToastRelay.accept(statusCode.errorDescription)
-                }
-            }
-        }
-    }
-    
-    private func accepttStudy(user: FromQueueDB) {
+extension RequestReceivedViewModel {
+    func acceptStudy(user: FromQueueDB) {
         APIManager.shared.sesac(endpoint: .studyaccept(otheruid: user.uid)) { [weak self] response in
             switch response {
             case .success(_):
@@ -75,11 +49,8 @@ extension NearbyViewModel {
                     self?.showToastRelay.accept("앗! 누군가가 나의 스터디를 수락하였어요!")
                 case .firebaseTokenError:
                     FirebaseAuth.shared.getIDToken { error in
-                        if error == nil {
-                            self?.accepttStudy(user: user)
-                        } else {
-                            self?.showToastRelay.accept(statusCode.errorDescription)
-                        }
+                        guard error == nil else { return }
+                        self?.acceptStudy(user: user)
                     }
                 default:
                     self?.showToastRelay.accept(statusCode.errorDescription)

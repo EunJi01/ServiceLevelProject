@@ -23,7 +23,9 @@ final class APIManager {
                     completion(.success(data))
                     print("APIManager - 성공!")
                     
-                case .failure(_):
+                case .failure(let error):
+                    print("========")
+                    print(error)
                     guard let statusCode = response.response?.statusCode else { return }
                     guard let error = APIStatusCode(rawValue: statusCode) else { return }
                     

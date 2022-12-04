@@ -68,11 +68,8 @@ extension SearchResultViewModel {
                 switch statusCode {
                 case .firebaseTokenError:
                     FirebaseAuth.shared.getIDToken { error in
-                        if error == nil {
-                            self?.searchSesac(center: center)
-                        } else {
-                            self?.showToastRelay.accept(statusCode.errorDescription)
-                        }
+                        guard error == nil else { return }
+                        self?.searchSesac(center: center)
                     }
                 default:
                     self?.showToastRelay.accept(statusCode.errorDescription)
@@ -95,11 +92,8 @@ extension SearchResultViewModel {
                     }
                 case .firebaseTokenError:
                     FirebaseAuth.shared.getIDToken { error in
-                        if error == nil {
-                            self?.cancelMatching()
-                        } else {
-                            self?.showToastRelay.accept(statusCode.errorDescription)
-                        }
+                        guard error == nil else { return }
+                        self?.cancelMatching()
                     }
                 default:
                     self?.showToastRelay.accept(statusCode.errorDescription)

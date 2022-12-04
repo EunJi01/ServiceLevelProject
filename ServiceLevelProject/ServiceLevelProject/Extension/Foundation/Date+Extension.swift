@@ -24,7 +24,7 @@ extension Date {
         return (year, month, day)
     }
     
-    var dateFormat: String {
+    var chatDate: String {
         let date: Date = self
         let formatter = Date.dateformatter
         
@@ -34,6 +34,15 @@ extension Date {
             formatter.dateFormat = "MM/dd a hh:mm"
         }
         
+        return formatter.string(from: date)
+    }
+    
+    var toString: String {
+        let date: Date = self
+        let formatter = Date.dateformatter
+
+        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.sssZ"
+
         return formatter.string(from: date)
     }
 }

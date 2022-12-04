@@ -8,17 +8,18 @@
 import Foundation
 import RxSwift
 import RxCocoa
+import RealmSwift
 
 final class ChattingViewModel {
     let disposeBag = DisposeBag()
+    private let repository = ChatDBRepository()
     
     var otherUserUID: String?
     var lastChatDate = ""
-    var chatList: [Chat] = []
+    var tasks: [Chat] = []
     
     struct Input {
         let sendButton: Signal<String>
-        //let returnKey: Signal<String>
         let chatTextView: Signal<String>
         let backButton: Signal<Void>
     }
@@ -81,7 +82,7 @@ extension ChattingViewModel {
                 if state.matched == 1 {
                     self?.otherUserUID = state.matchedUid
                     self?.changeTitleRelay.accept(state.matchedNick)
-                    self?.fetchChat()
+                    self?.fetchDB()
                 } else {
                     self?.showToastRelay.accept("현재 매칭된 새싹이 없습니다")
                 }
@@ -90,11 +91,8 @@ extension ChattingViewModel {
                 switch statusCode {
                 case .firebaseTokenError:
                     FirebaseAuth.shared.getIDToken { error in
-                        if error == nil {
-                            self?.myState()
-                        } else {
-                            self?.showToastRelay.accept(statusCode.errorDescription)
-                        }
+                        guard error == nil else { return }
+                        self?.myState()
                     }
                 default:
                     self?.showToastRelay.accept(statusCode.errorDescription)
@@ -103,24 +101,34 @@ extension ChattingViewModel {
         }
     }
     
+    private func fetchDB() {
+        guard let uid = otherUserUID else { return }
+        print("Realm is located at:", repository.localRealm.configuration.fileURL!)
+        
+        tasks = repository.fetch(uid: uid)
+        reloadDataRelay.accept(())
+        lastChatDate = tasks.last?.createdAt ?? ""
+        fetchChat()
+    }
+    
     private func fetchChat() {
         guard let uid = otherUserUID else { return }
+        print("===\(lastChatDate) 이후 서버 요청")
 
         APIManager.shared.sesac(type: ChatList.self, endpoint: .fetchChat(from: uid, lastChatDate: lastChatDate)) { [weak self] response in
             switch response {
             case .success(let chatList):
-                self?.chatList = chatList.payload
-                self?.reloadDataRelay.accept(())
                 SocketIOManager.shared.establishConnection()
+                self?.tasks.append(contentsOf: chatList.payload)
+                self?.repository.addChat(chatList: chatList.payload)
+
+                self?.reloadDataRelay.accept(())
             case .failure(let statusCode):
                 switch statusCode {
                 case .firebaseTokenError:
                     FirebaseAuth.shared.getIDToken { error in
-                        if error == nil {
-                            self?.fetchChat()
-                        } else {
-                            self?.showToastRelay.accept(statusCode.errorDescription)
-                        }
+                        guard error == nil else { return }
+                        self?.fetchChat()
                     }
                 default:
                     self?.showToastRelay.accept(statusCode.errorDescription)
@@ -135,8 +143,9 @@ extension ChattingViewModel {
         APIManager.shared.sesac(endpoint: .postChat(to: uid, chat: chat)) { [weak self] response in
             switch response {
             case .success(_):
-                let myChat = Chat(to: uid, from: UserDefaults.uid, chat: chat, createdAt: Date().dateFormat)
-                self?.chatList.append(myChat)
+                let myChat = Chat(to: uid, from: UserDefaults.uid, chat: chat, createdAt: Date().toString)
+                self?.tasks.append(myChat)
+                self?.repository.addChat(chatList: [myChat])
                 self?.reloadDataRelay.accept(())
                 self?.clearTextViewRelay.accept(())
             case .failure(let statusCode):
@@ -145,11 +154,8 @@ extension ChattingViewModel {
                     self?.showToastRelay.accept("스터디가 종료되어 채팅을 전송할 수 없습니다")
                 case .firebaseTokenError:
                     FirebaseAuth.shared.getIDToken { error in
-                        if error == nil {
-                            self?.fetchChat()
-                        } else {
-                            self?.showToastRelay.accept(statusCode.errorDescription)
-                        }
+                        guard error == nil else { return }
+                        self?.postChat(chat: chat)
                     }
                 default:
                     self?.showToastRelay.accept(statusCode.errorDescription)
@@ -166,7 +172,8 @@ extension ChattingViewModel {
 
         let value = Chat(to: to, from: from, chat: chat, createdAt: createdAt)
 
-        chatList.append(value)
+        tasks.append(value)
+        repository.addChat(chatList: [value])
         reloadDataRelay.accept(())
     }
     

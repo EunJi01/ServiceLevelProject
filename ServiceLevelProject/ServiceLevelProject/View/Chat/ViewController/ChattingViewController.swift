@@ -61,7 +61,7 @@ final class ChattingViewController: UIViewController, CustomView {
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        SocketIOManager.shared.closeConnection()
+        SocketIOManager.shared.closeConnection() // MARK: ㅠㅠ이거 호출돼도 SOCKET IS CONNECTED 로그가 자꾸 뜸
     }
     
     private func bind() {
@@ -69,9 +69,6 @@ final class ChattingViewController: UIViewController, CustomView {
             sendButton: sendButton.rx.tap
                 .withLatestFrom(chatTextView.rx.text.orEmpty)
                 .asSignal(onErrorJustReturn: ""),
-//            returnKey: chatTextView.rx.didEndEditing
-//                .withUnretained(chatTextView.rx.text.orEmpty)
-//                .asSignal(onErrorJustReturn: ""),
             chatTextView: chatTextView.rx.text.orEmpty.asSignal(onErrorJustReturn: ""),
             backButton: backButton.rx.tap.asSignal()
         )
@@ -111,7 +108,7 @@ final class ChattingViewController: UIViewController, CustomView {
             .withUnretained(self)
             .emit { vc, _ in
                 vc.tableView.reloadData()
-                vc.tableView.scrollToRow(at: IndexPath(row: vc.vm.chatList.count - 1, section: 0), at: .bottom, animated: false)
+                vc.tableView.scrollToRow(at: IndexPath(row: vc.vm.tasks.count - 1, section: 0), at: .bottom, animated: false)
             }
             .disposed(by: disposeBag)
         
@@ -161,13 +158,13 @@ final class ChattingViewController: UIViewController, CustomView {
 
 extension ChattingViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let data = vm.chatList[indexPath.row]
+        let data = vm.tasks[indexPath.row]
         
         if data.from == UserDefaults.uid {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: MyChatTableViewCell.reuseIdentifier) as? MyChatTableViewCell else { return UITableViewCell() }
             
             cell.myChatViewLabel.text = data.chat
-            cell.myChatTimeLabel.text = data.createdAt.toDate.dateFormat
+            cell.myChatTimeLabel.text = data.createdAt.toDate.chatDate
             
             return cell
             
@@ -175,7 +172,7 @@ extension ChattingViewController: UITableViewDataSource, UITableViewDelegate {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: OtherUserChatTableViewCell.reuseIdentifier) as? OtherUserChatTableViewCell else { return UITableViewCell() }
             
             cell.otherUserChatLabel.text = data.chat
-            cell.otherUserChatTimeLabel.text = data.createdAt.toDate.dateFormat
+            cell.otherUserChatTimeLabel.text = data.createdAt.toDate.chatDate
             
             return cell
         }
@@ -183,7 +180,7 @@ extension ChattingViewController: UITableViewDataSource, UITableViewDelegate {
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return vm.chatList.count
+        return vm.tasks.count
     }
 }
 
@@ -192,7 +189,6 @@ extension ChattingViewController: UITextViewDelegate {
         let size = CGSize(width: view.frame.width, height: .infinity)
         let estimatedSize = textView.sizeThatFits(size)
 
-        guard estimatedSize.height > 33 else { return }
         guard estimatedSize.height < 73 else { return }
         
         // MARK: 텍스트필드는 잘 늘어나고 줄어드는데, 변경된 높이에 따라 테이블뷰가 올라가진 않음ㅜㅜ

@@ -80,6 +80,13 @@ final class StudySearchViewController: UIViewController, CustomView {
                 vc.transition(nextVC, transitionStyle: .push)
             }
             .disposed(by: disposeBag)
+        
+        output.endEditting
+            .withUnretained(self)
+            .emit { vc, _ in
+                vc.view.endEditing(true)
+            }
+            .disposed(by: disposeBag)
     }
     
     private func setConfigure() {
