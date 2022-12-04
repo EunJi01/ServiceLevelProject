@@ -210,7 +210,7 @@ extension HomeViewController: MKMapViewDelegate {
 |  | Chatting | 채팅 DB에 저장 | 4h | 빈값삽질 |  |
 |  |  |  |  |  |  |
 | **4주차** |  |  |  |  | **~2022.12.04** |
-|  |  |  |  |  |  |
+|  | Chatting | 키보드 높이 대응 | 1h |  |  |
 |  |  |  |  |  |  |
 | **5주차** |  |  |  |  | **~2022.12.06** |
 |  |  |  |  |  |  |
@@ -325,3 +325,6 @@ extension HomeViewController: MKMapViewDelegate {
 - 불러올 채팅이 없을 경우, 즉 서버에서 받을 값이 없는 경우에 500번 에러(ServerError)가 발생하는 문제가 있어서 고생했다.
 - 해당 문제는 init(from decoder: Decoder) 를 호출해 값이 없을 경우 빈 배열을 기본값으로 넣어주는 형태로 처리했다.
 - 이미 확인한 채팅 내역은 DB에 저장하고, 저장된 채팅중 가장 마지막 채팅의 시간(Date)을 Query에 넣어 그 이후의 채팅만 받아올 수 있도록 개선했다.
+
+#### 12/05 - 12/08
+- 메세지를 입력할 때 키보드가 올라면 textView와 button을 가리기 때문에, 키보드 높이에 따라 view의 y값을 조절하는 코드를 UIViewController에 Extension해 사용할 수 있도록 개선했다. (NotificationCenter 활용)

@@ -84,7 +84,7 @@ final class StudySearchViewController: UIViewController, CustomView {
         output.endEditting
             .withUnretained(self)
             .emit { vc, _ in
-                vc.view.endEditing(true)
+                vc.searchBar.endEditing(true)
             }
             .disposed(by: disposeBag)
     }

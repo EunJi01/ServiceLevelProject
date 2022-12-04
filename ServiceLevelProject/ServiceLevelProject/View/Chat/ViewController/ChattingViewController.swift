@@ -56,6 +56,9 @@ final class ChattingViewController: UIViewController, CustomView {
         setConstraints()
         
         vm.myState()
+        setKeyboardObserver()
+        
+        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(gestureTapped(tapGestureRecognizer:))))
         NotificationCenter.default.addObserver(self, selector: #selector(getMessage(notification:)), name: NSNotification.Name("getMessage"), object: nil)
     }
     
@@ -120,8 +123,13 @@ final class ChattingViewController: UIViewController, CustomView {
             .disposed(by: disposeBag)
     }
     
-    @objc func getMessage(notification: NSNotification) {
+    @objc private func getMessage(notification: NSNotification) {
         vm.getMessage(notification: notification)
+    }
+    
+    @objc private func gestureTapped(tapGestureRecognizer: UITapGestureRecognizer) {
+        view.endEditing(true)
+        // MARK: 묘하게 테이블뷰가 덜 내려오는 문제 있음
     }
     
     private func setConfigure() {
