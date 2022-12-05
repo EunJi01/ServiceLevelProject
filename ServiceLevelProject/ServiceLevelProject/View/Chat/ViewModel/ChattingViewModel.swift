@@ -12,6 +12,7 @@ import RealmSwift
 
 final class ChattingViewModel {
     let disposeBag = DisposeBag()
+    let socketIOManager = SocketIOManager()
     private let repository = ChatDBRepository()
     
     var otherUserUID: String?
@@ -22,6 +23,7 @@ final class ChattingViewModel {
         let sendButton: Signal<String>
         let chatTextView: Signal<String>
         let backButton: Signal<Void>
+        let cancelStudyButton: Signal<Void>
     }
     
     struct Output {
@@ -31,6 +33,7 @@ final class ChattingViewModel {
         let popVC: Signal<Void>
         let reloadData: Signal<Void>
         let clearTextView: Signal<Void>
+        let showAlert: Signal<String>
     }
     
     private let highlightRelay = PublishRelay<Bool>()
@@ -39,6 +42,7 @@ final class ChattingViewModel {
     private let popVCRelay = PublishRelay<Void>()
     private let reloadDataRelay = PublishRelay<Void>()
     private let clearTextViewRelay = PublishRelay<Void>()
+    private let showAlertRelay = PublishRelay<String>()
     
     func transform(input: Input) -> Output {
         input.chatTextView
@@ -62,13 +66,21 @@ final class ChattingViewModel {
             }
             .disposed(by: disposeBag)
         
+        input.cancelStudyButton
+            .withUnretained(self)
+            .emit { vm, _ in
+                vm.stateMessage()
+            }
+            .disposed(by: disposeBag)
+        
         return Output(
             highlight: highlightRelay.asSignal(),
             showToast: showToastRelay.asSignal(),
             changeTitle: changeTitleRelay.asSignal(),
             popVC: popVCRelay.asSignal(),
             reloadData: reloadDataRelay.asSignal(),
-            clearTextView: clearTextViewRelay.asSignal()
+            clearTextView: clearTextViewRelay.asSignal(),
+            showAlert: showAlertRelay.asSignal()
             )
     }
 }
@@ -118,10 +130,11 @@ extension ChattingViewModel {
         APIManager.shared.sesac(type: ChatList.self, endpoint: .fetchChat(from: uid, lastChatDate: lastChatDate)) { [weak self] response in
             switch response {
             case .success(let chatList):
-                SocketIOManager.shared.establishConnection()
+                self?.socketIOManager.establishConnection()
+                //let a = chatList.payload.map { $0.createdAt.toDate.toString }
+                // MARK: 날짜 대응하기ㅜㅜ!!!! 서버에서 UTC로 온다
                 self?.tasks.append(contentsOf: chatList.payload)
                 self?.repository.addChat(chatList: chatList.payload)
-
                 self?.reloadDataRelay.accept(())
             case .failure(let statusCode):
                 switch statusCode {
@@ -164,6 +177,56 @@ extension ChattingViewModel {
         }
     }
     
+    func cancelStudy() {
+        guard let uid = otherUserUID else { return }
+        
+        APIManager.shared.sesac(endpoint: .dodge(otheruid: uid)) { [weak self] response in
+            switch response {
+            case .success(_):
+                self?.popVCRelay.accept(())
+            case .failure(let statusCode):
+                switch statusCode {
+                case .error201:
+                    self?.showToastRelay.accept("잘못된 요청입니다")
+                case .firebaseTokenError:
+                    FirebaseAuth.shared.getIDToken { error in
+                        guard error == nil else { return }
+                        self?.cancelStudy()
+                    }
+                default:
+                    self?.showToastRelay.accept(statusCode.errorDescription)
+                }
+            }
+        }
+    }
+
+    private func stateMessage() {
+        APIManager.shared.sesac(type: State.self, endpoint: .myQueueState) { [weak self] response in
+            switch response {
+                
+            case .success(let state):
+                if state.matched == 1 {
+                    self?.showAlertRelay.accept("스터디를 취소하시면 패널티가 부과됩니다")
+                } else {
+                    self?.showAlertRelay.accept("matched == 0 상대방이 스터디를 취소했기 떄문에 패널티가 부과되지 않습니다")
+                }
+                
+            case .failure(let statusCode):
+                switch statusCode {
+                case .success:
+                    self?.showAlertRelay.accept("SUCCESS - 상대방이 스터디를 취소했기 떄문에 패널티가 부과되지 않습니다")
+                case .firebaseTokenError:
+                    FirebaseAuth.shared.getIDToken { error in
+                        guard error == nil else { return }
+                        self?.myState()
+                    }
+                default:
+                    self?.showToastRelay.accept(statusCode.errorDescription)
+                }
+            }
+        }
+    }
+    
     func getMessage(notification: NSNotification) {
         let to = notification.userInfo!["to"] as! String
         let from = notification.userInfo!["from"] as! String
@@ -171,7 +234,7 @@ extension ChattingViewModel {
         let createdAt = notification.userInfo!["createdAt"] as! String
 
         let value = Chat(to: to, from: from, chat: chat, createdAt: createdAt)
-
+        
         tasks.append(value)
         repository.addChat(chatList: [value])
         reloadDataRelay.accept(())

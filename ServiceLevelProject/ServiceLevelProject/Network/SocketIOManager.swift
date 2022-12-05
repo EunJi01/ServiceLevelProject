@@ -10,12 +10,10 @@ import SocketIO
 import Alamofire
 
 class SocketIOManager {
-    static let shared = SocketIOManager()
-
     var manager: SocketManager!
     var socket: SocketIOClient!
 
-    private init() {
+    init() {
         manager = SocketManager(socketURL: URL(string: Endpoint.baseURL)!, config: [.forceWebsockets(true)])
         socket = manager.defaultSocket
 

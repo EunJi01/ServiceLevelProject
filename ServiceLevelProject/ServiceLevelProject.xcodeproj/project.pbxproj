@@ -92,6 +92,7 @@
 		B6A0BA99293BB5BB00775CAF /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = B6A0BA98293BB5BB00775CAF /* RealmSwift */; };
 		B6A0BA9C293BBA8000775CAF /* ChatDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6A0BA9B293BBA8000775CAF /* ChatDB.swift */; };
 		B6A0BAA2293BC2E700775CAF /* ChatDBRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6A0BAA1293BC2E700775CAF /* ChatDBRepository.swift */; };
+		B6A0BAA4293D821400775CAF /* UIWindow+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6A0BAA3293D821400775CAF /* UIWindow+Extension.swift */; };
 		B6B7DE4929339E7D007B2D29 /* SearchTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6B7DE4829339E7D007B2D29 /* SearchTabViewController.swift */; };
 		B6B7DE4B2933A319007B2D29 /* NearbyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6B7DE4A2933A319007B2D29 /* NearbyViewController.swift */; };
 		B6B7DE4D2933A32E007B2D29 /* RequestReceivedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6B7DE4C2933A32E007B2D29 /* RequestReceivedViewController.swift */; };
@@ -179,6 +180,7 @@
 		B6A0BA93293AA3B600775CAF /* ShopViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopViewController.swift; sourceTree = "<group>"; };
 		B6A0BA9B293BBA8000775CAF /* ChatDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatDB.swift; sourceTree = "<group>"; };
 		B6A0BAA1293BC2E700775CAF /* ChatDBRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatDBRepository.swift; sourceTree = "<group>"; };
+		B6A0BAA3293D821400775CAF /* UIWindow+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIWindow+Extension.swift"; sourceTree = "<group>"; };
 		B6B7DE4829339E7D007B2D29 /* SearchTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTabViewController.swift; sourceTree = "<group>"; };
 		B6B7DE4A2933A319007B2D29 /* NearbyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearbyViewController.swift; sourceTree = "<group>"; };
 		B6B7DE4C2933A32E007B2D29 /* RequestReceivedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestReceivedViewController.swift; sourceTree = "<group>"; };
@@ -517,6 +519,7 @@
 				B620CD0729193540002CE764 /* UIImage+Extension.swift */,
 				B620CD0D2919532E002CE764 /* UILabel+Extension.swift */,
 				B620CD112919572E002CE764 /* UIColor+Extension.swift */,
+				B6A0BAA3293D821400775CAF /* UIWindow+Extension.swift */,
 				B69B88142920FBE2002ECA23 /* UIViewController+Extension.swift */,
 				B69B88122920F76B002ECA23 /* UINavigationController+Extension.swift */,
 			);
@@ -755,6 +758,7 @@
 				B620CCFC29192559002CE764 /* OnboardingPageViewController.swift in Sources */,
 				B62A8A822926C72F00D84D79 /* StudySearchViewController.swift in Sources */,
 				B6B7DE782935070B007B2D29 /* RequestReceivedViewModel.swift in Sources */,
+				B6A0BAA4293D821400775CAF /* UIWindow+Extension.swift in Sources */,
 				B67BDE03292102700080EE89 /* NetworkCheck.swift in Sources */,
 				B67BDE2D29224BB30080EE89 /* MypageNicknameTableViewCell.swift in Sources */,
 				B691FD75291BE24500FC47F4 /* EmailViewController.swift in Sources */,

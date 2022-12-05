@@ -10,14 +10,14 @@ import RxSwift
 import RxCocoa
 import CoreLocation
 
-enum StudySearchToast: String {
-    case studyCount = "최소 한글자 이상, 최대 8글자까지 작성 가능합니다."
-    case studyListCount = "스터디를 더 이상 추가할 수 없습니다."
-    case alreadyAdded = "이미 등록된 스터디입니다."
-    case unknownError = "알 수 없는 오류가 발생했습니다."
-}
-
 final class StudySearchViewModel {
+    enum StudySearchToast: String {
+        case studyCount = "최소 한글자 이상, 최대 8글자까지 작성 가능합니다."
+        case studyListCount = "스터디를 더 이상 추가할 수 없습니다."
+        case alreadyAdded = "이미 등록된 스터디입니다."
+        case unknownError = "알 수 없는 오류가 발생했습니다."
+    }
+    
     let disposeBag = DisposeBag()
     
     var center: CLLocationCoordinate2D?
@@ -104,6 +104,14 @@ extension StudySearchViewModel {
                 self?.pushNextVCRelay.accept(())
             case .failure(let statusCode):
                 switch statusCode {
+                case .error201:
+                    self?.showToastRelay.accept("신고가 누적되어 이용하실 수 없습니다")
+                case .error203:
+                    self?.showToastRelay.accept("스터디 취소 패널티로, 1분동안 이용하실 수 없습니다")
+                case .error204:
+                    self?.showToastRelay.accept("스터디 취소 패널티로, 2분동안 이용하실 수 없습니다")
+                case .error205:
+                    self?.showToastRelay.accept("스터디 취소 패널티로, 3분동안 이용하실 수 없습니다")
                 case .firebaseTokenError:
                     FirebaseAuth.shared.getIDToken { error in
                         guard error == nil else { return }

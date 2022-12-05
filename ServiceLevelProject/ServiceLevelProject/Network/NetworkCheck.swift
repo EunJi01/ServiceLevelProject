@@ -5,7 +5,7 @@
 //  Created by 황은지 on 2022/11/13.
 //
 
-import Foundation
+import UIKit
 import Network
 
 final class NetworkCheck {
@@ -40,6 +40,10 @@ final class NetworkCheck {
                 print("연결됨!")
             } else {
                 print("연결안됨!")
+                DispatchQueue.main.async {
+                    guard let vc = UIApplication.shared.connectedScenes.compactMap({ ($0 as? UIWindowScene)?.keyWindow?.visibleViewController }).first else { return }
+                    vc.showAlert(title: "네트워크 연결이 원할하지 않습니다.", message: "연결상태 확인 후 다시 시도해주세요!") { _ in }
+                }
             }
         }
     }

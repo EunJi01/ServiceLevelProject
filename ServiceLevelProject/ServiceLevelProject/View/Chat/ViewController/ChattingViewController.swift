@@ -42,6 +42,7 @@ final class ChattingViewController: UIViewController, CustomView {
     }()
     
     private let backButton = UIBarButtonItem(image: IconSet.backButton, style: .done, target: nil, action: nil)
+    private let cancelStudyButton = UIBarButtonItem(image: IconSet.cancelStudy, style: .plain, target: nil, action: nil)
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,17 +55,19 @@ final class ChattingViewController: UIViewController, CustomView {
         bind()
         setConfigure()
         setConstraints()
-        
-        vm.myState()
         setKeyboardObserver()
+
+        vm.myState()
         
+        navigationItem.leftBarButtonItem = backButton
+        navigationItem.rightBarButtonItem = cancelStudyButton
         view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(gestureTapped(tapGestureRecognizer:))))
         NotificationCenter.default.addObserver(self, selector: #selector(getMessage(notification:)), name: NSNotification.Name("getMessage"), object: nil)
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        SocketIOManager.shared.closeConnection() // MARK: ㅠㅠ이거 호출돼도 SOCKET IS CONNECTED 로그가 자꾸 뜸
+        vm.socketIOManager.closeConnection() // MARK: ㅠㅠ이거 호출돼도 SOCKET IS CONNECTED 로그가 자꾸 뜸
     }
     
     private func bind() {
@@ -73,7 +76,8 @@ final class ChattingViewController: UIViewController, CustomView {
                 .withLatestFrom(chatTextView.rx.text.orEmpty)
                 .asSignal(onErrorJustReturn: ""),
             chatTextView: chatTextView.rx.text.orEmpty.asSignal(onErrorJustReturn: ""),
-            backButton: backButton.rx.tap.asSignal()
+            backButton: backButton.rx.tap.asSignal(),
+            cancelStudyButton: cancelStudyButton.rx.tap.asSignal()
         )
         
         let output = vm.transform(input: input)
@@ -119,6 +123,15 @@ final class ChattingViewController: UIViewController, CustomView {
             .withUnretained(self)
             .emit { vc, _ in
                 vc.chatTextView.text = ""
+            }
+            .disposed(by: disposeBag)
+        
+        output.showAlert
+            .withUnretained(self)
+            .emit { vc, message in
+                vc.showAlert(title: "스터디를 취소하시겠습니까?", message: message) { _ in
+                    vc.vm.cancelStudy()
+                }
             }
             .disposed(by: disposeBag)
     }

@@ -53,7 +53,6 @@ extension UIViewController {
         if NetworkCheck.shared.isConnected {
             completion(true)
         } else {
-            showAlert(title: "네트워크 연결이 원할하지 않습니다.", message: "연결상태 확인 후 다시 시도해주세요!") { _ in }
             completion(false)
         }
     }

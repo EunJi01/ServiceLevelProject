@@ -36,6 +36,8 @@ extension String {
         let dateStr: String = self
         let formatter = Date.dateformatter
 
+        formatter.timeZone = NSTimeZone(name: "ko-KR") as TimeZone?
+        //formatter.timeZone = NSTimeZone(name: "UTC") as TimeZone?
         formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.sssZ"
         guard let date = formatter.date(from: dateStr) else { return Date() }
         

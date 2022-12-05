@@ -24,8 +24,6 @@ class LaunchViewController: UIViewController {
         super.viewWillAppear(animated)
         
         networkCheck { [weak self] isConnected in
-            // MARK: 분명 전에는 됐는데ㅠㅠㅠ 네트워크 연결 실패했을 때 얼럿이 안뜬다...
-            guard isConnected == true else { return }
             self?.viewTransition()
         }
     }

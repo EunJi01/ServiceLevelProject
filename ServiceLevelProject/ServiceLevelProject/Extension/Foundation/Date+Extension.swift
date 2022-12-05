@@ -41,6 +41,8 @@ extension Date {
         let date: Date = self
         let formatter = Date.dateformatter
 
+        formatter.timeZone = NSTimeZone(name: "ko-KR") as TimeZone?
+        //formatter.timeZone = NSTimeZone(name: "UTC") as TimeZone?
         formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.sssZ"
 
         return formatter.string(from: date)

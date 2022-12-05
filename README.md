@@ -203,17 +203,18 @@ extension HomeViewController: MKMapViewDelegate {
 |  | SearchResult | 요청하기/수락하기 버튼 | 3h |  |  |
 |  | SearchResult | nodataView | 1h |  |  |
 |  | SearchResult | 에러 핸들링 | 2h |  |  |
+|  |  |  |  |  |  |
+| **4주차** |  |  |  |  | **~2022.12.04** |
 |  | Chatting | Layout | 3h |  |  |
 |  | SearchResult | API 로직 개선/보완 | 2h |  |  |
 |  | Shop | Layout | 3h |  |  |
 |  | Chatting | Socket 통신 | 4h |  |  |
 |  | Chatting | 채팅 DB에 저장 | 4h | 빈값삽질 |  |
 |  |  |  |  |  |  |
-| **4주차** |  |  |  |  | **~2022.12.04** |
-|  | Chatting | 키보드 높이 대응 | 1h |  |  |
-|  |  |  |  |  |  |
 | **5주차** |  |  |  |  | **~2022.12.06** |
-|  |  |  |  |  |  |
+|  | Chatting | 키보드 높이 대응 | 1h |  |  |
+|  | NetwordCheck | 연결상태 감지+얼럿 | 2h |  |  |
+|  | Chatting | Layout 개선(말풍선) | 1h |  |  |
 |  |  |  |  |  |  |
 -------------
 #### 11/07
@@ -328,3 +329,5 @@ extension HomeViewController: MKMapViewDelegate {
 
 #### 12/05 - 12/08
 - 메세지를 입력할 때 키보드가 올라면 textView와 button을 가리기 때문에, 키보드 높이에 따라 view의 y값을 조절하는 코드를 UIViewController에 Extension해 사용할 수 있도록 개선했다. (NotificationCenter 활용)
+- 네트워크 상태를 실시간으로 감지하고, 연결이 해제된 상태일 때 얼럿을 띄워주도록 개선했다.
+- 채팅 글자 길이에 맞게 말풍선 사이즈가 유동적으로 바뀌도록 오토레이아웃을 개선했다.

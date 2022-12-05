@@ -12,7 +12,7 @@ final class OtherUserChatTableViewCell: UITableViewCell, CustomView {
     private let otherUserChatView: UIView = {
         let view = UIView()
         view.backgroundColor = .clear
-        view.layer.borderColor = UIColor.setColor(.gray6).cgColor
+        view.layer.borderColor = UIColor.setColor(.gray4).cgColor
         view.layer.borderWidth = 1
         view.layer.cornerRadius = 10
         return view
@@ -35,18 +35,18 @@ final class OtherUserChatTableViewCell: UITableViewCell, CustomView {
     
     private func setConfigure() {
         otherUserChatTimeLabel.textColor = .setColor(.gray6)
-        otherUserChatView.addSubview(otherUserChatLabel)
-        
-        [otherUserChatView, otherUserChatTimeLabel].forEach {
+
+        [otherUserChatView, otherUserChatTimeLabel, otherUserChatLabel].forEach {
             addSubview($0)
         }
     }
     
     private func setConstraints() {
         otherUserChatView.snp.makeConstraints { make in
+            make.verticalEdges.equalTo(otherUserChatLabel.snp.verticalEdges).inset(-10)
+            make.horizontalEdges.equalTo(otherUserChatLabel.snp.horizontalEdges).inset(-16)
             make.leading.equalToSuperview().inset(16)
-            make.trailing.equalToSuperview().inset(120)
-            make.verticalEdges.equalToSuperview().inset(16)
+            make.trailing.lessThanOrEqualToSuperview().inset(120)
         }
         
         otherUserChatTimeLabel.snp.makeConstraints { make in
@@ -55,8 +55,7 @@ final class OtherUserChatTableViewCell: UITableViewCell, CustomView {
         }
         
         otherUserChatLabel.snp.makeConstraints { make in
-            make.verticalEdges.equalToSuperview().inset(10)
-            make.horizontalEdges.equalToSuperview().inset(16)
+            make.verticalEdges.equalToSuperview().inset(22)
         }
     }
 }

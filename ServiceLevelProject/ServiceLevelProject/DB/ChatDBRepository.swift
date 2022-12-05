@@ -30,7 +30,7 @@ class ChatDBRepository: ChatDBRepositoryType {
     
     func addChat(chatList: [Chat]) {
         chatList.forEach {
-            let chat = ChatDB(to: $0.to, from: $0.from, chat: $0.chat, createdAt: $0.createdAt)
+            let chat = ChatDB(to: $0.to, from: $0.from, chat: $0.chat, createdAt: $0.createdAt.toDate.toString)
             
             do {
                 try localRealm.write {

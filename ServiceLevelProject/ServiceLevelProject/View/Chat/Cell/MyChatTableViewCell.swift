@@ -33,18 +33,18 @@ final class MyChatTableViewCell: UITableViewCell, CustomView {
     
     private func setConfigure() {
         myChatTimeLabel.textColor = .setColor(.gray6)
-        myChatView.addSubview(myChatViewLabel)
-        
-        [myChatView, myChatTimeLabel].forEach {
+
+        [myChatView, myChatTimeLabel, myChatViewLabel].forEach {
             addSubview($0)
         }
     }
     
     private func setConstraints() {
         myChatView.snp.makeConstraints { make in
-            make.leading.equalToSuperview().inset(120)
+            make.verticalEdges.equalTo(myChatViewLabel.snp.verticalEdges).inset(-10)
+            make.horizontalEdges.equalTo(myChatViewLabel.snp.horizontalEdges).inset(-16)
+            make.leading.greaterThanOrEqualToSuperview().inset(120)
             make.trailing.equalToSuperview().inset(16)
-            make.verticalEdges.equalToSuperview().inset(16)
         }
         
         myChatTimeLabel.snp.makeConstraints { make in
@@ -53,8 +53,7 @@ final class MyChatTableViewCell: UITableViewCell, CustomView {
         }
         
         myChatViewLabel.snp.makeConstraints { make in
-            make.verticalEdges.equalToSuperview().inset(10)
-            make.horizontalEdges.equalToSuperview().inset(16)
+            make.verticalEdges.equalToSuperview().inset(22)
         }
     }
 }
