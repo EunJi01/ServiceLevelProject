@@ -8,7 +8,8 @@
 - iPhone, Portrait 모드 지원
 - Code Base UI
 - MVVM, UIKit, AutoLayout
-- RxSwift, SnapKit, FirebaseAuth  
+- RxSwift, FirebaseAuth, SocketIO
+- SnapKit, Toast, Tabman, Realm
 
 ## 앱 소개
 #### 주요 기능
