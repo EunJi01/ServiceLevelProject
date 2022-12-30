@@ -12,6 +12,7 @@
 - SnapKit, Toast, Tabman, Realm
 
 ## 앱 소개
+![스크린샷 2022-12-30 오후 12 09 28](https://user-images.githubusercontent.com/92143918/210030520-52b570ad-a613-42c9-aabe-17009707a4d2.png)
 #### 주요 기능
 - Firebase 전화번호 인증/로그인
 - 회원 정보가 없는 경우 회원가입 진행
