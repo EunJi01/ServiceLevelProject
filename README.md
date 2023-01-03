@@ -22,6 +22,17 @@
 - 추천 스터디, 주변 유저들의 스터디를 참고하여 스터디 검색
 - DB/API/Socket 통신을 통한 채팅 기능
 
+#### LaunchScreen
+- 앱을 실행했을 때 NWPathMonitor를 통해 네트워크 상태를 체크
+- 연결되어 있을 경우에는 로그인을 시도, 연결되어 있지 않은 경우에는 얼럿을 띄움
+- 로그인 성공 시 HomeView로 이동하며, 실패 시 조건에 따라 NicknameView, LoginView, OnboardingView 로 이동
+
+#### Chatting
+- DB, 서버 API 통신, Socket 통신을 융합한 실시간 채팅 기능 구현
+- 화면이 로드될 때 DB에 저장된 데이터 중 상대방 ID에 해당하는 채팅 내역을 불러오기
+- 불러온 채팅 내역 중 가장 마지막 채팅의 Date를 기반으로 그 이후의 채팅을 서버에 요청
+- 서버로부터 응답을 받으면 DB에 저장하고, WebSocket 연결
+
 ## 코드블럭 모음
 - StudySearchView (셀 길이에 맞게 왼쪽 정렬)
 ```
