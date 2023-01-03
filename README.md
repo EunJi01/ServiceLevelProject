@@ -26,6 +26,8 @@
 - 앱을 실행했을 때 NWPathMonitor를 통해 네트워크 상태를 체크
 - 연결되어 있을 경우에는 로그인을 시도, 연결되어 있지 않은 경우에는 얼럿을 띄움
 - 로그인 성공 시 HomeView로 이동하며, 실패 시 조건에 따라 NicknameView, LoginView, OnboardingView 로 이동
+- 서버에 등록된 유저정보의 fcmToken과 현재 fcmToken이 다른 경우 현재 기기의 fcmToken으로 업데이트
+- LaunchScreen에서는 로직을 수행할 수 없기 때문에, 동일한 레이아웃의 View를 만들어 위의 로직을 수행
 
 #### Chatting
 - DB, 서버 API 통신, Socket 통신을 융합한 실시간 채팅 기능 구현
