@@ -6,8 +6,7 @@
 ## 개발
 - 최소 타겟 : iOS 15
 - iPhone, Portrait 모드 지원
-- Code Base UI
-- MVVM, UIKit, AutoLayout
+- MVVM, UIKit, AutoLayout, Code Base UI
 - RxSwift, FirebaseAuth, SocketIO
 - SnapKit, Toast, Tabman, Realm
 
@@ -29,11 +28,37 @@
 - 서버에 등록된 유저정보의 fcmToken과 현재 fcmToken이 다른 경우 현재 기기의 fcmToken으로 업데이트
 - LaunchScreen에서는 로직을 수행할 수 없기 때문에, 동일한 레이아웃의 View를 만들어 위의 로직을 수행
 
+#### Onboarding
+- pageViewController를 통한 3페이지의 Onboarding View 구현
+- Onboarding은 최초 실행 한 번만 보여줌
+
+#### Login
+- 전화번호 졍규식을 적용해, 입력받은 전화번호로 FirebaseAuth 인증번호 발송
+- 인증번호가 일치할 경우 회원가입 여부에 따라 화면전환
+- 인증번호가 불일치할 경우 Toast를 통해 사용자에게 알려주고, 재전송 유도
+
+#### Signup
+- 입력한 닉네임에 부적절한 단어가 포함되어 있을 경우, Alert을 띄운 후 닉네임 화면까지 pop하여 화면이동
+
+#### Home
+- MapView를 통해 현재 사용자의 위치와, 주변의 (반경 700m) 다른 사용자의 위치를 표시
+- 표시되는 새싹 아이콘은 서버에 저장된 유저 정보 기반
+- 우측 하단의 버튼은 사용자의 매칭 상태에 따라 스터디 검색, 요청/수락, 메세지 화면 총 3가지의 아이콘으로 표시되며 터치시 해당 화면으로 화면이동
+- 지도를 이동해도 화면 중앙에 위치한 핀은 움직이지 않으며, 언제나 화면 중앙 기준으로 주변 스터디를 검색
+- 좌측 상단의 gps 버튼 터치 시 현재 위치로 지도 재설정
+
+#### MyPage
+- 회원정보 화면에서 보여지는 배경과 새싹 이미지는 서버에 저장된 유저 정보 기반
+- 자주 하는 스터디, 성별 등 회원 정보 수정 가능
+- 하단의 버튼을 통해 회원 탈퇴 가능
+
 #### Chatting
+- 매칭을 수락한 상대와 채팅
 - DB, 서버 API 통신, Socket 통신을 융합한 실시간 채팅 기능 구현
 - 화면이 로드될 때 DB에 저장된 데이터 중 상대방 ID에 해당하는 채팅 내역을 불러오기
 - 불러온 채팅 내역 중 가장 마지막 채팅의 Date를 기반으로 그 이후의 채팅을 서버에 요청
 - 서버로부터 응답을 받으면 DB에 저장하고, WebSocket 연결
+- 우측 상단 버튼을 통해 채팅중인 유저와 매칭 해제 가능
 
 ## 코드블럭 모음
 - StudySearchView (셀 길이에 맞게 왼쪽 정렬)
