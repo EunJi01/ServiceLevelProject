@@ -60,136 +60,55 @@
 - 서버로부터 응답을 받으면 DB에 저장하고, WebSocket 연결
 - 우측 상단 버튼을 통해 채팅중인 유저와 매칭 해제 가능
 
-## 코드블럭 모음
-- StudySearchView (셀 길이에 맞게 왼쪽 정렬)
+## 회고
+- 내가 아닌 다른 사람이 기획하고 디자인한 앱을 이렇게 제대로 만들어 본 것은 처음이었기 때문에 생소하기도 하고 재밌기도 한, 뜻깊은 프로젝트였다.
+- 기간이 빠듯했기 때문에 제대로 계획을 세우지 않고 개발했다가는 나중에 큰일이 날 것 같아 일정을 열심히 쪼개서 최대한 계획적으로 임했다.
+- 초반에는 기획서를 꼼꼼하게 읽지 않고 시작했다가 불필요한 고민이나 사소한 부분에 시간을 낭비하기도 했지만, 경험으로 삼아 나중에는 기획서를 정말 꼼꼼하게 읽게 되었다.
+- 처음에는 정말 막막했던 기능이 많았는데... 어떻게든 하다보면 가닥이 잡히고, 결국 구현되는 것이 스스로도 뿌듯하면서 신기했던 것 같다.
+- 이렇게 삽질하며 얻은 교훈이 있다면, 너무 막히는 부분은 나중에 리펙토링 한다는 생각으로 가독성이나 코드의 질을 생각하지 않고 우선 구현하는 것도 방법이라는 것이다.
+- 개발에는 기간이 아주 중요하므로, 예쁜 코드를 짜는 것에 넘 얽매여있으면 가장 중요한 것을 놓칠 수 있기 떄문이다.
+- 그리고 의외로 시간이 지나고 보면 쉬운 문제인 경우도 많았고, 어느날 문득 좋은 아이디어가 떠오를 때도 많았다.
+- 하지만 개인적으로 체감상 일주일이 넘어가는 순간, 리펙토링 자체를 포기하게 될 가능성이 있으니 스스로 리미트를 정해두는 것이 중요할 것 같다.
+- 아쉬운 점은, 선택 사항이었던 기능들 중 시간상 구현하지 못한 것들, 특히 새싹스토어에 인앱결제 기능을 적용하지 못한 것이다.
+- 또 MapView를 사용하는 HomeViewController에서는 RxSwift를 적용하지 못하고, MVC 패턴으로 구현한 부분도 조금 아쉽다.
+- 개발일지 정리를 열심히 한다고 한 것 같은데, 다 끝나고 돌아보면 기억나지 않는 부분이나 기록하지 않는 부분도 있어서 다음부터는 더 상세하게 정리하는 게 좋을것 같다고 생각했다.
+
+## 주요 이슈
+#### StatusCode 200일 때 실패로 뜨는 문제
+- API 통신을 담당하는 class를 만들어 싱글톤 패턴으로 사용하며, 처음에는 method에 따라 post, put, get, delete 4개의 함수를 만들어 사용했다.
+- 하지만 사용하다보니 각 함수들이 재사용 되는 부분이 많고, 실제로 사용할 때에도 '이게 post였나? put이었나?' 등의 생각을 한번 더 해야 한다는 문제가 있다는 것을 인지했다.
+- 따라서 4개의 함수를 하나로 합치고, Endpoint enum을 extension 해 method와 parameters를 구조화시켜 간편하게 사용할 수 있도록 개선했다.
+- 하지만 이렇게 하니 statusCode가 200일 때에도 간혹 failure이 반환되는 문제가 생겼다.
+- decoding Model이 없을 경우 (get이 아닌 경우) String을 type으로 디코딩하도록 기본값으로 설정했는데, 이 과정에서 실패로 간주되는 것이 원인이었다.
+- 이를 해결하기 위해 case .failure 일 때, statusCode가 200이며 type이 String일 경우에는 completion으로 success를 반환하도록 분기처리를 해 해결했다.
 ```
-// 커스텀 클래스
-final class StudyListLayout: UICollectionViewFlowLayout {
-    override init() {
-        super.init()
-        self.sectionInset = UIEdgeInsets(top: 8, left: .zero, bottom: .zero, right: .zero)
-    }
+final class APIManager {
+    static let shared = APIManager()
+    private init() { }
     
-    required init?(coder: NSCoder) {
-        fatalError()
-    }
-    
-    let cellSpacing: CGFloat = 8
-    
-    override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
-        let attributes = super.layoutAttributesForElements(in: rect)
+    func sesac<T: Decodable>(type: T.Type = String.self, endpoint: Endpoint, completion: @escaping (Result<T, APIStatusCode>) -> Void) {
+        guard let url = endpoint.url else { return }
         
-        var leftMargin = sectionInset.left
-        var maxY: CGFloat = -1.0
-        
-        attributes?.forEach { layoutAttribute in
-            guard layoutAttribute.representedElementCategory == .cell else {return }
-            if layoutAttribute.frame.origin.y >= maxY {
-                leftMargin = sectionInset.left
+        AF.request(url, method: endpoint.method, parameters: endpoint.parameters, encoding: URLEncoding(arrayEncoding: .noBrackets), headers: endpoint.headers)
+            .responseDecodable(of: T.self) { response in
+                
+                switch response.result {
+                case .success(let data):
+                    completion(.success(data))
+                    
+                case .failure(let error):
+                    guard let statusCode = response.response?.statusCode else { return }
+                    guard let error = APIStatusCode(rawValue: statusCode) else { return }
+                    
+                    if statusCode == 200 && type == String.self {
+                        completion(.success("" as! T))
+                    } else {
+                        completion(.failure(error))
+                    }
+                }
             }
-            layoutAttribute.frame.origin.x = leftMargin
-            leftMargin += layoutAttribute.frame.width + minimumInteritemSpacing
-            maxY = max(layoutAttribute.frame.maxY , maxY)
-        }
-        return attributes
     }
 }
-
-// 사용 예시
-    private let collectionView: UICollectionView = {
-        let layout = StudyListLayout()
-        let view = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        view.register(StudySearchCollectionViewCell.self, forCellWithReuseIdentifier: StudySearchCollectionViewCell.reuseIdentifier)
-        if let flowLayout = view.collectionViewLayout as? UICollectionViewFlowLayout {
-            flowLayout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
-          }
-        view.register(StudySearchCollectionViewHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: StudySearchCollectionViewHeader.reuseIdentifier)
-        return view
-    }()
-```
-
-- CustomAnnotation
-```
-// 커스텀 클래스
-class CustomAnnotationView: MKAnnotationView {
-    static let identifier = "CustomAnnotationView"
-    
-    override init(annotation: MKAnnotation?, reuseIdentifier: String?){
-        super.init(annotation: annotation, reuseIdentifier: reuseIdentifier)
-        frame = CGRect(x: 0, y: 0, width: 40, height: 50)
-        centerOffset = CGPoint(x: 0, y: -frame.size.height / 2)
-        setupUI()
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    private func setupUI() {
-        backgroundColor = .clear
-    }
-}
-
-class CustomAnnotation: NSObject, MKAnnotation {
-  let sesac_image: Int?
-  let coordinate: CLLocationCoordinate2D
-
-  init(
-    sesac_image: Int?,
-    coordinate: CLLocationCoordinate2D
-  ) {
-    self.sesac_image = sesac_image
-    self.coordinate = coordinate
-
-    super.init()
-  }
-}
-
-// 사용예시
-extension HomeViewController: MKMapViewDelegate {
-    func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
-        locationManager.startUpdatingLocation()
-    }
-    
-    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-        guard let annotation = annotation as? CustomAnnotation else { return nil }
-
-        var annotationView = self.mapView.dequeueReusableAnnotationView(withIdentifier: CustomAnnotationView.identifier)
-        
-        if annotationView == nil {
-            annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: CustomAnnotationView.identifier)
-            annotationView?.canShowCallout = false
-            annotationView?.contentMode = .scaleAspectFit
-        } else {
-            annotationView?.annotation = annotation
-        }
-        
-        guard let sesacNumber = annotation.sesac_image else { return nil }
-        guard let sesacImage = SeSACFace(rawValue: sesacNumber)?.image else { return nil }
-        
-        let size = CGSize(width: 85, height: 85)
-        UIGraphicsBeginImageContext(size)
-        
-        sesacImage.draw(in: CGRect(x: 0, y: 0, width: size.width, height: size.height))
-        let resizedImage = UIGraphicsGetImageFromCurrentImageContext()
-        annotationView?.image = resizedImage
-        
-        return annotationView
-    }
-}
-```
-
-- UINavigationBar에 Custom SearchBar 넣기
-```
-    private let searchBar: UISearchBar = {
-        var width = UIScreen.main.bounds.size.width
-        let view = UISearchBar(frame: CGRect(x: 0, y: 0, width: width - 12, height: 0))
-        view.placeholder = "띄어쓰기로 복수 입력이 가능해요"
-        view.searchTextField.font = .systemFont(ofSize: 14)
-        return view
-    }()
-    
-    navigationItem.rightBarButtonItem = UIBarButtonItem(customView: searchBar)
 ```
 
 -------------
@@ -377,3 +296,137 @@ extension HomeViewController: MKMapViewDelegate {
 - 메세지를 입력할 때 키보드가 올라면 textView와 button을 가리기 때문에, 키보드 높이에 따라 view의 y값을 조절하는 코드를 UIViewController에 Extension해 사용할 수 있도록 개선했다. (NotificationCenter 활용)
 - 네트워크 상태를 실시간으로 감지하고, 연결이 해제된 상태일 때 얼럿을 띄워주도록 개선했다.
 - 채팅 글자 길이에 맞게 말풍선 사이즈가 유동적으로 바뀌도록 오토레이아웃을 개선했다.
+
+-------------
+
+## 코드블럭 모음
+- StudySearchView (셀 길이에 맞게 왼쪽 정렬)
+```
+// 커스텀 클래스
+final class StudyListLayout: UICollectionViewFlowLayout {
+    override init() {
+        super.init()
+        self.sectionInset = UIEdgeInsets(top: 8, left: .zero, bottom: .zero, right: .zero)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError()
+    }
+    
+    let cellSpacing: CGFloat = 8
+    
+    override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
+        let attributes = super.layoutAttributesForElements(in: rect)
+        
+        var leftMargin = sectionInset.left
+        var maxY: CGFloat = -1.0
+        
+        attributes?.forEach { layoutAttribute in
+            guard layoutAttribute.representedElementCategory == .cell else {return }
+            if layoutAttribute.frame.origin.y >= maxY {
+                leftMargin = sectionInset.left
+            }
+            layoutAttribute.frame.origin.x = leftMargin
+            leftMargin += layoutAttribute.frame.width + minimumInteritemSpacing
+            maxY = max(layoutAttribute.frame.maxY , maxY)
+        }
+        return attributes
+    }
+}
+
+// 사용 예시
+    private let collectionView: UICollectionView = {
+        let layout = StudyListLayout()
+        let view = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        view.register(StudySearchCollectionViewCell.self, forCellWithReuseIdentifier: StudySearchCollectionViewCell.reuseIdentifier)
+        if let flowLayout = view.collectionViewLayout as? UICollectionViewFlowLayout {
+            flowLayout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
+          }
+        view.register(StudySearchCollectionViewHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: StudySearchCollectionViewHeader.reuseIdentifier)
+        return view
+    }()
+```
+
+- CustomAnnotation
+```
+// 커스텀 클래스
+class CustomAnnotationView: MKAnnotationView {
+    static let identifier = "CustomAnnotationView"
+    
+    override init(annotation: MKAnnotation?, reuseIdentifier: String?){
+        super.init(annotation: annotation, reuseIdentifier: reuseIdentifier)
+        frame = CGRect(x: 0, y: 0, width: 40, height: 50)
+        centerOffset = CGPoint(x: 0, y: -frame.size.height / 2)
+        setupUI()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func setupUI() {
+        backgroundColor = .clear
+    }
+}
+
+class CustomAnnotation: NSObject, MKAnnotation {
+  let sesac_image: Int?
+  let coordinate: CLLocationCoordinate2D
+
+  init(
+    sesac_image: Int?,
+    coordinate: CLLocationCoordinate2D
+  ) {
+    self.sesac_image = sesac_image
+    self.coordinate = coordinate
+
+    super.init()
+  }
+}
+
+// 사용예시
+extension HomeViewController: MKMapViewDelegate {
+    func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
+        locationManager.startUpdatingLocation()
+    }
+    
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        guard let annotation = annotation as? CustomAnnotation else { return nil }
+
+        var annotationView = self.mapView.dequeueReusableAnnotationView(withIdentifier: CustomAnnotationView.identifier)
+        
+        if annotationView == nil {
+            annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: CustomAnnotationView.identifier)
+            annotationView?.canShowCallout = false
+            annotationView?.contentMode = .scaleAspectFit
+        } else {
+            annotationView?.annotation = annotation
+        }
+        
+        guard let sesacNumber = annotation.sesac_image else { return nil }
+        guard let sesacImage = SeSACFace(rawValue: sesacNumber)?.image else { return nil }
+        
+        let size = CGSize(width: 85, height: 85)
+        UIGraphicsBeginImageContext(size)
+        
+        sesacImage.draw(in: CGRect(x: 0, y: 0, width: size.width, height: size.height))
+        let resizedImage = UIGraphicsGetImageFromCurrentImageContext()
+        annotationView?.image = resizedImage
+        
+        return annotationView
+    }
+}
+```
+
+- UINavigationBar에 Custom SearchBar 넣기
+```
+    private let searchBar: UISearchBar = {
+        var width = UIScreen.main.bounds.size.width
+        let view = UISearchBar(frame: CGRect(x: 0, y: 0, width: width - 12, height: 0))
+        view.placeholder = "띄어쓰기로 복수 입력이 가능해요"
+        view.searchTextField.font = .systemFont(ofSize: 14)
+        return view
+    }()
+    
+    navigationItem.rightBarButtonItem = UIBarButtonItem(customView: searchBar)
+```
