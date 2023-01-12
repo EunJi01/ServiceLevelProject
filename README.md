@@ -81,6 +81,7 @@
 - 하지만 이렇게 하니 statusCode가 200일 때에도 간혹 failure이 반환되는 문제가 생겼다.
 - decoding Model이 없을 경우 (get이 아닌 경우) String을 type으로 디코딩하도록 기본값으로 설정했는데, 이 과정에서 실패로 간주되는 것이 원인이었다.
 - 이를 해결하기 위해 case .failure 일 때, statusCode가 200이며 type이 String일 경우에는 completion으로 success를 반환하도록 분기처리를 해 해결했다.
+- 이후 모든 곳에서 정상적인 결과값을 받아볼 수 있었지만, 근본적인 해결법은 아니기 때문에 원인과 해결 방법에 대해 더 공부해야 할 것 같다.
 ```
 final class APIManager {
     static let shared = APIManager()
